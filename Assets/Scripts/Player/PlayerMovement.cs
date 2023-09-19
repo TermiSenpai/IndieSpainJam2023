@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 
     #region Inspector variables
     [Header("Variables")]
-    [SerializeField] float movementSpeed = 10f;
+    [SerializeField] float movementSpeed = 5f;
     #endregion
 
     #region Private Variables
@@ -40,9 +40,5 @@ public class PlayerMovement : MonoBehaviour
     {
         playerRb.MovePosition(playerRb.position + moveInput * movementSpeed * Time.fixedDeltaTime);
     }
-    #endregion
-
-    #region Inputs events
-    
     #endregion
 }
