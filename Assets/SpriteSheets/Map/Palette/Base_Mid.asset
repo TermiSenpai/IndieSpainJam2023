@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: hex-sliced_117
+  m_Name: Base_Mid
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 76aef0d69fafadf4088e591ecce72e8d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 39b39c3d3d5f26f41b1ca5c66f5d37b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
