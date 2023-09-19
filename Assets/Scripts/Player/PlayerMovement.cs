@@ -8,12 +8,12 @@ public class PlayerMovement : MonoBehaviour
     #region Inspector variables
     [Header("Variables")]
     [SerializeField] float movementSpeed = 10f;
-    [SerializeField] float runSpeed = 10f;
     #endregion
 
     #region Private Variables
     private Rigidbody2D playerRb;
     private Vector2 moveInput;
+    private Animator playerAnimator;
     #endregion
 
     #endregion
@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         playerRb = GetComponent<Rigidbody2D>();
+        playerAnimator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -29,6 +30,10 @@ public class PlayerMovement : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         moveInput = new Vector2(moveX, moveY).normalized;
+
+        playerAnimator.SetFloat("Horizontal", moveX);
+        playerAnimator.SetFloat("Vertical", moveY);
+        playerAnimator.SetFloat("Speed", moveInput.magnitude);
     }
 
     private void LateUpdate()
