@@ -13,7 +13,6 @@ public class EnemyBrainController : MonoBehaviour
 
     const string playerTag = "Player";
     const string campfireTag = "Campfire";
-    const string turretTag = "Turret";
 
 
     private readonly float stopDistance = 1.5f;
@@ -31,19 +30,21 @@ public class EnemyBrainController : MonoBehaviour
         CheckStopDistance();
     }
 
-    private void TryUpdateTarget()
+    protected virtual void TryUpdateTarget()
     {
-        Vector3 actualPos = transform.position;
-        Vector3 campfirePos = campfire.transform.position;
-        Vector3 playerPos = player.transform.position;
-        //Vector3 turretPos = turret.transform.position; // Asumiendo que tienes una referencia al GameObject de la torreta
+        Vector2 actualPos = transform.position;
+        Vector2 campfirePos = campfire.transform.position;
+        Vector2 playerPos = player.transform.position;
+        Vector2 turretPos = Vector2.positiveInfinity;
+        if (turret != null)
+            turretPos = turret.transform.position;
 
         float campfireDistance = Vector3.Distance(actualPos, campfirePos);
         float playerDistance = Vector3.Distance(actualPos, playerPos);
-        // float turretDistance = Vector3.Distance(actualPos, turretPos);
+        float turretDistance = Vector3.Distance(actualPos, turretPos);
 
-        //float minDistance = Mathf.Min(campfireDistance, playerDistance, turretDistance);
-        float minDistance = Mathf.Min(campfireDistance, playerDistance);
+        float minDistance = Mathf.Min(campfireDistance, playerDistance, turretDistance);
+        //float minDistance = Mathf.Min(campfireDistance, playerDistance);
 
         if (minDistance == campfireDistance)
         {
@@ -53,13 +54,13 @@ public class EnemyBrainController : MonoBehaviour
         {
             currentTarget = player; // Jugador es el objetivo más cercano
         }
-        //else
-        //{
-        //    currentTarget = turret.transform; // Torreta es el objetivo más cercano
-        //}
+        else
+        {
+            currentTarget = turret; // Torreta es el objetivo más cercano
+        }
     }
 
-    private void CheckStopDistance()
+    protected virtual void CheckStopDistance()
     {
         float distance = Vector2.Distance(transform.position, currentTarget.transform.position);
         // Comprobar si tenemos un objetivo y si estamos lo suficientemente lejos de él.
