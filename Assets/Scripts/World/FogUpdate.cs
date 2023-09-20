@@ -5,12 +5,14 @@ using UnityEngine.Tilemaps;
 
 public class FogUpdate : MonoBehaviour
 {
-    public Tilemap fog;
+    public GameObject fogObj;
+    private Tilemap fog;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        fogObj.SetActive(true);
+        fog = fogObj.GetComponent<Tilemap>();
     }
 
     // Update is called once per frame
@@ -27,7 +29,7 @@ public class FogUpdate : MonoBehaviour
     {
         Vector3Int currentPlayerPos = fog.WorldToCell(transform.position);
 
-        for (int i = -5; i <= 5; i++)
+        for (int i = -3; i <= 3; i++)
         {
             for (int j = -5; j <= 5; j++)
             {
