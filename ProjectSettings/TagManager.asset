@@ -43,3 +43,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ground
+    uniqueID: 3442520409
+    locked: 0
+  - name: Torrets
+    uniqueID: 905344069
+    locked: 0
+  - name: Mobs
+    uniqueID: 2788804377
+    locked: 0
