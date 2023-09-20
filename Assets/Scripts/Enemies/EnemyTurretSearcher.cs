@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyTurretSearcher : MonoBehaviour
@@ -7,7 +7,7 @@ public class EnemyTurretSearcher : MonoBehaviour
     public float detectionRadius;
     public LayerMask turretLayer;
 
-    GameObject[] turrets;
+    List<GameObject> turrets = new List<GameObject>();
     GameObject currentTurret;
     float closeDistance;
 
@@ -15,21 +15,20 @@ public class EnemyTurretSearcher : MonoBehaviour
     {
         controller = GetComponent<EnemyBrainController>();
         closeDistance = Mathf.Infinity;
-
-        turrets = GameObject.FindGameObjectsWithTag("Turret");
-
-    }
-
-    private void OnEnable()
-    {
-        turrets = GameObject.FindGameObjectsWithTag("Turret");
     }
 
     private void Update()
     {
-        foreach (GameObject turret in turrets)
+        // Detectar objetos en el radio.
+        Collider2D[] turrets = Physics2D.OverlapCircleAll(transform.position, detectionRadius, turretLayer);
+
+        foreach (Collider2D turretCollider in turrets)
         {
-            if (turret.activeInHierarchy)
+            // Obtener el GameObject asociado al Collider.
+            GameObject turret = turretCollider.gameObject;
+
+            // Verificar si la torreta está activa antes de proceder.
+            if (turret.activeSelf)
             {
                 // Calcular la distancia entre el jugador y la torreta.
                 float distance = Vector3.Distance(transform.position, turret.transform.position);
@@ -38,10 +37,17 @@ public class EnemyTurretSearcher : MonoBehaviour
                 if (distance < closeDistance)
                 {
                     closeDistance = distance;
-                    currentTurret = turret.gameObject;
+                    currentTurret = turret;
                     controller.turret = currentTurret;
                 }
             }
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position, detectionRadius);
+    }
+
 }

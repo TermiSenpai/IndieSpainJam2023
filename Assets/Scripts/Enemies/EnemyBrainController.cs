@@ -35,6 +35,7 @@ public class EnemyBrainController : MonoBehaviour
         Vector2 actualPos = transform.position;
         Vector2 campfirePos = campfire.transform.position;
         Vector2 playerPos = player.transform.position;
+        
         Vector2 turretPos = Vector2.positiveInfinity;
         if (turret != null)
             turretPos = turret.transform.position;
