@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     #region Inspector variables
     [Header("Variables")]
     [SerializeField] float movementSpeed = 5f;
+    public Tilemap fogTilemap;
     #endregion
 
     #region Private Variables
@@ -39,6 +41,20 @@ public class PlayerMovement : MonoBehaviour
     private void LateUpdate()
     {
         playerRb.MovePosition(playerRb.position + moveInput * movementSpeed * Time.fixedDeltaTime);
+        UpdateFog();
     }
+
+    private void UpdateFog()
+    {
+        Vector3Int currentPlayerPos = fogTilemap.WorldToCell(transform.position);
+        for(int i= -3; i <= 3; i++)
+        {
+            for(int j = -3; j <= 3; j++)
+            {
+                fogTilemap.SetTile(currentPlayerPos + new Vector3Int(i, j, 0), null);
+            }
+        }
+    }
+
     #endregion
 }
