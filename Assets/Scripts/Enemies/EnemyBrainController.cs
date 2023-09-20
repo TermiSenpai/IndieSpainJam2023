@@ -65,6 +65,7 @@ public class EnemyBrainController : MonoBehaviour
             stateMachine.SetBool("isFollowing", true);
         else
             stateMachine.SetBool("isFollowing", false);
+
     }
 
 }
