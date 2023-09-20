@@ -35,8 +35,9 @@ public class EnemyBrainController : MonoBehaviour
         Vector2 actualPos = transform.position;
         Vector2 campfirePos = campfire.transform.position;
         Vector2 playerPos = player.transform.position;
-        
         Vector2 turretPos = Vector2.positiveInfinity;
+        
+        // Check if exist a torret nearby
         if (turret != null)
             turretPos = turret.transform.position;
 
@@ -44,21 +45,16 @@ public class EnemyBrainController : MonoBehaviour
         float playerDistance = Vector3.Distance(actualPos, playerPos);
         float turretDistance = Vector3.Distance(actualPos, turretPos);
 
-        float minDistance = Mathf.Min(campfireDistance, playerDistance, turretDistance);
-        //float minDistance = Mathf.Min(campfireDistance, playerDistance);
+        float minDistance = Mathf.Min(campfireDistance, playerDistance, turretDistance);        
 
         if (minDistance == campfireDistance)
-        {
             currentTarget = campfire; // Campamento es el objetivo más cercano
-        }
+
         else if (minDistance == playerDistance)
-        {
             currentTarget = player; // Jugador es el objetivo más cercano
-        }
+
         else
-        {
             currentTarget = turret; // Torreta es el objetivo más cercano
-        }
     }
 
     protected virtual void CheckStopDistance()
@@ -69,7 +65,6 @@ public class EnemyBrainController : MonoBehaviour
             stateMachine.SetBool("isFollowing", true);
         else
             stateMachine.SetBool("isFollowing", false);
-
     }
 
 }
