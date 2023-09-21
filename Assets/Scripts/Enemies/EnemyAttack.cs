@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    [SerializeField] float hitDamage;
-    [SerializeField] float raycastLength;
-    [SerializeField] LayerMask damageableLayer;
+    [SerializeField] protected float hitDamage;
+    [SerializeField] protected float raycastLength;
+    [SerializeField] protected LayerMask damageableLayer;
 
 
-    private float attackTimer;
-    private bool canAttack;
+    protected float attackTimer;
+    protected bool canAttack;
     [SerializeField] float attackDelay;
 
     private void Start()
@@ -39,8 +39,9 @@ public class EnemyAttack : MonoBehaviour
 
             // Llama al método TakeDamage() en el objeto
             damageable?.TakeDamage(hitDamage);
-
         }
+
+        canAttack = false;
     }
 
     protected virtual void CheckAttackDelay()
