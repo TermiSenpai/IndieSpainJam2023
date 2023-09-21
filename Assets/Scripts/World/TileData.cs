@@ -18,4 +18,8 @@ public class TileData : ScriptableObject
     public TileBase[] tiles;
 
     public TileType Type;
+
+    public GameObject GObject;
+
+    public Dictionary<Vector3Int, GameObject> OcupedPos = new Dictionary<Vector3Int, GameObject>();
 }

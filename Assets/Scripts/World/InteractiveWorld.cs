@@ -104,9 +104,20 @@ public class InteractiveWorld : MonoBehaviour
 
             //check type of tile
             //print();
-            var type = dataFromTiles[m_Tilemap.GetTile(adjPos)].Type;
+            TileBase clickedOne = m_Tilemap.GetTile(adjPos);
+            var type = dataFromTiles[clickedOne].Type;
+            if (type == TileType.Construct)
+            {
+                if (!dataFromTiles[clickedOne].OcupedPos.ContainsKey(adjPos))
+                {
+                    dataFromTiles[clickedOne].OcupedPos.Add(adjPos, new GameObject());
+                }
+                    
+                else
+                    Debug.Log("Ocupado");
+            }
 
-            Debug.Log(type);
+            //Debug.Log(type);
 
         }
 
