@@ -19,7 +19,7 @@ public class EnemyBrainController : MonoBehaviour
 
     [Header("Config")]
     [SerializeField] private float stopDistance = 1.25f;
-    readonly float maxCampfireDistance = 50f; // Ajusta este valor según tu necesidad
+    private float maxCampfireDistance = 50f; 
     [SerializeField] bool prioriceCampfire = false;
 
 
@@ -30,6 +30,7 @@ public class EnemyBrainController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag(playerTag);
         campfire = GameObject.FindGameObjectWithTag(campfireTag);
         attackState = GetComponent<EnemyAttack>();
+        maxCampfireDistance = 50f;
 
     }
 
