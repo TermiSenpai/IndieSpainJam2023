@@ -7,7 +7,6 @@ public class EnemyTurretSearcher : MonoBehaviour
     public float detectionRadius;
     public LayerMask turretLayer;
 
-    List<GameObject> turrets = new List<GameObject>();
     GameObject currentTurret;
     float closeDistance;
 
@@ -38,7 +37,7 @@ public class EnemyTurretSearcher : MonoBehaviour
                 {
                     closeDistance = distance;
                     currentTurret = turret;
-                    controller.turret = currentTurret;
+                    controller.SetTurret(currentTurret);
                 }
             }
         }

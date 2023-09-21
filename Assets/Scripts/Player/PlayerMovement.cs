@@ -29,19 +29,21 @@ public class PlayerMovement : MonoBehaviour
     {
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
+
         moveInput = new Vector2(moveX, moveY).normalized;
-        playerAnimator.SetFloat("Speed", moveInput.sqrMagnitude);
         
         if (moveInput != Vector2.zero)
         {
             playerAnimator.SetFloat("Horizontal", moveX);
             playerAnimator.SetFloat("Vertical", moveY);
         }        
+
+        playerAnimator.SetFloat("Speed", moveInput.sqrMagnitude * 10);
     }    
 
     private void LateUpdate()
     {
-        playerRb.MovePosition(playerRb.position + moveInput * movementSpeed * Time.fixedDeltaTime);
+        playerRb.MovePosition(playerRb.position + movementSpeed * Time.fixedDeltaTime * moveInput);
     }
     #endregion
 }
