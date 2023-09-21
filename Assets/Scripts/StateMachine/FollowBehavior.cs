@@ -25,6 +25,9 @@ public class FollowBehavior : StateMachineBehaviour
 
     private void MoveToTarget(Animator animator)
     {
+        if (controller.currentTarget == null)
+            return;
+
         animator.transform.position = Vector2.MoveTowards(animator.transform.position,
                                       controller.currentTarget.transform.position,
                                       speed * Time.deltaTime);

@@ -6,8 +6,8 @@ public class DistanceEnemyAttack : EnemyAttack
 {
     public override void Attack()
     {
-        if (canAttack)
-            Debug.Log("Long attack!");
+        if (canAttack) { }
+            
 
         canAttack = false; 
     }
