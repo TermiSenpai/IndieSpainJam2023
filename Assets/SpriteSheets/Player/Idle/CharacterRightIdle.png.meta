@@ -126,10 +126,10 @@ TextureImporter:
       name: CharacterRightIdle_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 5
-        width: 12
-        height: 33
+        x: 16
+        y: 2
+        width: 16
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,8 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5536cc8aaba5f974eb9e782074ed8998
-      internalID: -34211878
+      spriteID: 474b62aee17d68f41bcfaf6a062c29df
+      internalID: 1107047879
       vertices: []
       indices: 
       edges: []
@@ -147,10 +147,10 @@ TextureImporter:
       name: CharacterRightIdle_1
       rect:
         serializedVersion: 2
-        x: 67
-        y: 5
-        width: 12
-        height: 33
+        x: 64
+        y: 2
+        width: 16
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,8 +158,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 606ba99b4732fb04b9e61b323df474a8
-      internalID: -1001716218
+      spriteID: 42555780edabad74588d080bbe0fe91d
+      internalID: 2032707376
       vertices: []
       indices: 
       edges: []
@@ -168,10 +168,10 @@ TextureImporter:
       name: CharacterRightIdle_2
       rect:
         serializedVersion: 2
-        x: 114
-        y: 5
-        width: 13
-        height: 34
+        x: 112
+        y: 2
+        width: 16
+        height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,8 +179,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 543c81ef43a35ac47a4eae29cd78a640
-      internalID: -1753134782
+      spriteID: 234627a5ca2c8cd46ba93ec5db44382c
+      internalID: 1364370373
       vertices: []
       indices: 
       edges: []
@@ -189,10 +189,10 @@ TextureImporter:
       name: CharacterRightIdle_3
       rect:
         serializedVersion: 2
-        x: 163
-        y: 5
-        width: 12
-        height: 35
+        x: 161
+        y: 2
+        width: 14
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,8 +200,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a85fac6e472bd84479b9a76b07b6fd8f
-      internalID: -852474459
+      spriteID: 6121021905166474da976a73f0c42f54
+      internalID: -98014960
       vertices: []
       indices: 
       edges: []
@@ -210,10 +210,10 @@ TextureImporter:
       name: CharacterRightIdle_4
       rect:
         serializedVersion: 2
-        x: 211
-        y: 5
-        width: 12
-        height: 34
+        x: 209
+        y: 2
+        width: 14
+        height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,8 +221,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22f5cc118ff64634baf6dc99615cbd15
-      internalID: -528250965
+      spriteID: 6f4957541a922714886a3c3c1aeabb65
+      internalID: 517244606
       vertices: []
       indices: 
       edges: []
@@ -231,10 +231,10 @@ TextureImporter:
       name: CharacterRightIdle_5
       rect:
         serializedVersion: 2
-        x: 258
-        y: 5
-        width: 13
-        height: 32
+        x: 256
+        y: 2
+        width: 16
+        height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -242,8 +242,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 59de58485f75f6c4ab0a6348499c219d
-      internalID: 895703746
+      spriteID: 7f31e0468587d6a4eba29daa7602e8bb
+      internalID: 2041043346
       vertices: []
       indices: 
       edges: []
@@ -259,12 +259,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      CharacterRightIdle_0: -34211878
-      CharacterRightIdle_1: -1001716218
-      CharacterRightIdle_2: -1753134782
-      CharacterRightIdle_3: -852474459
-      CharacterRightIdle_4: -528250965
-      CharacterRightIdle_5: 895703746
+      CharacterRightIdle_0: 1107047879
+      CharacterRightIdle_1: 2032707376
+      CharacterRightIdle_2: 1364370373
+      CharacterRightIdle_3: -98014960
+      CharacterRightIdle_4: 517244606
+      CharacterRightIdle_5: 2041043346
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
