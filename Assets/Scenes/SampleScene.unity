@@ -201,7 +201,7 @@ Transform:
   m_GameObject: {fileID: 142183059}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 7.55, z: 0}
+  m_LocalPosition: {x: -25, y: 7.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1076,9 +1076,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentTarget: {fileID: 0}
   stopDistance: 1.25
-  attackDelay: 1
   prioriceCampfire: 0
-  maxCampfireDistance: 50
 --- !u!58 &1839139942
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1174,6 +1172,7 @@ MonoBehaviour:
   damageableLayer:
     serializedVersion: 2
     m_Bits: 896
+  attackDelay: 0
 --- !u!1 &1882652647
 GameObject:
   m_ObjectHideFlags: 0

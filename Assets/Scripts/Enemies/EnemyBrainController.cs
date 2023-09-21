@@ -19,7 +19,7 @@ public class EnemyBrainController : MonoBehaviour
 
     [Header("Config")]
     [SerializeField] private float stopDistance = 1.25f;
-    [SerializeField] float maxCampfireDistance = 10f; // Ajusta este valor según tu necesidad
+    readonly float maxCampfireDistance = 50f; // Ajusta este valor según tu necesidad
     [SerializeField] bool prioriceCampfire = false;
 
 
