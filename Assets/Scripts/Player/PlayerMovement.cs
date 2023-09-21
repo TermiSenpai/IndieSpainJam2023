@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -30,11 +30,14 @@ public class PlayerMovement : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         moveInput = new Vector2(moveX, moveY).normalized;
-
-        playerAnimator.SetFloat("Horizontal", moveX);
-        playerAnimator.SetFloat("Vertical", moveY);
         playerAnimator.SetFloat("Speed", moveInput.sqrMagnitude);
-    }
+        
+        if (moveInput != Vector2.zero)
+        {
+            playerAnimator.SetFloat("Horizontal", moveX);
+            playerAnimator.SetFloat("Vertical", moveY);
+        }        
+    }    
 
     private void LateUpdate()
     {
