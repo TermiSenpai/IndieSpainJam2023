@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 142183061}
   - component: {fileID: 142183060}
   - component: {fileID: 142183062}
+  - component: {fileID: 142183063}
   m_Layer: 8
   m_Name: Campfire
   m_TagString: Campfire
@@ -202,7 +203,7 @@ Transform:
   m_GameObject: {fileID: 142183059}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25, y: 7.55, z: 0}
+  m_LocalPosition: {x: -36.58, y: 7.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -253,6 +254,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &142183063
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142183059}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &279998073
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,7 +458,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.35, y: 6.76, z: -10}
+  m_LocalPosition: {x: -26.62, y: 6.5699997, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -565,9 +593,9 @@ GameObject:
   - component: {fileID: 856796594}
   - component: {fileID: 856796593}
   - component: {fileID: 856796591}
+  - component: {fileID: 856796597}
   - component: {fileID: 856796590}
   - component: {fileID: 856796589}
-  - component: {fileID: 856796597}
   m_Layer: 10
   m_Name: DistanceEnemy
   m_TagString: Untagged
@@ -668,6 +696,7 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   stopDistance: 5
   prioriceCampfire: 0
+  maxCampfireDistance: 100
 --- !u!95 &856796594
 Animator:
   serializedVersion: 5
@@ -959,7 +988,7 @@ Transform:
   m_GameObject: {fileID: 1586906023}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.35, y: 6.76, z: -10}
+  m_LocalPosition: {x: -26.62, y: 6.5699997, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -977,6 +1006,7 @@ GameObject:
   - component: {fileID: 1586946907}
   - component: {fileID: 1586946906}
   - component: {fileID: 1586946909}
+  - component: {fileID: 1586946913}
   - component: {fileID: 1586946908}
   - component: {fileID: 1586946910}
   - component: {fileID: 1586946911}
@@ -1049,7 +1079,7 @@ Transform:
   m_GameObject: {fileID: 1586946905}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.35, y: 6.76, z: 0}
+  m_LocalPosition: {x: -26.62, y: 6.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1251,6 +1281,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6666667, y: 1.375}
   m_EdgeRadius: 0
+--- !u!114 &1586946913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586946905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb3a7331ea95d947a9b32e51676ba48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: c89e416d141b05e46af35fc83f84d4c1, type: 2}
 --- !u!1 &1839139937
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,8 +1306,8 @@ GameObject:
   - component: {fileID: 1839139939}
   - component: {fileID: 1839139938}
   - component: {fileID: 1839139941}
-  - component: {fileID: 1839139945}
   - component: {fileID: 1839139943}
+  - component: {fileID: 1839139945}
   - component: {fileID: 1839139942}
   - component: {fileID: 1839139944}
   m_Layer: 10
@@ -1377,6 +1420,7 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   stopDistance: 1.25
   prioriceCampfire: 0
+  maxCampfireDistance: 100
 --- !u!58 &1839139942
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1602,7 +1646,7 @@ Transform:
   m_GameObject: {fileID: 1981604595}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.88, y: 6.21, z: 0}
+  m_LocalPosition: {x: -28.73, y: 16.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
