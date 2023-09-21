@@ -15,13 +15,14 @@ public class EnemyBrainController : MonoBehaviour
     const string campfireTag = "Campfire";
     EnemyAttack attackState;
 
+    [SerializeField] private float stopDistance = 1.5f;
     [SerializeField] float attackDelay;
     private float attackTimer;
     private bool canAttack;
 
+    [SerializeField] bool prioriceCampfire = false;
 
-    [SerializeField] private float stopDistance = 1.5f;
-
+    [SerializeField] float maxCampfireDistance = 10f; // Ajusta este valor según tu necesidad
     private void Start()
     {
         stateMachine = GetComponent<Animator>();
@@ -68,17 +69,26 @@ public class EnemyBrainController : MonoBehaviour
         float playerDistance = Vector3.Distance(actualPos, playerPos);
         float turretDistance = Vector3.Distance(actualPos, turretPos);
 
-        float minDistance = Mathf.Min(campfireDistance, playerDistance, turretDistance);
+        // Define una distancia máxima para la prioridad del "Campfire"
+        float maxCampfireDistance = 10f; // Ajusta este valor según tu necesidad
 
-        if (minDistance == campfireDistance)
+        if (campfire != null && campfireDistance <= maxCampfireDistance || prioriceCampfire)
+        {
+            // Campamento está presente y dentro de la distancia máxima
             currentTarget = campfire; // Campamento es el objetivo más cercano
-
-        else if (minDistance == playerDistance)
-            currentTarget = player; // Jugador es el objetivo más cercano
-
+        }
         else
-            currentTarget = turret; // Torreta es el objetivo más cercano
+        {
+            float minDistance = Mathf.Min(playerDistance, turretDistance);
+
+            if (minDistance == playerDistance)
+                currentTarget = player; // Jugador es el objetivo más cercano
+
+            else
+                currentTarget = turret; // Torreta es el objetivo más cercano
+        }
     }
+
 
     protected virtual void CheckStopDistance()
     {
