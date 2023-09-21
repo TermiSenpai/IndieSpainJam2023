@@ -11,9 +11,12 @@ public class EnemyAttack : MonoBehaviour
     protected bool canAttack;
     [SerializeField] float attackDelay;
 
+    EnemyBrainController controller;
+
     private void Start()
     {
         attackTimer = attackDelay;
+        controller = GetComponent<EnemyBrainController>();
     }
 
     private void Update()
@@ -34,7 +37,7 @@ public class EnemyAttack : MonoBehaviour
         {
             // Intenta obtener el componente IDamageable del objeto golpeado
             IDamageable damageable = hit.collider.GetComponent<IDamageable>();
-            Debug.Log($"{hit.collider.gameObject.name} recived {hitDamage} damage!");
+            
             // Si el objeto golpeado implementa la interfaz IDamageable
 
             // Llama al método TakeDamage() en el objeto
@@ -42,6 +45,7 @@ public class EnemyAttack : MonoBehaviour
         }
 
         canAttack = false;
+        controller.TryUpdateTarget();
     }
 
     protected virtual void CheckAttackDelay()
