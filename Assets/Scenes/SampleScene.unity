@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 142183061}
   - component: {fileID: 142183060}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Campfire
   m_TagString: Campfire
   m_Icon: {fileID: 0}
@@ -681,7 +681,7 @@ GameObject:
   - component: {fileID: 1586946910}
   - component: {fileID: 1586946911}
   - component: {fileID: 1586946912}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -949,7 +949,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.59375}
+  m_Size: {x: 0.6666667, y: 1.375}
   m_EdgeRadius: 0
 --- !u!1 &1839139937
 GameObject:
@@ -963,10 +963,11 @@ GameObject:
   - component: {fileID: 1839139939}
   - component: {fileID: 1839139938}
   - component: {fileID: 1839139941}
-  - component: {fileID: 1839139942}
+  - component: {fileID: 1839139945}
   - component: {fileID: 1839139943}
+  - component: {fileID: 1839139942}
   - component: {fileID: 1839139944}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1055,7 +1056,7 @@ Transform:
   m_GameObject: {fileID: 1839139937}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 6.2, z: 0}
+  m_LocalPosition: {x: -7.72, y: 5.97, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1074,9 +1075,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTarget: {fileID: 0}
-  player: {fileID: 0}
-  campfire: {fileID: 0}
-  turret: {fileID: 0}
+  attackDelay: 1
+  stopDistance: 1.25
 --- !u!58 &1839139942
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1155,6 +1155,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1839139945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839139937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e763850017f0c419518226f0e28c93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitDamage: 5
+  raycastLength: 1.25
+  damageableLayer:
+    serializedVersion: 2
+    m_Bits: 896
 --- !u!1 &1882652647
 GameObject:
   m_ObjectHideFlags: 0

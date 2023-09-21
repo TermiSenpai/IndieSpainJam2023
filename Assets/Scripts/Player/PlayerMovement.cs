@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void LateUpdate()
     {
-        playerRb.MovePosition(playerRb.position + moveInput * movementSpeed * Time.fixedDeltaTime);
+        playerRb.MovePosition(playerRb.position + movementSpeed * Time.fixedDeltaTime * moveInput);
     }
     #endregion
 }
