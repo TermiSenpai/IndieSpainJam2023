@@ -5,31 +5,32 @@ using UnityEngine.InputSystem.XR;
 
 public class EnemyBrainController : MonoBehaviour
 {
+    [Header("References")]
     Animator stateMachine;
     public GameObject currentTarget;
     private GameObject player;
     private GameObject campfire;
     private GameObject turret;
+    private EnemyAttack attackState;
 
-    const string playerTag = "Player";
+    // tags
     const string campfireTag = "Campfire";
-    EnemyAttack attackState;
+    const string playerTag = "Player";
 
-    [SerializeField] private float stopDistance = 1.5f;
-    [SerializeField] float attackDelay;
-    private float attackTimer;
-    private bool canAttack;
-
+    [Header("Config")]
+    [SerializeField] private float stopDistance = 1.25f;
+    [SerializeField] float maxCampfireDistance = 10f; // Ajusta este valor según tu necesidad
     [SerializeField] bool prioriceCampfire = false;
 
-    [SerializeField] float maxCampfireDistance = 10f; // Ajusta este valor según tu necesidad
+
+
     private void Start()
     {
         stateMachine = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag(playerTag);
         campfire = GameObject.FindGameObjectWithTag(campfireTag);
         attackState = GetComponent<EnemyAttack>();
-        attackTimer = attackDelay;
+
     }
 
     private void Update()
@@ -37,7 +38,6 @@ public class EnemyBrainController : MonoBehaviour
         TryUpdateTarget();
         CheckStopDistance();
         LookTarget();
-        CheckAttackDelay();
     }
 
     protected virtual void LookTarget()
@@ -89,7 +89,6 @@ public class EnemyBrainController : MonoBehaviour
         }
     }
 
-
     protected virtual void CheckStopDistance()
     {
         float distance = Vector2.Distance(transform.position, currentTarget.transform.position);
@@ -98,28 +97,10 @@ public class EnemyBrainController : MonoBehaviour
             stateMachine.SetBool("isFollowing", true);
         else
         {
-            if (canAttack)
-            {
-                canAttack = false;
-                attackState.Attack();
-            }
-
+            attackState.Attack();
             stateMachine.SetBool("isFollowing", false);
         }
     }
-
-    protected virtual void CheckAttackDelay()
-    {
-        // Comprueba si el temporizador de ataque ha llegado a cero y si el enemigo puede atacar nuevamente.
-        if (attackTimer <= 0 && !canAttack)
-        {
-            attackTimer = Mathf.Max(0, attackDelay); // Evita valores negativos
-            canAttack = true;
-        }
-
-        attackTimer -= Time.deltaTime;
-    }
-
 
     public void SetTurret(GameObject newTurret)
     {

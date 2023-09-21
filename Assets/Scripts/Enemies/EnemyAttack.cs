@@ -6,8 +6,25 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] float raycastLength;
     [SerializeField] LayerMask damageableLayer;
 
+
+    private float attackTimer;
+    private bool canAttack;
+    [SerializeField] float attackDelay;
+
+    private void Start()
+    {
+        attackTimer = attackDelay;
+    }
+
+    private void Update()
+    {
+        CheckAttackDelay();
+    }
+
     public virtual void Attack()
     {
+        if (!canAttack) return;
+
         // Lanzar un Raycast hacia la derecha desde la posición del objeto
         Vector2 raycastDirection = transform.right;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, raycastDirection, raycastLength, damageableLayer);
@@ -24,6 +41,18 @@ public class EnemyAttack : MonoBehaviour
             damageable?.TakeDamage(hitDamage);
 
         }
+    }
+
+    protected virtual void CheckAttackDelay()
+    {
+        // Comprueba si el temporizador de ataque ha llegado a cero y si el enemigo puede atacar nuevamente.
+        if (attackTimer <= 0 && !canAttack)
+        {
+            attackTimer = Mathf.Max(0, attackDelay); // Evita valores negativos
+            canAttack = true;
+        }
+
+        attackTimer -= Time.deltaTime;
     }
 
     private void OnDrawGizmos()
