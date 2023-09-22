@@ -31,15 +31,18 @@ public class PlayerMovement : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
 
         moveInput = new Vector2(moveX, moveY).normalized;
-        
+
         if (moveInput != Vector2.zero)
         {
             playerAnimator.SetFloat("Horizontal", moveX);
             playerAnimator.SetFloat("Vertical", moveY);
-        }        
+        }
 
-        playerAnimator.SetFloat("Speed", moveInput.sqrMagnitude * 10);
-    }    
+        if (moveInput != Vector2.zero)
+            playerAnimator.SetBool("IsMoving", true);
+        else
+            playerAnimator.SetBool("IsMoving", false);
+    }
 
     private void LateUpdate()
     {
