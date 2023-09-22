@@ -17,20 +17,28 @@ public class EnemyBrainController : MonoBehaviour
     const string campfireTag = "Campfire";
     const string playerTag = "Player";
 
+    Vector2 campfirePos = Vector2.zero;
+    Vector2 playerPos = Vector2.zero;
+    Vector2 turretPos = Vector2.zero;
+
+
     [Header("Config")]
-    [SerializeField] private float stopDistance = 1.25f;
-    readonly float maxCampfireDistance = 50f; // Ajusta este valor según tu necesidad
+    [SerializeField] private float stopDistance = 1.25f;    
     [SerializeField] bool prioriceCampfire = false;
+    public float maxCampfireDistance;
 
 
-
-    private void Start()
+    private void Awake()
     {
         stateMachine = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag(playerTag);
         campfire = GameObject.FindGameObjectWithTag(campfireTag);
-        attackState = GetComponent<EnemyAttack>();
-
+        attackState = GetComponent<EnemyAttack>();        
+    }
+    private void Start()
+    {
+        maxCampfireDistance = Mathf.Infinity;
+        currentTarget = campfire;
     }
 
     private void Update()
@@ -54,14 +62,17 @@ public class EnemyBrainController : MonoBehaviour
         }
     }
 
-    protected virtual void TryUpdateTarget()
+    public virtual void TryUpdateTarget()
     {
-        Vector2 actualPos = transform.position;
-        Vector2 campfirePos = campfire.transform.position;
-        Vector2 playerPos = player.transform.position;
-        Vector2 turretPos = Vector2.positiveInfinity;
+        currentTarget = campfire;
+        Vector2 actualPos = transform.position;        
 
-        // Check if exist a torret nearby
+        if (campfire != null)
+            campfirePos = campfire.transform.position;
+
+        if (player != null)
+            playerPos = player.transform.position;
+
         if (turret != null)
             turretPos = turret.transform.position;
 
@@ -72,7 +83,7 @@ public class EnemyBrainController : MonoBehaviour
         // Define una distancia máxima para la prioridad del "Campfire"
         float maxCampfireDistance = 10f; // Ajusta este valor según tu necesidad
 
-        if (campfire != null && campfireDistance <= maxCampfireDistance || prioriceCampfire)
+        if ((campfire != null && campfire.activeInHierarchy && campfireDistance <= maxCampfireDistance) || prioriceCampfire)
         {
             // Campamento está presente y dentro de la distancia máxima
             currentTarget = campfire; // Campamento es el objetivo más cercano
@@ -81,25 +92,38 @@ public class EnemyBrainController : MonoBehaviour
         {
             float minDistance = Mathf.Min(playerDistance, turretDistance);
 
-            if (minDistance == playerDistance)
+            if (player != null && player.activeInHierarchy && minDistance == playerDistance)
                 currentTarget = player; // Jugador es el objetivo más cercano
 
-            else
+            else if (turret != null && turret.activeInHierarchy)
                 currentTarget = turret; // Torreta es el objetivo más cercano
+            else StopEnemy();
         }
     }
 
     protected virtual void CheckStopDistance()
     {
-        float distance = Vector2.Distance(transform.position, currentTarget.transform.position);
+        float distance;
+        if (currentTarget != null)
+            distance = Vector2.Distance(transform.position, currentTarget.transform.position);
+        else
+        {
+            TryUpdateTarget();
+            return;
+        }
         // Comprobar si tenemos un objetivo y si estamos lo suficientemente lejos de él.
         if (distance > stopDistance)
             stateMachine.SetBool("isFollowing", true);
         else
         {
             attackState.Attack();
-            stateMachine.SetBool("isFollowing", false);
+            StopEnemy();
         }
+    }
+
+    protected void StopEnemy()
+    {
+        stateMachine.SetBool("isFollowing", false);
     }
 
     public void SetTurret(GameObject newTurret)

@@ -30,9 +30,17 @@ public class DayCycle : MonoBehaviour
     public GameObject[] lights;
     public DayTime DTime = DayTime.Day;
 
+
+    public delegate void DayCycleDelegate();
+    public static DayCycleDelegate DayStart;
+    public static DayCycleDelegate EveningStart;
+    public static DayCycleDelegate NightStart;
+    public static DayCycleDelegate SunriseStart;
+
     // Start is called before the first frame update
     void Start()
     {
+        DayStart?.Invoke();
         ppv = gameObject.GetComponent<Volume>();
     }
 
@@ -54,9 +62,20 @@ public class DayCycle : MonoBehaviour
             if (((int)DTime + 1) < 4)
             {
                 DTime = (DayTime)((int)DTime + 1);
+                if(((int)DTime + 1) == 1)
+                {
+                    EveningStart?.Invoke();
+                }else if(((int)DTime + 1) == 2)
+                {
+                    NightStart?.Invoke();
+                }else if(((int)DTime + 1) == 3)
+                {
+                    SunriseStart?.Invoke();
+                }
             }
             else
             {
+                DayStart?.Invoke();
                 DTime = (DayTime)0;
                 days++;
             }
@@ -111,4 +130,6 @@ public class DayCycle : MonoBehaviour
         timeDisplay.text = "Time: " + (int)seconds;
         dayDiplay.text = "Day: " + days;
     }
+
+
 }
