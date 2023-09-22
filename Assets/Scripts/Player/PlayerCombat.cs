@@ -1,18 +1,49 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] PlayerStats stats;
+    [SerializeField] Transform AttackPoint;
+
+    private Animator anim;
+
+
+    private void Start()
     {
-        
+        anim = GetComponent<Animator>();
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            SwordAttack();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SwordAttack()
     {
-        
+        anim.SetTrigger("SwordAttack");
+
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, stats.raidusRange, stats.enemyLayer);
+
+        // RaycastHit2D enemyHit = Physics2D.Raycast(AttackPoint.position, Vector2.right, stats.raidusRange, stats.enemyLayer);
+
+        foreach (Collider2D enemy in hitEnemies)
+        {
+
+            Debug.Log(enemy.gameObject.name);
+            IDamageable damageable = enemy.GetComponent<IDamageable>();
+            damageable?.TakeDamage(stats.damage);
+        }
+
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.gray;
+
+        //Gizmos.DrawRay(AttackPoint.position, Vector2.right);
+        Gizmos.DrawWireSphere(AttackPoint.position, stats.raidusRange);
+    }
+
 }
