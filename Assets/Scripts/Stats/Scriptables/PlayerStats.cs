@@ -1,10 +1,9 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewStats", menuName = "New Player Stats")]
+[CreateAssetMenu(fileName = "NewStats", menuName = "Stats/New Player Stats")]
 public class PlayerStats : BasicStats
 {
     [Header("Combat Stats")]
-    public float damage;
     public float baseAttackDelay;
     public float firstHabilityDelay;
     public float secondHabilityDelay;

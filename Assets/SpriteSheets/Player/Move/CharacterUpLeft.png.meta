@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 48935cde88135ce4ca6dd8a118983e78
+guid: b260c351a0602e04fa24d89d6ec59085
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CharacterUpIdle_0
+      name: CharacterUpLeft_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 704f62bc3b426c34296ae4d1d5cee1df
-      internalID: -971817137
+      spriteID: 3cb1f1942f0998e408eadfd0c2668dde
+      internalID: -1740492559
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CharacterUpIdle_1
+      name: CharacterUpLeft_1
       rect:
         serializedVersion: 2
         x: 48
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d8e358f85f4505449a237ce3859859f1
-      internalID: -1879052647
+      spriteID: e1d9508cd191a104588f6e869557fa18
+      internalID: -1994023605
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CharacterUpIdle_2
+      name: CharacterUpLeft_2
       rect:
         serializedVersion: 2
         x: 96
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da4061ced02a52341bf5467b4752f109
-      internalID: -1811310347
+      spriteID: af670506129bbfb4f903f7ffa3f6f655
+      internalID: -1990566030
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CharacterUpIdle_3
+      name: CharacterUpLeft_3
       rect:
         serializedVersion: 2
         x: 144
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 817e15db2b781424ca99ecb70d1006a3
-      internalID: 142013446
+      spriteID: 164d68d029bde79448e92305c5837550
+      internalID: 1771173207
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CharacterUpIdle_4
+      name: CharacterUpLeft_4
       rect:
         serializedVersion: 2
         x: 192
@@ -221,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd3e80338dd22c043be6ed505484c8c4
-      internalID: 1679060937
+      spriteID: 677dc613593105942b2c6a4fd47e245e
+      internalID: 24968820
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CharacterUpIdle_5
+      name: CharacterUpLeft_5
       rect:
         serializedVersion: 2
         x: 240
@@ -242,8 +242,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf9b048d7ae92ba4da8c7f787a53db7e
-      internalID: 1494358525
+      spriteID: 485f9496b0a1f0c4e99a6d2fe3d68b11
+      internalID: -1533320329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CharacterUpLeft_6
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68a5ff6351f09824588f3e1d1287d768
+      internalID: -1683882637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CharacterUpLeft_7
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1031e00a59c11524db6c61587ea62957
+      internalID: -1304351834
       vertices: []
       indices: 
       edges: []
@@ -259,12 +301,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      CharacterUpIdle_0: -971817137
-      CharacterUpIdle_1: -1879052647
-      CharacterUpIdle_2: -1811310347
-      CharacterUpIdle_3: 142013446
-      CharacterUpIdle_4: 1679060937
-      CharacterUpIdle_5: 1494358525
+      CharacterUpLeft_0: -1740492559
+      CharacterUpLeft_1: -1994023605
+      CharacterUpLeft_2: -1990566030
+      CharacterUpLeft_3: 1771173207
+      CharacterUpLeft_4: 24968820
+      CharacterUpLeft_5: -1533320329
+      CharacterUpLeft_6: -1683882637
+      CharacterUpLeft_7: -1304351834
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

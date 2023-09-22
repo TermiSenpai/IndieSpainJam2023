@@ -126,10 +126,10 @@ TextureImporter:
       name: CharacterUpRightIdle_0
       rect:
         serializedVersion: 2
-        x: 16
-        y: 2
-        width: 17
-        height: 36
+        x: 0
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,10 +147,10 @@ TextureImporter:
       name: CharacterUpRightIdle_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 2
-        width: 17
-        height: 36
+        x: 48
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,10 +168,10 @@ TextureImporter:
       name: CharacterUpRightIdle_2
       rect:
         serializedVersion: 2
-        x: 112
-        y: 2
-        width: 17
-        height: 37
+        x: 96
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -189,10 +189,10 @@ TextureImporter:
       name: CharacterUpRightIdle_3
       rect:
         serializedVersion: 2
-        x: 161
-        y: 2
-        width: 16
-        height: 39
+        x: 144
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -210,10 +210,10 @@ TextureImporter:
       name: CharacterUpRightIdle_4
       rect:
         serializedVersion: 2
-        x: 209
-        y: 2
-        width: 16
-        height: 37
+        x: 192
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -231,10 +231,10 @@ TextureImporter:
       name: CharacterUpRightIdle_5
       rect:
         serializedVersion: 2
-        x: 256
-        y: 2
-        width: 17
-        height: 36
+        x: 240
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
