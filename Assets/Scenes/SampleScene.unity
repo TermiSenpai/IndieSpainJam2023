@@ -474,6 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: a511b1605737a664aa139de175c34d6f, type: 2}
+  knockbackForce: 0
 --- !u!114 &363614566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2031,7 +2032,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1839139937}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8e763850017f0c419518226f0e28c93, type: 3}
   m_Name: 
@@ -2050,6 +2051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: a511b1605737a664aa139de175c34d6f, type: 2}
+  knockbackForce: 10
 --- !u!1 &1882652647
 GameObject:
   m_ObjectHideFlags: 0

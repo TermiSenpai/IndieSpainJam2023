@@ -1,7 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
+
+public enum EnemyState
+{
+    Idle,
+    Follow,
+    Attack,
+    Knockback
+}
 
 public class EnemyBrainController : MonoBehaviour
 {
@@ -11,7 +17,10 @@ public class EnemyBrainController : MonoBehaviour
     private GameObject player;
     private GameObject campfire;
     private GameObject turret;
+
+    // States scripts
     private EnemyAttack attackState;
+    private EnemyFollow followState;
 
     // tags
     const string campfireTag = "Campfire";
@@ -21,31 +30,51 @@ public class EnemyBrainController : MonoBehaviour
     Vector2 playerPos = Vector2.zero;
     Vector2 turretPos = Vector2.zero;
 
+    public EnemyState currentState = EnemyState.Idle;
 
     [Header("Config")]
-    [SerializeField] private float stopDistance = 1.25f;    
+    [SerializeField] private float stopDistance = 1.25f;
     [SerializeField] bool prioriceCampfire = false;
     public float maxCampfireDistance;
-
+    float distance;
 
     private void Awake()
     {
         stateMachine = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag(playerTag);
         campfire = GameObject.FindGameObjectWithTag(campfireTag);
-        attackState = GetComponent<EnemyAttack>();        
+
+        attackState = GetComponent<EnemyAttack>();
+        followState = GetComponent<EnemyFollow>();
     }
     private void Start()
     {
-        maxCampfireDistance = Mathf.Infinity;
-        currentTarget = campfire;
+        TryUpdateTarget();
     }
 
     private void Update()
     {
-        TryUpdateTarget();
+        if (currentState == EnemyState.Idle && currentTarget != null)
+            currentState = EnemyState.Follow;
+
         CheckStopDistance();
-        LookTarget();
+
+
+        switch (currentState)
+        {
+            case EnemyState.Idle:
+                StopFollow();
+                break;
+            case EnemyState.Follow:
+                TryUpdateTarget();
+                LookTarget();
+                break;
+            case EnemyState.Knockback:
+                StartCoroutine(OnKnockback());
+                break;
+
+        }
+
     }
 
     protected virtual void LookTarget()
@@ -64,8 +93,6 @@ public class EnemyBrainController : MonoBehaviour
 
     public virtual void TryUpdateTarget()
     {
-        currentTarget = campfire;
-        Vector2 actualPos = transform.position;        
 
         if (campfire != null)
             campfirePos = campfire.transform.position;
@@ -76,12 +103,16 @@ public class EnemyBrainController : MonoBehaviour
         if (turret != null)
             turretPos = turret.transform.position;
 
-        float campfireDistance = Vector3.Distance(actualPos, campfirePos);
-        float playerDistance = Vector3.Distance(actualPos, playerPos);
-        float turretDistance = Vector3.Distance(actualPos, turretPos);
+        // first target will be campfire
+        if (currentTarget == null)
+            currentTarget = campfire;
+        
+        float campfireDistance = Vector3.Distance(transform.position, campfirePos);
+        float playerDistance = Vector3.Distance(transform.position, playerPos);
+        float turretDistance = Vector3.Distance(transform.position, turretPos);
 
         // Define una distancia máxima para la prioridad del "Campfire"
-        float maxCampfireDistance = 10f; // Ajusta este valor según tu necesidad
+        float maxCampfireDistance = 10f; 
 
         if ((campfire != null && campfire.activeInHierarchy && campfireDistance <= maxCampfireDistance) || prioriceCampfire)
         {
@@ -97,13 +128,12 @@ public class EnemyBrainController : MonoBehaviour
 
             else if (turret != null && turret.activeInHierarchy)
                 currentTarget = turret; // Torreta es el objetivo más cercano
-            else StopEnemy();
+            else StopFollow();
         }
     }
 
     protected virtual void CheckStopDistance()
     {
-        float distance;
         if (currentTarget != null)
             distance = Vector2.Distance(transform.position, currentTarget.transform.position);
         else
@@ -111,19 +141,24 @@ public class EnemyBrainController : MonoBehaviour
             TryUpdateTarget();
             return;
         }
+
         // Comprobar si tenemos un objetivo y si estamos lo suficientemente lejos de él.
-        if (distance > stopDistance)
-            stateMachine.SetBool("isFollowing", true);
+        if (distance > stopDistance && currentState != EnemyState.Follow)
+            StartFollow();
         else
         {
-            attackState.Attack();
-            StopEnemy();
+            attackState.enabled = true;
         }
     }
 
-    protected void StopEnemy()
+    protected void StopFollow()
     {
-        stateMachine.SetBool("isFollowing", false);
+        followState.enabled = false;
+    }
+
+    protected void StartFollow()
+    {
+        followState.enabled = true;
     }
 
     public void SetTurret(GameObject newTurret)
@@ -134,6 +169,13 @@ public class EnemyBrainController : MonoBehaviour
     public GameObject GetTurret()
     {
         return turret;
+    }
+
+    private IEnumerator OnKnockback()
+    {
+        StopFollow();
+        yield return new WaitForSeconds(1.5f);
+        StartFollow();
     }
 
 }

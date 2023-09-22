@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private SpriteRenderer render;
 
     private float currentHealth;
+    private bool canBeDamaged = true;
 
     private void Start()
     {
@@ -16,14 +17,21 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
+        if (!canBeDamaged) return;
         StartCoroutine(ChangeColor());
         currentHealth -= damage;
+        StartCoroutine(InvencibleMode());
         CheckCurrentHealth();
+    }
+
+    public void TakeDamage(float damage, Vector2 knockbackDirection)
+    {
+
     }
 
     private void CheckCurrentHealth()
     {
-        if(currentHealth <= 0) 
+        if (currentHealth <= 0)
         {
             gameObject.SetActive(false);
         }
@@ -33,9 +41,16 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         Color damagedColor = Color.red;
         render.color = damagedColor;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(2f);
         render.color = Color.white;
     }
 
-     
+    private IEnumerator InvencibleMode()
+    {
+        canBeDamaged = false;
+        yield return new WaitForSeconds(2f);
+        canBeDamaged = true;
+    }
+
+
 }

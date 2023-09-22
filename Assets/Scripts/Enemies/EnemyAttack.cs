@@ -5,15 +5,15 @@ public class EnemyAttack : MonoBehaviour
     EnemyBrainController controller;
     [SerializeField] EnemyStats stats;
 
+    private Animator stateMachine;
     protected float attackTimer;
     protected bool canAttack;
 
-
-
-    private void Start()
+    private void Awake()
     {
-        attackTimer = stats.hitDelay;
         controller = GetComponent<EnemyBrainController>();
+        stateMachine = GetComponent<Animator>();
+        attackTimer = stats.hitDelay;
     }
 
     private void Update()
@@ -21,9 +21,20 @@ public class EnemyAttack : MonoBehaviour
         CheckAttackDelay();
     }
 
+    private void OnEnable()
+    {
+        stateMachine.SetTrigger("Attack");
+        controller.currentState = EnemyState.Attack;
+    }
+
+    private void OnDisable()
+    {
+        controller.currentState = EnemyState.Follow;
+    }
+
     public virtual void Attack()
     {
-        if (!canAttack) return;
+        //if (!canAttack) return;
 
         // Lanzar un Raycast hacia la derecha desde la posición del objeto
         Vector2 raycastDirection = transform.right;
@@ -40,9 +51,8 @@ public class EnemyAttack : MonoBehaviour
             // Llama al método TakeDamage() en el objeto
             damageable?.TakeDamage(stats.damage);
         }
-
-        canAttack = false;
         controller.TryUpdateTarget();
+        this.enabled = false;
     }
 
     protected virtual void CheckAttackDelay()

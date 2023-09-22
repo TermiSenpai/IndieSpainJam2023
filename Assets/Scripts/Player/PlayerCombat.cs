@@ -6,6 +6,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] Transform AttackPoint;
 
     private Animator anim;
+    Vector2 mousePos;
 
 
     private void Start()
@@ -14,6 +15,8 @@ public class PlayerCombat : MonoBehaviour
     }
     private void Update()
     {
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             SwordAttack();
@@ -22,6 +25,9 @@ public class PlayerCombat : MonoBehaviour
 
     private void SwordAttack()
     {
+        anim.SetFloat("Horizontal", mousePos.x);
+        anim.SetFloat("Vertical", mousePos.y);
+
         anim.SetTrigger("SwordAttack");
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, stats.raidusRange, stats.enemyLayer);
@@ -33,7 +39,7 @@ public class PlayerCombat : MonoBehaviour
 
             Debug.Log(enemy.gameObject.name);
             IDamageable damageable = enemy.GetComponent<IDamageable>();
-            damageable?.TakeDamage(stats.damage);
+            damageable?.TakeDamage(stats.damage, -transform.position);
         }
 
     }
