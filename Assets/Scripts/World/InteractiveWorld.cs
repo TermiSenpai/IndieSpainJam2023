@@ -10,6 +10,7 @@ public class InteractiveWorld : MonoBehaviour
     [SerializeField] private Tilemap m_TilemapSelected = null;
     [SerializeField] private Camera m_Camera = null;
     [SerializeField] private TileBase selectedTile = null;
+    [SerializeField] private GameObject m_Trees = null;
 
     [SerializeField] private List<TileData> tileDatas;
     private Dictionary<TileBase, TileData> dataFromTiles;
@@ -40,9 +41,13 @@ public class InteractiveWorld : MonoBehaviour
                 
             }
         }
-        Debug.Log(dataFromTiles.Values);
+        //Debug.Log(dataFromTiles.Values);
     }
 
+    private void Start()
+    {
+        CreatingTrees();
+    }
 
 
     void Update()
@@ -50,6 +55,11 @@ public class InteractiveWorld : MonoBehaviour
 
         Selected();
         
+    }
+
+    void CreatingTrees()
+    {
+
     }
 
     

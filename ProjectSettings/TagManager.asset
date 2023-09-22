@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Campfire
   - Turret
+  - InteractiveObj
   layers:
   - Default
   - TransparentFX
@@ -46,7 +47,7 @@ TagManager:
   - name: Ground
     uniqueID: 3442520409
     locked: 0
-  - name: Torrets
+  - name: Items
     uniqueID: 905344069
     locked: 0
   - name: Mobs
