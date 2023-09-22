@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ee218caef97e04ebac549df0fe48a4, type: 3}
+  m_Name: NewForest
+  m_EditorClassIdentifier: 
+  tiles:
+  - {fileID: 11400000, guid: d05be0f76e053114fbf4a6481ef89162, type: 2}
+  - {fileID: 11400000, guid: fd4718ed109061c45b2153d79b0e9a72, type: 2}
+  - {fileID: 11400000, guid: 63c07fa77717c014db0cdc425f48c336, type: 2}
+  - {fileID: 11400000, guid: ae8142088d84f9c4b89c8e744a5e43da, type: 2}
+  - {fileID: 11400000, guid: 7d1fe68ec822c474896cb7e37074ff5c, type: 2}
+  - {fileID: 11400000, guid: c11af10cb4e1d6b44970e86aa161fcce, type: 2}
+  - {fileID: 11400000, guid: 84094552c7e165f4896a885aee6772c1, type: 2}
+  - {fileID: 11400000, guid: a9de6902ecae775488e62265d1c3abff, type: 2}
+  - {fileID: 11400000, guid: 6b3ff1507ab5ad844a781b043eb5c24d, type: 2}
+  Type: 3
+  GObject: {fileID: 0}
