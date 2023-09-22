@@ -19,8 +19,8 @@ public class EnemyBrainController : MonoBehaviour
     private GameObject turret;
 
     // States scripts
-    private EnemyAttack attackState;
-    private EnemyFollow followState;
+    [SerializeField] private EnemyAttack attackState;
+    [SerializeField] private EnemyFollow followState;
 
     // tags
     const string campfireTag = "Campfire";
@@ -43,9 +43,6 @@ public class EnemyBrainController : MonoBehaviour
         stateMachine = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag(playerTag);
         campfire = GameObject.FindGameObjectWithTag(campfireTag);
-
-        attackState = GetComponent<EnemyAttack>();
-        followState = GetComponent<EnemyFollow>();
     }
     private void Start()
     {
@@ -58,7 +55,6 @@ public class EnemyBrainController : MonoBehaviour
             currentState = EnemyState.Follow;
 
         CheckStopDistance();
-
 
         switch (currentState)
         {
@@ -145,9 +141,10 @@ public class EnemyBrainController : MonoBehaviour
         // Comprobar si tenemos un objetivo y si estamos lo suficientemente lejos de él.
         if (distance > stopDistance && currentState != EnemyState.Follow)
             StartFollow();
-        else
+        else if( distance <= stopDistance && currentState == EnemyState.Follow)
         {
             attackState.enabled = true;
+            StopFollow();
         }
     }
 

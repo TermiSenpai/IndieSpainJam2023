@@ -4,13 +4,15 @@ public class EnemyFollow : MonoBehaviour
 {
     private EnemyBrainController controller;
     private Animator stateMachine;
+    private Rigidbody2D rb;
 
-    [SerializeField] private float speed;
+    [SerializeField] private EnemyStats stats;
 
-    private void Start()
+    private void Awake()
     {
         controller = GetComponent<EnemyBrainController>();
         stateMachine = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();   
     }
 
     private void Update()
@@ -34,10 +36,14 @@ public class EnemyFollow : MonoBehaviour
         if (controller.currentTarget == null)
             return;
 
-        stateMachine.transform.position = Vector2.MoveTowards(transform.position,
-                                      controller.currentTarget.transform.position,
-                                      speed * Time.deltaTime);
+        // Calcula la dirección hacia el objetivo.
         Vector2 direccion = ((Vector2)controller.currentTarget.transform.position - (Vector2)transform.position).normalized;
+
+        // Calcula la nueva posición deseada.
+        Vector2 newPosition = (Vector2)transform.position + stats.moveSpeed * Time.deltaTime * direccion;
+
+        // Mueve el Rigidbody2D hacia la nueva posición.
+        rb.MovePosition(newPosition);
 
         float direccionX = direccion.x;
         float direccionY = direccion.y;

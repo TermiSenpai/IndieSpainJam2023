@@ -203,7 +203,7 @@ Transform:
   m_GameObject: {fileID: 142183059}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -36.58, y: 7.55, z: 0}
+  m_LocalPosition: {x: -49.79, y: 7.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -398,7 +398,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &363614563
 Rigidbody2D:
   serializedVersion: 4
@@ -474,7 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: a511b1605737a664aa139de175c34d6f, type: 2}
-  knockbackForce: 0
+  knockbackForce: 0.01
 --- !u!114 &363614566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,6 +517,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTarget: {fileID: 0}
+  attackState: {fileID: 0}
+  followState: {fileID: 0}
+  currentState: 0
   stopDistance: 1.25
   prioriceCampfire: 0
   maxCampfireDistance: 100
@@ -740,7 +743,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -26.62, y: 6.5699997, z: -10}
+  m_LocalPosition: {x: -17.09, y: 6.5699997, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -976,6 +979,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTarget: {fileID: 0}
+  attackState: {fileID: 0}
+  followState: {fileID: 0}
+  currentState: 0
   stopDistance: 5
   prioriceCampfire: 0
   maxCampfireDistance: 100
@@ -1307,7 +1313,7 @@ Transform:
   m_GameObject: {fileID: 1344222543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.56, y: 6.31, z: 0}
+  m_LocalPosition: {x: -43.769997, y: 6.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1497,7 +1503,7 @@ Transform:
   m_GameObject: {fileID: 1586906023}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -26.62, y: 6.5699997, z: -10}
+  m_LocalPosition: {x: -17.09, y: 6.5699997, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1589,7 +1595,7 @@ Transform:
   m_GameObject: {fileID: 1586946905}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -26.62, y: 6.57, z: 0}
+  m_LocalPosition: {x: -17.09, y: 6.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1604,7 +1610,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1586946905}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -1834,6 +1840,7 @@ GameObject:
   - component: {fileID: 1839139943}
   - component: {fileID: 1839139945}
   - component: {fileID: 1839139946}
+  - component: {fileID: 1839139947}
   - component: {fileID: 1839139942}
   - component: {fileID: 1839139944}
   m_Layer: 10
@@ -1944,9 +1951,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTarget: {fileID: 0}
+  attackState: {fileID: 1839139945}
+  followState: {fileID: 1839139947}
+  currentState: 0
   stopDistance: 1.25
   prioriceCampfire: 0
-  maxCampfireDistance: 100
+  maxCampfireDistance: 10
 --- !u!58 &1839139942
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2010,8 +2020,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
+  m_Mass: 50
+  m_LinearDrag: 3
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -2024,7 +2034,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1839139945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2051,7 +2061,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: a511b1605737a664aa139de175c34d6f, type: 2}
-  knockbackForce: 10
+  knockbackForce: 60
+--- !u!114 &1839139947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839139937}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b2b0a646ca98e04680dd6d40eec4530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: a511b1605737a664aa139de175c34d6f, type: 2}
 --- !u!1 &1882652647
 GameObject:
   m_ObjectHideFlags: 0
@@ -2181,7 +2204,7 @@ Transform:
   m_GameObject: {fileID: 1981604595}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -31.21, y: 8.47, z: 0}
+  m_LocalPosition: {x: -44.42, y: 8.47, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
