@@ -4,6 +4,7 @@ public class EnemyAttack : MonoBehaviour
 {
     EnemyBrainController controller;
     [SerializeField] EnemyStats stats;
+    [SerializeField] Transform AttackPoint;
 
     private Animator stateMachine;
     protected float attackTimer;
@@ -29,30 +30,25 @@ public class EnemyAttack : MonoBehaviour
 
     private void OnDisable()
     {
-        controller.currentState = EnemyState.Follow;
+        controller.currentState = EnemyState.Follow;        
     }
 
     public virtual void Attack()
     {
-        //if (!canAttack) return;
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, stats.radiusRange, stats.damageableLayer);
 
-        // Lanzar un Raycast hacia la derecha desde la posición del objeto
-        Vector2 raycastDirection = transform.right;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, raycastDirection, stats.attackLength, stats.damageableLayer);
+        // RaycastHit2D enemyHit = Physics2D.Raycast(AttackPoint.position, Vector2.right, stats.raidusRange, stats.enemyLayer);
 
-        // Si el Raycast golpea algo
-        if (hit.collider != null)
+        foreach (Collider2D enemy in hitEnemies)
         {
-            // Intenta obtener el componente IDamageable del objeto golpeado
-            IDamageable damageable = hit.collider.GetComponent<IDamageable>();
 
-            // Si el objeto golpeado implementa la interfaz IDamageable
-
-            // Llama al método TakeDamage() en el objeto
+            Debug.Log(enemy.gameObject.name);
+            IDamageable damageable = enemy.GetComponent<IDamageable>();
             damageable?.TakeDamage(stats.damage);
         }
-        controller.TryUpdateTarget();
-        this.enabled = false;
+        
+
+        OnFinishAttack();
     }
 
     protected virtual void CheckAttackDelay()
@@ -67,9 +63,14 @@ public class EnemyAttack : MonoBehaviour
         attackTimer -= Time.deltaTime;
     }
 
+    public void OnFinishAttack()
+    {
+        controller.StopAttack();
+    }
+
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawRay(transform.position, transform.right);
+        Gizmos.color = Color.gray;        
+        Gizmos.DrawWireSphere(AttackPoint.position, stats.radiusRange);
     }
 }

@@ -52,7 +52,10 @@ public class EnemyBrainController : MonoBehaviour
     private void Update()
     {
         if (currentState == EnemyState.Idle && currentTarget != null)
+        {
             currentState = EnemyState.Follow;
+            StartFollow();
+        }
 
         CheckStopDistance();
 
@@ -78,8 +81,8 @@ public class EnemyBrainController : MonoBehaviour
         if (currentTarget != null)
         {
             Vector3 direccion = currentTarget.transform.position - transform.position;
-            float angulo = Mathf.Atan2(direccion.y, direccion.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angulo));
+            //float angulo = Mathf.Atan2(direccion.y, direccion.x) * Mathf.Rad2Deg;
+            //transform.rotation = Quaternion.Euler(new Vector3(0, 0, angulo));
 
             // Change blend tree anim
             stateMachine.SetFloat("Horizontal", direccion.x);
@@ -102,13 +105,13 @@ public class EnemyBrainController : MonoBehaviour
         // first target will be campfire
         if (currentTarget == null)
             currentTarget = campfire;
-        
+
         float campfireDistance = Vector3.Distance(transform.position, campfirePos);
         float playerDistance = Vector3.Distance(transform.position, playerPos);
         float turretDistance = Vector3.Distance(transform.position, turretPos);
 
         // Define una distancia máxima para la prioridad del "Campfire"
-        float maxCampfireDistance = 10f; 
+        float maxCampfireDistance = 10f;
 
         if ((campfire != null && campfire.activeInHierarchy && campfireDistance <= maxCampfireDistance) || prioriceCampfire)
         {
@@ -139,12 +142,13 @@ public class EnemyBrainController : MonoBehaviour
         }
 
         // Comprobar si tenemos un objetivo y si estamos lo suficientemente lejos de él.
-        if (distance > stopDistance && currentState != EnemyState.Follow)
+        if (distance > stopDistance)
             StartFollow();
-        else if( distance <= stopDistance && currentState == EnemyState.Follow)
+
+        else if (distance <= stopDistance && currentState == EnemyState.Follow)
         {
-            attackState.enabled = true;
             StopFollow();
+            Emerge();
         }
     }
 
@@ -156,6 +160,21 @@ public class EnemyBrainController : MonoBehaviour
     protected void StartFollow()
     {
         followState.enabled = true;
+    }
+
+    protected void StartAttack()
+    {
+        attackState.enabled = true;
+    }
+
+    public void StopAttack()
+    {
+        attackState.enabled = false;
+    }
+
+    public void Emerge()
+    {
+        stateMachine.SetTrigger("Emerge");
     }
 
     public void SetTurret(GameObject newTurret)

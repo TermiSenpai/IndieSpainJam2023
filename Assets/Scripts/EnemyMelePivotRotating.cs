@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordRotating : MonoBehaviour
+public class EnemyMelePivotRotating : MonoBehaviour
 {
     public float velocidadRotacion = 45.0f;
     public float distanciaDesdeJugador = 2.0f;
@@ -10,13 +10,19 @@ public class SwordRotating : MonoBehaviour
 
     private bool detenerRotacion = false;
 
+    EnemyBrainController controller;
+    private void Start()
+    {
+        controller =GetComponentInParent<EnemyBrainController>();
+    }
+
     void Update()
     {
         // Seguir la posición del ratón en pantalla.
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 target = controller.currentTarget.transform.position;
 
         // Calcular la dirección hacia el ratón desde la posición del objeto.
-        Vector3 direccionAlRaton = (mousePos - transform.position).normalized;
+        Vector3 direccionAlRaton = (target - transform.position).normalized;
 
         // Calcular el ángulo de rotación en grados.
         float angulo = Mathf.Atan2(direccionAlRaton.y, direccionAlRaton.x) * Mathf.Rad2Deg;
@@ -44,8 +50,4 @@ public class SwordRotating : MonoBehaviour
             velocidadRotacion = 45.0f; // Puedes ajustar la velocidad aquí.
         }
     }
-
-
-
-
 }
