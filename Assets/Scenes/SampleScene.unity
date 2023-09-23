@@ -1702,6 +1702,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: c89e416d141b05e46af35fc83f84d4c1, type: 2}
   AttackPoint: {fileID: 960044635}
+  clips:
+  - {fileID: 8300000, guid: 69142b892a9629b44b6c88030a68a564, type: 3}
+  - {fileID: 8300000, guid: 4bf83d11297eb904a94c9e07a94e6685, type: 3}
+  - {fileID: 8300000, guid: 08caddee9e0732b41b3e49dd6d88ee6d, type: 3}
 --- !u!114 &1586946915
 MonoBehaviour:
   m_ObjectHideFlags: 0
