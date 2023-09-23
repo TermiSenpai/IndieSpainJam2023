@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af984a2f56f22f044975cce3565c4669, type: 3}
   m_Name: BasicEnemyStats
   m_EditorClassIdentifier: 
-  MaxHealth: 5
-  moveSpeed: 5
+  MaxHealth: 20
+  moveSpeed: 10
   damage: 3
+  radiusRange: 0.75
   hitDelay: 2
   attackLength: 1.25
   damageableLayer:

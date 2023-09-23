@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyStats : BasicStats
 {
     [Header("Combat stats")]
+    public float radiusRange;
     public float hitDelay;
     public float attackLength;
     public LayerMask damageableLayer;

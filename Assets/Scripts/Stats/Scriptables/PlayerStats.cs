@@ -4,9 +4,11 @@ using UnityEngine;
 public class PlayerStats : BasicStats
 {
     [Header("Combat Stats")]
+    public float raidusRange;
     public float baseAttackDelay;
     public float firstHabilityDelay;
     public float secondHabilityDelay;
+    public LayerMask enemyLayer;
 
     [Header("Resources")]
     public int maxWoodQuantity;
