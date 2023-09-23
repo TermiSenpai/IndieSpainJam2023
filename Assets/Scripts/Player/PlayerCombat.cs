@@ -6,12 +6,15 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] PlayerStats stats;
     [SerializeField] Transform AttackPoint;
 
+    private AudioSource source;
+    [SerializeField] AudioClip[] clips;
     private Animator anim;
     Vector2 mousePos;
     private float timerAttack;
 
     private void Start()
     {
+        source = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         timerAttack = stats.baseAttackDelay;
     }
@@ -76,8 +79,20 @@ public class PlayerCombat : MonoBehaviour
     IEnumerator VisibleAttack()
     {
         AttackPoint.gameObject.SetActive(true);
+        PlaySwingSound();
         yield return new WaitForSeconds(1);
         AttackPoint.gameObject.SetActive(false);
+    }
+
+
+    private AudioClip TakeRandomSwingSound()
+    {
+        return clips[Random.Range(0, clips.Length)];
+    }
+
+    public void PlaySwingSound()
+    {
+        source.PlayOneShot(TakeRandomSwingSound());
     }
 
     private void OnDrawGizmos()
