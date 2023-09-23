@@ -777,7 +777,7 @@ MonoBehaviour:
   attackState: {fileID: 0}
   followState: {fileID: 0}
   currentState: 0
-  prioriceCampfire: 0
+  prioritizeCampfire: 0
   maxCampfireDistance: 100
   canmove: 1
 --- !u!95 &856796594
@@ -1954,7 +1954,7 @@ MonoBehaviour:
   attackState: {fileID: 1839139945}
   followState: {fileID: 1839139947}
   currentState: 0
-  prioriceCampfire: 0
+  prioritizeCampfire: 0
   maxCampfireDistance: 10
   canmove: 1
 --- !u!114 &1839139943
