@@ -16,6 +16,7 @@ public class InteractiveWorld : MonoBehaviour
     private Dictionary<TileBase, TileData> dataFromTiles;
 
     private Vector3Int previousGridPos = new Vector3Int();
+    private Vector3Int adjPos;
 
     /// <summary>
     /// Delay between moves used for debouncing
@@ -92,7 +93,7 @@ public class InteractiveWorld : MonoBehaviour
 
         if (!gridPos.Equals(previousGridPos))
         {
-            var adjPos = gridPos + new Vector3Int(0, 0, 10);
+            adjPos = gridPos + new Vector3Int(0, 0, 10);
             var adjPrev = previousGridPos + new Vector3Int(0, 0, 10);
             //Debug.Log("gridPos: " + adjPos);
             //Debug.Log("previousGridPos: " + adjPrev);
@@ -103,28 +104,30 @@ public class InteractiveWorld : MonoBehaviour
 
             //check type of tile
             //print();
-            TileBase clickedOne = m_Tilemap.GetTile(adjPos);
-            var type = dataFromTiles[clickedOne].Type;
-            if (type == TileType.Construct)
-            {
-                if (!dataFromTiles[clickedOne].OcupedPos.ContainsKey(adjPos))
-                {
-                    dataFromTiles[clickedOne].OcupedPos.Add(adjPos, new GameObject());
-                }
-                    
-                else
-                    Debug.Log("Ocupado");
-            }
-
             //Debug.Log(type);
 
         }
+    }
 
-
-
-
-
-
+    public void Construct(GameObject TType)
+    {
+        Debug.Log(TType);
+        TileBase clickedOne = m_Tilemap.GetTile(adjPos);
+        var type = dataFromTiles[clickedOne].Type;
+        if (type == TileType.Construct)
+        {
+            if (!dataFromTiles[clickedOne].OcupedPos.ContainsKey(adjPos))
+            {
+                dataFromTiles[clickedOne].OcupedPos.Add(adjPos, TType);
+                TType.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                TType.transform.position = new Vector3(TType.transform.position.x, TType.transform.position.y,0);
+            }
+            else
+            {
+                Debug.Log("Ocupado");
+                Destroy(TType);
+            }
+        }
     }
 
 }
