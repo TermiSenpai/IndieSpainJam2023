@@ -34,7 +34,7 @@ public class EnemyBrainController : MonoBehaviour
     public EnemyState currentState = EnemyState.Idle;
 
     [Header("Config")]
-    
+
     [SerializeField] bool prioriceCampfire = false;
     public float maxCampfireDistance;
     public bool canmove = true;
@@ -74,6 +74,21 @@ public class EnemyBrainController : MonoBehaviour
 
         }
 
+    }
+
+    private void OnEnable()
+    {
+        PlayerHealth.PlayerDeathRelease += OnPlayerDeath;
+    }
+
+    private void OnDisable()
+    {
+        PlayerHealth.PlayerDeathRelease -= OnPlayerDeath;
+    }
+
+    protected void OnPlayerDeath()
+    {
+        prioriceCampfire = true;
     }
 
     protected virtual void LookTarget()
@@ -129,7 +144,7 @@ public class EnemyBrainController : MonoBehaviour
                 currentTarget = turret; // Torreta es el objetivo más cercano
             else StopFollow();
         }
-    }    
+    }
 
     public void StopFollow()
     {
@@ -152,8 +167,6 @@ public class EnemyBrainController : MonoBehaviour
         currentState = EnemyState.Follow;
         canmove = true;
     }
-
-    
 
     public void SetTurret(GameObject newTurret)
     {

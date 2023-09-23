@@ -11,6 +11,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public delegate void PlayerHealthDelegate();
     public static PlayerHealthDelegate PlayerDeathRelease;
+    private bool playerLose = false;
 
     private void Start()
     {
@@ -20,11 +21,17 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
+        // Stop if player is in invencible mode
         if (!canBeDamaged) return;
-        StartCoroutine(ChangeColor());
+
         currentHealth -= damage;
-        StartCoroutine(InvencibleMode());
         CheckCurrentHealth();
+
+        // stop if player die
+        if (playerLose) return;
+
+        StartCoroutine(ChangeColor());
+        StartCoroutine(InvencibleMode());
     }
 
     private void CheckCurrentHealth()
@@ -33,6 +40,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         {
             PlayerDeathRelease?.Invoke();
             gameObject.SetActive(false);
+            playerLose = true;
         }
     }
 
