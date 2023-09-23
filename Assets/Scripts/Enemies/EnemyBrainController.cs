@@ -35,7 +35,7 @@ public class EnemyBrainController : MonoBehaviour
 
     [Header("Config")]
 
-    [SerializeField] bool prioriceCampfire = false;
+    [SerializeField] bool prioritizeCampfire = false;
     public float maxCampfireDistance;
     public bool canmove = true;
 
@@ -88,7 +88,7 @@ public class EnemyBrainController : MonoBehaviour
 
     protected void OnPlayerDeath()
     {
-        prioriceCampfire = true;
+        prioritizeCampfire = true;
     }
 
     protected virtual void LookTarget()
@@ -128,7 +128,7 @@ public class EnemyBrainController : MonoBehaviour
         // Define una distancia máxima para la prioridad del "Campfire"
         float maxCampfireDistance = 10f;
 
-        if ((campfire != null && campfire.activeInHierarchy && campfireDistance <= maxCampfireDistance) || prioriceCampfire)
+        if ((campfire != null && campfire.activeInHierarchy && campfireDistance <= maxCampfireDistance) || prioritizeCampfire)
         {
             // Campamento está presente y dentro de la distancia máxima
             currentTarget = campfire; // Campamento es el objetivo más cercano
