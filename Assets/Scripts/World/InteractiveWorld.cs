@@ -119,7 +119,8 @@ public class InteractiveWorld : MonoBehaviour
             if (!dataFromTiles[clickedOne].OcupedPos.ContainsKey(adjPos))
             {
                 dataFromTiles[clickedOne].OcupedPos.Add(adjPos, TType);
-                TType.transform.position = adjPos;
+                TType.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                TType.transform.position = new Vector3(TType.transform.position.x, TType.transform.position.y,0);
             }
             else
             {
