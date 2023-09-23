@@ -9,6 +9,9 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private float currentHealth;
     private bool canBeDamaged = true;
 
+    public delegate void PlayerHealthDelegate();
+    public static PlayerHealthDelegate PlayerDeathRelease;
+
     private void Start()
     {
         render = GetComponent<SpriteRenderer>();
@@ -28,6 +31,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         if (currentHealth <= 0)
         {
+            PlayerDeathRelease?.Invoke();
             gameObject.SetActive(false);
         }
     }
