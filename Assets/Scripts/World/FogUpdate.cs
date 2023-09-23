@@ -29,9 +29,9 @@ public class FogUpdate : MonoBehaviour
     {
         Vector3Int currentPlayerPos = fog.WorldToCell(transform.position);
 
-        for (int i = -3; i <= 3; i++)
+        for (int i = -10; i <= 10; i++)
         {
-            for (int j = -5; j <= 5; j++)
+            for (int j = -10; j <= 10; j++)
             {
                 fog.SetTile(currentPlayerPos + new Vector3Int(i, j, 0), null);
             }
