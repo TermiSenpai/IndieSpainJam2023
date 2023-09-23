@@ -91,6 +91,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
+  HUD: {fileID: 0}
+  Torrets: {fileID: 7474436161231433279, guid: 720b89a4035be0d42aff0ac024af5614, type: 3}
 --- !u!61 &7842103385105644187
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -192,7 +194,6 @@ GameObject:
   - component: {fileID: 5898673235705158689}
   - component: {fileID: 3732919123062112364}
   - component: {fileID: 1328214937324366922}
-  - component: {fileID: 7387168035127281939}
   - component: {fileID: 3163612291649070528}
   m_Layer: 5
   m_Name: Torreta1
@@ -259,19 +260,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7387168035127281939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8992696940324708009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05f7f548d83e0e141a18e65b0f43b6a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvas: {fileID: 0}
 --- !u!114 &3163612291649070528
 MonoBehaviour:
   m_ObjectHideFlags: 0
