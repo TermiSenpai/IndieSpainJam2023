@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
@@ -7,11 +8,12 @@ public class PlayerCombat : MonoBehaviour
 
     private Animator anim;
     Vector2 mousePos;
-
+    private float timerAttack;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
+        timerAttack = stats.baseAttackDelay;
     }
     private void Update()
     {
@@ -21,14 +23,37 @@ public class PlayerCombat : MonoBehaviour
         {
             SwordAttack();
         }
+
+        CheckAttackDelay();
+    }
+
+    private void CheckAttackDelay()
+    {
+        timerAttack -= Time.deltaTime;
+
+        if (timerAttack <= 0)
+        {
+            timerAttack = 0;
+        }
+    }
+
+    private bool CanAttack()
+    {
+        // Comprueba si el temporizador de ataque ha llegado a cero y si el enemigo puede atacar nuevamente.
+        if (timerAttack <= 0)
+            return true;
+
+        return false;
     }
 
     private void SwordAttack()
     {
+        if (!CanAttack()) return;
+
         anim.SetFloat("Horizontal", mousePos.x);
         anim.SetFloat("Vertical", mousePos.y);
 
-        anim.SetTrigger("SwordAttack");
+        StartCoroutine(VisibleAttack());
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, stats.raidusRange, stats.enemyLayer);
 
@@ -39,9 +64,20 @@ public class PlayerCombat : MonoBehaviour
 
             Debug.Log(enemy.gameObject.name);
             IDamageable damageable = enemy.GetComponent<IDamageable>();
-            damageable?.TakeDamage(stats.damage, -transform.position);
+            damageable?.TakeDamage(stats.damage);
         }
 
+        timerAttack = stats.baseAttackDelay;
+
+    }
+
+    // TODO
+    // Temporal, waiting to anim
+    IEnumerator VisibleAttack()
+    {
+        AttackPoint.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        AttackPoint.gameObject.SetActive(false);
     }
 
     private void OnDrawGizmos()

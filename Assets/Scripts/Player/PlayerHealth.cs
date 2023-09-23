@@ -9,6 +9,10 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private float currentHealth;
     private bool canBeDamaged = true;
 
+    public delegate void PlayerHealthDelegate();
+    public static PlayerHealthDelegate PlayerDeathRelease;
+    private bool playerLose = false;
+
     private void Start()
     {
         render = GetComponent<SpriteRenderer>();
@@ -17,23 +21,26 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
+        // Stop if player is in invencible mode
         if (!canBeDamaged) return;
-        StartCoroutine(ChangeColor());
+
         currentHealth -= damage;
-        StartCoroutine(InvencibleMode());
         CheckCurrentHealth();
-    }
 
-    public void TakeDamage(float damage, Vector2 knockbackDirection)
-    {
+        // stop if player die
+        if (playerLose) return;
 
+        StartCoroutine(ChangeColor());
+        StartCoroutine(InvencibleMode());
     }
 
     private void CheckCurrentHealth()
     {
         if (currentHealth <= 0)
         {
+            PlayerDeathRelease?.Invoke();
             gameObject.SetActive(false);
+            playerLose = true;
         }
     }
 

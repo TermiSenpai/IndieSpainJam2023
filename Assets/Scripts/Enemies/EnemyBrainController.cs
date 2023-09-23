@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public enum EnemyState
 {
@@ -33,10 +34,11 @@ public class EnemyBrainController : MonoBehaviour
     public EnemyState currentState = EnemyState.Idle;
 
     [Header("Config")]
-    [SerializeField] private float stopDistance = 1.25f;
+
     [SerializeField] bool prioriceCampfire = false;
     public float maxCampfireDistance;
-    float distance;
+    public bool canmove = true;
+
 
     private void Awake()
     {
@@ -57,8 +59,6 @@ public class EnemyBrainController : MonoBehaviour
             StartFollow();
         }
 
-        CheckStopDistance();
-
         switch (currentState)
         {
             case EnemyState.Idle:
@@ -74,6 +74,21 @@ public class EnemyBrainController : MonoBehaviour
 
         }
 
+    }
+
+    private void OnEnable()
+    {
+        PlayerHealth.PlayerDeathRelease += OnPlayerDeath;
+    }
+
+    private void OnDisable()
+    {
+        PlayerHealth.PlayerDeathRelease -= OnPlayerDeath;
+    }
+
+    protected void OnPlayerDeath()
+    {
+        prioriceCampfire = true;
     }
 
     protected virtual void LookTarget()
@@ -131,35 +146,15 @@ public class EnemyBrainController : MonoBehaviour
         }
     }
 
-    protected virtual void CheckStopDistance()
+    public void StopFollow()
     {
-        if (currentTarget != null)
-            distance = Vector2.Distance(transform.position, currentTarget.transform.position);
-        else
-        {
-            TryUpdateTarget();
-            return;
-        }
-
-        // Comprobar si tenemos un objetivo y si estamos lo suficientemente lejos de él.
-        if (distance > stopDistance)
-            StartFollow();
-
-        else if (distance <= stopDistance && currentState == EnemyState.Follow)
-        {
-            StopFollow();
-            Emerge();
-        }
+        stateMachine.SetBool("isFollowing", false);
     }
 
-    protected void StopFollow()
+    public void StartFollow()
     {
-        followState.enabled = false;
-    }
-
-    protected void StartFollow()
-    {
-        followState.enabled = true;
+        currentState = EnemyState.Follow;
+        stateMachine.SetBool("isFollowing", true);
     }
 
     protected void StartAttack()
@@ -169,12 +164,8 @@ public class EnemyBrainController : MonoBehaviour
 
     public void StopAttack()
     {
-        attackState.enabled = false;
-    }
-
-    public void Emerge()
-    {
-        stateMachine.SetTrigger("Emerge");
+        currentState = EnemyState.Follow;
+        canmove = true;
     }
 
     public void SetTurret(GameObject newTurret)
