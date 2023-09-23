@@ -7,6 +7,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     [SerializeField] PlayerStats stats;
     private SpriteRenderer render;
     private Animator anim;
+    private AudioSource source;
+    [SerializeField] AudioClip deathSound;
 
     // properties
     private float currentHealth;
@@ -22,6 +24,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         render = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        source = GetComponent<AudioSource>();
         currentHealth = stats.MaxHealth;
     }
 
@@ -46,6 +49,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         {
             PlayerDeathRelease?.Invoke();
             anim.SetTrigger("Death");
+            source.PlayOneShot(deathSound);
             //gameObject.SetActive(false);
             playerLose = true;
         }

@@ -1688,6 +1688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: c89e416d141b05e46af35fc83f84d4c1, type: 2}
+  deathSound: {fileID: 8300000, guid: 51766573ab3b45d48bca83d18d34319d, type: 3}
   redTime: 2
   invincibleTime: 2
 --- !u!114 &1586946914
@@ -1872,7 +1873,12 @@ MonoBehaviour:
   playerCamera: {fileID: 1586906024}
   zoomSpeed: 2
   centerSpeed: 0
-  framingTransposer: {fileID: 0}
+  playerControllers:
+  - {fileID: 1586946909}
+  - {fileID: 1586946913}
+  - {fileID: 1586946914}
+  - {fileID: 1586946915}
+  - {fileID: 226087334}
 --- !u!1 &1839139937
 GameObject:
   m_ObjectHideFlags: 0

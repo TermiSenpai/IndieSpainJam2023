@@ -7,7 +7,8 @@ public class PlayerDeathManager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera playerCamera;
     [SerializeField] private float zoomSpeed;
     [SerializeField] private float centerSpeed;
-    [SerializeField] CinemachineFramingTransposer framingTransposer;
+    CinemachineFramingTransposer framingTransposer;
+    [SerializeField] private MonoBehaviour[] playerControllers;
 
     private void OnEnable()
     {
@@ -20,13 +21,16 @@ public class PlayerDeathManager : MonoBehaviour
 
     private void OnPlayerDeath()
     {
-        CenterCamera();
+        DisablePlayerControllers();
         StartCoroutine(CameraZoom());
     }
 
-    void CenterCamera()
+    private void DisablePlayerControllers()
     {
-
+        foreach (var controller in playerControllers) 
+        {
+            controller.enabled = false;
+        }
     }
 
     private IEnumerator CameraZoom()
