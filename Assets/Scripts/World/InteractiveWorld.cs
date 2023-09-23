@@ -44,10 +44,6 @@ public class InteractiveWorld : MonoBehaviour
         //Debug.Log(dataFromTiles.Values);
     }
 
-    private void Start()
-    {
-        CreatingTrees();
-    }
 
 
     void Update()
@@ -56,13 +52,6 @@ public class InteractiveWorld : MonoBehaviour
         Selected();
         
     }
-
-    void CreatingTrees()
-    {
-
-    }
-
-    
 
     void Selected()
     {
