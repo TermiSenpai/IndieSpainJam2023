@@ -24,11 +24,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         CheckCurrentHealth();
     }
 
-    public void TakeDamage(float damage, Vector2 knockbackDirection)
-    {
-
-    }
-
     private void CheckCurrentHealth()
     {
         if (currentHealth <= 0)

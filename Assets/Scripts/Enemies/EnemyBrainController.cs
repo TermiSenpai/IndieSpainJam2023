@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public enum EnemyState
 {
@@ -33,10 +34,11 @@ public class EnemyBrainController : MonoBehaviour
     public EnemyState currentState = EnemyState.Idle;
 
     [Header("Config")]
-    [SerializeField] private float stopDistance = 1.25f;
+    
     [SerializeField] bool prioriceCampfire = false;
     public float maxCampfireDistance;
-    float distance;
+    public bool canmove = true;
+
 
     private void Awake()
     {
@@ -56,8 +58,6 @@ public class EnemyBrainController : MonoBehaviour
             currentState = EnemyState.Follow;
             StartFollow();
         }
-
-        CheckStopDistance();
 
         switch (currentState)
         {
@@ -129,37 +129,17 @@ public class EnemyBrainController : MonoBehaviour
                 currentTarget = turret; // Torreta es el objetivo más cercano
             else StopFollow();
         }
+    }    
+
+    public void StopFollow()
+    {
+        stateMachine.SetBool("isFollowing", false);
     }
 
-    protected virtual void CheckStopDistance()
+    public void StartFollow()
     {
-        if (currentTarget != null)
-            distance = Vector2.Distance(transform.position, currentTarget.transform.position);
-        else
-        {
-            TryUpdateTarget();
-            return;
-        }
-
-        // Comprobar si tenemos un objetivo y si estamos lo suficientemente lejos de él.
-        if (distance > stopDistance)
-            StartFollow();
-
-        else if (distance <= stopDistance && currentState == EnemyState.Follow)
-        {
-            StopFollow();
-            Emerge();
-        }
-    }
-
-    protected void StopFollow()
-    {
-        followState.enabled = false;
-    }
-
-    protected void StartFollow()
-    {
-        followState.enabled = true;
+        currentState = EnemyState.Follow;
+        stateMachine.SetBool("isFollowing", true);
     }
 
     protected void StartAttack()
@@ -169,13 +149,11 @@ public class EnemyBrainController : MonoBehaviour
 
     public void StopAttack()
     {
-        attackState.enabled = false;
+        currentState = EnemyState.Follow;
+        canmove = true;
     }
 
-    public void Emerge()
-    {
-        stateMachine.SetTrigger("Emerge");
-    }
+    
 
     public void SetTurret(GameObject newTurret)
     {

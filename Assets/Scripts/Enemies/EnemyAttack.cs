@@ -6,31 +6,18 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] EnemyStats stats;
     [SerializeField] Transform AttackPoint;
 
-    private Animator stateMachine;
     protected float attackTimer;
     protected bool canAttack;
 
     private void Awake()
     {
         controller = GetComponent<EnemyBrainController>();
-        stateMachine = GetComponent<Animator>();
         attackTimer = stats.hitDelay;
     }
 
     private void Update()
     {
         CheckAttackDelay();
-    }
-
-    private void OnEnable()
-    {
-        stateMachine.SetTrigger("Attack");
-        controller.currentState = EnemyState.Attack;
-    }
-
-    private void OnDisable()
-    {
-        controller.currentState = EnemyState.Follow;        
     }
 
     public virtual void Attack()
@@ -64,7 +51,7 @@ public class EnemyAttack : MonoBehaviour
     }
 
     public void OnFinishAttack()
-    {
+    {       
         controller.StopAttack();
     }
 

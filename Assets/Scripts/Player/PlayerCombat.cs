@@ -39,7 +39,7 @@ public class PlayerCombat : MonoBehaviour
 
             Debug.Log(enemy.gameObject.name);
             IDamageable damageable = enemy.GetComponent<IDamageable>();
-            damageable?.TakeDamage(stats.damage, -transform.position);
+            damageable?.TakeDamage(stats.damage);
         }
 
     }
