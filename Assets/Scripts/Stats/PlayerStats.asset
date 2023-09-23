@@ -16,7 +16,7 @@ MonoBehaviour:
   moveSpeed: 5
   damage: 5
   raidusRange: 0.5
-  baseAttackDelay: 0
+  baseAttackDelay: 1.5
   firstHabilityDelay: 0
   secondHabilityDelay: 0
   enemyLayer:
