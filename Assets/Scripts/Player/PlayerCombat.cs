@@ -71,6 +71,8 @@ public class PlayerCombat : MonoBehaviour
 
     }
 
+    // TODO
+    // Temporal, waiting to anim
     IEnumerator VisibleAttack()
     {
         AttackPoint.gameObject.SetActive(true);
