@@ -42,7 +42,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Turrets
+  m_Name: Environment
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 94ee56dc45fa0a14f945d4e336d2f1b9
   m_Children: []
@@ -127,10 +127,16 @@ AudioMixerController:
     name: DialogsVolume
   - guid: 0e157e4f2a81602498ed26fee660e8e8
     name: EffectsVolume
+  - guid: 838490c2daea47b4a9353b08ab970515
+    name: EnvironmentVolume
   - guid: 3314e3a62319e07408d06f4727b80e00
     name: MasterVolume
+  - guid: 37d83d32cae1e4e4d967253fa95f9a0d
+    name: MonstersVolume
   - guid: e70aac4046fcacb40a3ada3480e8cd83
     name: MusicVolume
+  - guid: 9d1b43dd4f2599b49a5e16df8c1e55ac
+    name: PlayerVolume
   m_AudioMixerGroupViews:
   - guids:
     - 250c2df5ef735a24499195c07eaa2b4b
