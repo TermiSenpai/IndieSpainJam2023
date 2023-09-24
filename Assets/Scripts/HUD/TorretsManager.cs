@@ -10,6 +10,6 @@ public class TorretsManager : MonoBehaviour
     private void Start()
     {
         //IW = GetComponent<InteractiveWorld>();
-        Debug.Log(IW);
+
     }
 }
