@@ -16,19 +16,19 @@ public enum DayTime
 
 public class DayCycle : MonoBehaviour
 {
-    public TextMeshProUGUI timeDisplay;
-    public TextMeshProUGUI dayDiplay; 
-    public Volume ppv; //post processing volume
+    [SerializeField] private TextMeshProUGUI timeDisplay;
+    [SerializeField] private TextMeshProUGUI dayDiplay;
+    [SerializeField] private Volume ppv; //post processing volume
 
-    public float tick = 10;
-    public float seconds=0;
-    public int mins = 0;
+    private float seconds=0;
+    [SerializeField] int DayNightTime = 60;
+    [SerializeField] int SunriseEveningTime = 30;
     int time = 60;
-    public int days = 1;
+    private int days = 1;
 
-    public bool activateLights;
-    public GameObject[] lights;
-    public DayTime DTime = DayTime.Day;
+    private bool activateLights;
+    [SerializeField]private GameObject[] lights;
+    private DayTime DTime = DayTime.Day;
 
 
     public delegate void DayCycleDelegate();
@@ -82,11 +82,11 @@ public class DayCycle : MonoBehaviour
         }
         if (DTime == DayTime.Evening || DTime == DayTime.Sunrise)
         {
-            time = 5;
+            time = SunriseEveningTime;
         }
         else
         {
-            time = 10;
+            time = DayNightTime;
         }
 
         ControlPPV();
