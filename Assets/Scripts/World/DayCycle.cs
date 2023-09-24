@@ -21,8 +21,8 @@ public class DayCycle : MonoBehaviour
     [SerializeField] private Volume ppv; //post processing volume
 
     private float seconds=0;
-    [SerializeField] int DayTimer = 7;
-    [SerializeField] int NightTimer = 10;
+    [SerializeField] int DayTimer = 5;
+    [SerializeField] int NightTimer = 9;
     [SerializeField] int SunriseEveningTimer = 5;
     int time = 60;
     private int days = 1;
@@ -133,8 +133,8 @@ public class DayCycle : MonoBehaviour
 
     public void DisplayTime()
     {
-       // timeDisplay.text = "Time: " + (int)seconds;
-       // dayDiplay.text = "Day: " + days;
+        //timeDisplay.text = "Time: " + (int)seconds;
+        //dayDiplay.text = "Day: " + days;
     }
 
 
