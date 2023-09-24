@@ -4,14 +4,8 @@ using UnityEngine;
 
 public class SpawnPointManager : MonoBehaviour
 {
-    public static SpawnPointManager Instance;
+    private Transform[] spawnpoints;
 
-    public Transform[] spawnpoints;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
 
     private void Start()
     {

@@ -71,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 905344069
+  m_SortingLayer: 2
   m_SortingOrder: 119
   m_Sprite: {fileID: 1856879315, guid: 7a781de1e1badab4aaea6bc42d6abcf9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 1273500813833190140}
   - component: {fileID: 684587129627642853}
   - component: {fileID: 8470607488995071414}
+  - component: {fileID: 2100323024415225941}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -187,8 +188,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1506162919
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -1159219754, guid: fb86fac61161fbf4b87a647e12b644c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -228,8 +229,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: c89e416d141b05e46af35fc83f84d4c1, type: 2}
   deathSound: {fileID: 8300000, guid: 51766573ab3b45d48bca83d18d34319d, type: 3}
-  redTime: 2
-  invincibleTime: 2
+  redTime: 0.2
+  invincibleTime: 1
 --- !u!114 &6693926515737185211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,7 +279,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4216108339750101443}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -440,7 +441,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.109184265}
+  m_Offset: {x: 0, y: -0.29301763}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -451,7 +452,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6666667, y: 1.3711691}
+  m_Size: {x: 0.6666667, y: 1.0035024}
   m_EdgeRadius: 0
 --- !u!82 &684587129627642853
 AudioSource:
@@ -564,6 +565,19 @@ MonoBehaviour:
   combatScript: {fileID: 6693926515737185211}
   buildScript: {fileID: 0}
   recolectionScript: {fileID: 0}
+--- !u!114 &2100323024415225941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4216108339750101443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e40aa08bcaa155a44acf698824c81728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HUD: {fileID: 0}
 --- !u!1 &5006589459378228351
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float maxSpawnDelay;
     [SerializeField] float currentTimer;
 
+    [SerializeField] SpawnPointManager spawnPointManager;
+
 
     private void OnEnable()
     {
@@ -35,15 +37,12 @@ public class EnemySpawner : MonoBehaviour
             if (enemy != null)
             {
                 // Configura la posición y otros atributos del enemigo
-                enemy.transform.position = SpawnPointManager.Instance.GetRandomSpawnpoint().position;
+                enemy.transform.position = spawnPointManager.GetRandomSpawnpoint().position;
                 // Activa el enemigo
                 enemy.SetActive(true);
                 currentTimer = maxSpawnDelay;
             }
         }
-
-
-
     }
 
     void SpawnEnemies()
