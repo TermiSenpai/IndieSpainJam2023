@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     [SerializeField] AudioClip[] clips;
     private AudioSource source;
     private SpriteRenderer render;
+    private Animator anim;
 
     [Header("Timers")]
     [SerializeField] private float redTime;
@@ -17,10 +18,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     // Variables
     private float currentHealth;
     private bool canBeDamaged = true;
-    private bool isDead= false;
+    private bool isDead = false;
 
     private void Start()
     {
+        anim = GetComponent<Animator>();    
         render = GetComponent<SpriteRenderer>();
         source = GetComponent<AudioSource>();
         currentHealth = stats.MaxHealth;
@@ -49,10 +51,16 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         if (currentHealth <= 0)
         {
             isDead = true;
-            //gameObject.SetActive(false);
+            canBeDamaged = false;
+            anim.SetTrigger("Death");
         }
     }
-     
+
+    public void DisableEnemy()
+    {
+        gameObject.SetActive(false);
+    }
+
     private AudioClip TakeRandomStepSound()
     {
         return clips[Random.Range(0, clips.Length)];
