@@ -82,6 +82,8 @@ public class EnemyBrainController : MonoBehaviour
     private void OnEnable()
     {
         PlayerHealth.PlayerDeathRelease += OnPlayerDeath;
+        currentState = EnemyState.Follow;
+        canmove = true;
     }
 
     private void OnDisable()
