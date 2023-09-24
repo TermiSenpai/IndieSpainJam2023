@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 
     #region Inspector variables
     [Header("Variables")]
-    [SerializeField] float movementSpeed = 5f;
+    [SerializeField] PlayerStats stats;
     #endregion
 
     #region Private Variables
@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void LateUpdate()
     {
-        playerRb.MovePosition(playerRb.position + movementSpeed * Time.fixedDeltaTime * moveInput);
+        playerRb.MovePosition(playerRb.position + stats.moveSpeed * Time.fixedDeltaTime * moveInput);
     }
     #endregion
 }
