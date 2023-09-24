@@ -45,10 +45,10 @@ public class DayCycle : MonoBehaviour
 
 
     public delegate void DayCycleDelegate();
-    public static DayCycleDelegate DayStart;
-    public static DayCycleDelegate EveningStart;
-    public static DayCycleDelegate NightStart;
-    public static DayCycleDelegate SunriseStart;
+    public static DayCycleDelegate DayStartRelease;
+    public static DayCycleDelegate EveningStartRelease;
+    public static DayCycleDelegate NightStartRelease;
+    public static DayCycleDelegate SunriseStartRelease;
 
 
 
@@ -94,7 +94,7 @@ public class DayCycle : MonoBehaviour
             m_Tilemap.SetTile(t.Item1,TBase);
         }
         DayChange();
-        DayStart?.Invoke();
+        DayStartRelease?.Invoke();
         ppv = gameObject.GetComponent<Volume>();
     }
 
@@ -118,20 +118,20 @@ public class DayCycle : MonoBehaviour
                 DTime = (DayTime)((int)DTime + 1);
                 if(((int)DTime + 1) == 1)
                 {
-                    EveningStart?.Invoke();
+                    EveningStartRelease?.Invoke();
                 }else if(((int)DTime + 1) == 2)
                 {
-                    NightStart?.Invoke();
+                    NightStartRelease?.Invoke();
                 }else if(((int)DTime + 1) == 3)
                 {
-                    SunriseStart?.Invoke();
+                    SunriseStartRelease?.Invoke();
                 }
             }
             else
             {
                 DayChange();
                 DTime = (DayTime)0;
-                DayStart?.Invoke();
+                DayStartRelease?.Invoke();
             }
         }
         if (DTime == DayTime.Evening)

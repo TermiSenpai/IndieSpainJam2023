@@ -13,14 +13,14 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        DayCycle.NightStart += SpawnEnemies;
-        DayCycle.DayStart += StopSpawn;
+        DayCycle.NightStartRelease += SpawnEnemies;
+        DayCycle.DayStartRelease += StopSpawn;
     }
 
     private void OnDisable()
     {
-        DayCycle.NightStart -= SpawnEnemies;
-        DayCycle.DayStart -= StopSpawn;
+        DayCycle.NightStartRelease -= SpawnEnemies;
+        DayCycle.DayStartRelease -= StopSpawn;
     }
 
     private void Update()

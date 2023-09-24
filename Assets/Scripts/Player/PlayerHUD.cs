@@ -3,6 +3,12 @@ using UnityEngine;
 public class PlayerHUD : MonoBehaviour
 {
     [SerializeField] private GameObject HUD;
+    private HUD hud;
+
+    private void Start()
+    {
+        hud = HUD.GetComponent<HUD>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -20,11 +26,11 @@ public class PlayerHUD : MonoBehaviour
 
     public void Activate()
     {
-        HUD.SetActive(true);
+        hud.HUDActivated();
     }
 
     public void DeActivate()
     {
-        HUD.SetActive(false);
+        hud?.HUDDeactivated();
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class TorretsHUD : MonoBehaviour
 {
@@ -12,14 +13,26 @@ public class TorretsHUD : MonoBehaviour
     public InteractiveWorld world;
 
 
+   
+
     private void Start()
     {
         initialParent=this.transform.parent;
-        //world = this.transform.parent.gameObject.transform.parent.gameObject.GetComponent<TorretsManager>().IW;
-        //world = GetComponent<InteractiveWorld>();
     }
     public void DragHandler(BaseEventData data)
     {
+        ///TODO :mirar si puedes construir si tienes mana/madera 
+
+
+
+
+        ///TODO mirar a ver si se puede construir
+        /*if (!PlayerStateManager.Instance.canBuild)
+        {
+            return;
+        }*/
+
+        this.GetComponent<Image>().color = new Color32(255, 255, 255, 50);
         PointerEventData pointerEventData = data as PointerEventData;
         Vector2 position;
         RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)canvas.transform, pointerEventData.position, canvas.worldCamera, out position);
@@ -32,10 +45,12 @@ public class TorretsHUD : MonoBehaviour
     }
     public void DropHandler()
     {
+        
         this.transform.SetParent(initialParent);
         transform.position = this.transform.parent.position;
         GameObject aux = (GameObject)Instantiate(Torrets, new Vector3(0, 0, 0), Quaternion.identity);
         world.Construct(aux);
+        
     }
 
 }

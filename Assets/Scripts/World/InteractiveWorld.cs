@@ -18,6 +18,9 @@ public class InteractiveWorld : MonoBehaviour
     private Vector3Int previousGridPos = new Vector3Int();
     private Vector3Int adjPos;
 
+    public delegate void ItemDelegate();
+    public static ItemDelegate onItemBuildRelease;
+
     /// <summary>
     /// Delay between moves used for debouncing
     /// </summary>
@@ -117,13 +120,16 @@ public class InteractiveWorld : MonoBehaviour
             var type = dataFromTiles[clickedOne].Type;
             if (type == TileType.Construct)
             {
+            
+                
                 if (!dataFromTiles[clickedOne].OcupedPos.ContainsKey(adjPos))
                 {
                     dataFromTiles[clickedOne].OcupedPos.Add(adjPos, TType);
                     TType.transform.position = m_Tilemap.CellToWorld(adjPos);
-                    //TType.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    //TType.transform.position = new Vector3(TType.transform.position.x, TType.transform.position.y,0);
-                }
+                    onItemBuildRelease?.Invoke();
+                //TType.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                //TType.transform.position = new Vector3(TType.transform.position.x, TType.transform.position.y,0);
+            }
                 else
                 {
                     Debug.Log("Ocupado");
