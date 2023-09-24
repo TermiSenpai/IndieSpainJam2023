@@ -94,6 +94,7 @@ public class EnemyBrainController : MonoBehaviour
     protected void OnPlayerDeath()
     {
         prioritizeCampfire = true;
+        DisableMonsterVolume();
     }
 
     protected virtual void LookTarget()
@@ -190,4 +191,8 @@ public class EnemyBrainController : MonoBehaviour
         StartFollow();
     }
 
+    private void DisableMonsterVolume() 
+    {
+        source.volume = 0;
+    }
 }
