@@ -14,11 +14,21 @@ public class VolumeSettings : MonoBehaviour
     [SerializeField] private Slider effectSlider;
     [SerializeField] private Slider dialogSlider;
 
+    //Subgroups
+    [SerializeField] private Slider monstersSlider;
+    [SerializeField] private Slider playerSlider;
+    [SerializeField] private Slider environmentSlider;
+
     // mixer exposed names
     private const string masterName = "MasterVolume";
     private const string musicName = "MusicVolume";
     private const string fxName = "EffectsVolume";
     private const string dialogName = "DialogsVolume";
+
+    // Subgroups
+    private const string monstersName = "MonstersVolume";
+    private const string playerName = "PlayerVolume";
+    private const string environmentName = "EnvironmentVolume";
 
     #endregion
 
@@ -40,6 +50,11 @@ public class VolumeSettings : MonoBehaviour
         SetVolume(musicName, musicSlider.value);
         SetVolume(fxName, effectSlider.value);
         SetVolume(dialogName, dialogSlider.value);
+
+        // Subgroups
+        SetVolume(monstersName, monstersSlider.value);
+        SetVolume(playerName, playerSlider.value);
+        SetVolume(environmentName, environmentSlider.value);
     }
 
     private void LoadSaveValues()
@@ -48,11 +63,20 @@ public class VolumeSettings : MonoBehaviour
         float musicVolume = PlayerPrefs.GetFloat(musicName, 0.5f);
         float sfxVolume = PlayerPrefs.GetFloat(fxName, 0.5f);
         float dialogVolume = PlayerPrefs.GetFloat(dialogName, 0.5f);
+        // Subgroups
+        float monstersVolume = PlayerPrefs.GetFloat(monstersName, 0.5f);
+        float playerVolume = PlayerPrefs.GetFloat(playerName, 0.5f);
+        float environmentVolume = PlayerPrefs.GetFloat(environmentName, 0.5f);
 
         masterSlider.value = masterVolume;
         musicSlider.value = musicVolume;
         effectSlider.value = sfxVolume;
         dialogSlider.value = dialogVolume;
+
+        // Subgroups
+        monstersSlider.value = monstersVolume;
+        playerSlider.value = playerVolume;
+        environmentSlider.value = environmentVolume;
     }
     #endregion
 
@@ -64,6 +88,11 @@ public class VolumeSettings : MonoBehaviour
         musicSlider.onValueChanged.AddListener(delegate { SetVolume(musicName, musicSlider.value); });
         effectSlider.onValueChanged.AddListener(delegate { SetVolume(fxName, effectSlider.value); });
         dialogSlider.onValueChanged.AddListener(delegate { SetVolume(dialogName, dialogSlider.value); });
+
+        // Subgroups
+        monstersSlider.onValueChanged.AddListener(delegate { SetVolume(monstersName, monstersSlider.value); });
+        playerSlider.onValueChanged.AddListener(delegate { SetVolume(playerName, playerSlider.value); });
+        environmentSlider.onValueChanged.AddListener(delegate { SetVolume(environmentName, environmentSlider.value); });
     }
 
     private void SetVolume(string volumeType, float volume)
