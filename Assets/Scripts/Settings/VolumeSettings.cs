@@ -13,7 +13,7 @@ public class VolumeSettings : MonoBehaviour
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider effectSlider;
     [SerializeField] private Slider dialogSlider;
-
+    [Space]
     //Subgroups
     [SerializeField] private Slider monstersSlider;
     [SerializeField] private Slider playerSlider;
