@@ -40,7 +40,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (playerLose) return;
 
         StartCoroutine(ChangeColor());
-        StartCoroutine(invincibleMode());
+        StartCoroutine(InvincibleMode());
     }
 
     private void CheckCurrentHealth()
@@ -52,6 +52,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
             source.PlayOneShot(deathSound);
             //gameObject.SetActive(false);
             playerLose = true;
+            canBeDamaged = false;
         }
     }
 
@@ -63,7 +64,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         render.color = Color.white;
     }
 
-    private IEnumerator invincibleMode()
+    private IEnumerator InvincibleMode()
     {
         canBeDamaged = false;
         yield return new WaitForSeconds(invincibleTime);
