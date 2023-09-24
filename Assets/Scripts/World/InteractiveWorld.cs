@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,7 +31,7 @@ public class InteractiveWorld : MonoBehaviour
     private float timeAccum;
 
 
-    private void Awake()
+    private void Start()
     {
         dataFromTiles = new Dictionary<TileBase, TileData>();
 
@@ -49,7 +50,7 @@ public class InteractiveWorld : MonoBehaviour
 
     void Update()
     {
-
+        Debug.Log("hey");
         Selected();
         
     }
@@ -61,6 +62,7 @@ public class InteractiveWorld : MonoBehaviour
 
         if (!Input.GetMouseButton(0))
             return;
+
 
         if (m_Delay < 0.2f)
             m_Delay = 0.2f;
@@ -111,26 +113,32 @@ public class InteractiveWorld : MonoBehaviour
 
     public void Construct(GameObject TType)
     {
-        Debug.Log(TType);
-        TileBase clickedOne = m_Tilemap.GetTile(adjPos);
-        var type = dataFromTiles[clickedOne].Type;
-        if (type == TileType.Construct)
+        try
         {
-            if (!dataFromTiles[clickedOne].OcupedPos.ContainsKey(adjPos))
+            Debug.Log(TType);
+            TileBase clickedOne = m_Tilemap.GetTile(adjPos);
+            var type = dataFromTiles[clickedOne].Type;
+            if (type == TileType.Construct)
             {
-                dataFromTiles[clickedOne].OcupedPos.Add(adjPos, TType);
-                TType.transform.position = adjPos;
-                TType.transform.position = m_Tilemap.CellToWorld(adjPos);
-                //TType.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                //TType.transform.position = new Vector3(TType.transform.position.x, TType.transform.position.y,0);
+                if (!dataFromTiles[clickedOne].OcupedPos.ContainsKey(adjPos))
+                {
+                    dataFromTiles[clickedOne].OcupedPos.Add(adjPos, TType);
+                    TType.transform.position = adjPos;
+                    TType.transform.position = m_Tilemap.CellToWorld(adjPos);
+                    //TType.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    //TType.transform.position = new Vector3(TType.transform.position.x, TType.transform.position.y,0);
+                }
+                else
+                {
+                    Debug.Log("Ocupado");
+                    Destroy(TType);
+                }
             }
             else
             {
-                Debug.Log("Ocupado");
                 Destroy(TType);
             }
-        }
-        else
+        }catch(Exception e)
         {
             Destroy(TType);
         }
