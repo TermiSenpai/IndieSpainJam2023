@@ -18,7 +18,9 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     [SerializeField] private float invincibleTime = 2f;
     // Events
     public delegate void PlayerHealthDelegate();
+    public delegate void PlayerHitDelegate(float hp);
     public static PlayerHealthDelegate PlayerDeathRelease;
+    public static PlayerHitDelegate PlayerTakeDamageRelease;
 
     private void Start()
     {
@@ -34,6 +36,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (!canBeDamaged) return;
 
         currentHealth -= damage;
+        PlayerTakeDamageRelease?.Invoke(currentHealth);
         CheckCurrentHealth();
 
         // stop if player die
