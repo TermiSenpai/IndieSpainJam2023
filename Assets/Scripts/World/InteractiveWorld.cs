@@ -21,9 +21,6 @@ public class InteractiveWorld : MonoBehaviour
     public delegate void ItemDelegate();
     public static ItemDelegate onItemBuildRelease;
 
-    /// <summary>
-    /// Delay between moves used for debouncing
-    /// </summary>
     public float m_Delay = 0.2f;
 
     //used for debouncing

@@ -61,9 +61,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4874706880516021512}
     m_Modifications:
+    - target: {fileID: 897995124318066908, guid: 16aa62bef34ed7d44918b42793c317c0, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1515195045898129583, guid: 16aa62bef34ed7d44918b42793c317c0, type: 3}
       propertyPath: m_Name
       value: TorretsTAB
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463196293282948045, guid: 16aa62bef34ed7d44918b42793c317c0, type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3489607557565962194, guid: 16aa62bef34ed7d44918b42793c317c0, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -101,6 +109,10 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4870633381651224560, guid: 16aa62bef34ed7d44918b42793c317c0, type: 3}
+      propertyPath: hud
+      value: 
+      objectReference: {fileID: 8468476512105867716}
     - target: {fileID: 5080923601400801463, guid: 16aa62bef34ed7d44918b42793c317c0, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -191,26 +203,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6104242969584388603, guid: 16aa62bef34ed7d44918b42793c317c0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6104242969584388603, guid: 16aa62bef34ed7d44918b42793c317c0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7552342801130091242, guid: 16aa62bef34ed7d44918b42793c317c0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7552342801130091242, guid: 16aa62bef34ed7d44918b42793c317c0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8085169371132485257, guid: 16aa62bef34ed7d44918b42793c317c0, type: 3}
+      propertyPath: hud
+      value: 
+      objectReference: {fileID: 8468476512105867716}
+    - target: {fileID: 8584531898033127500, guid: 16aa62bef34ed7d44918b42793c317c0, type: 3}
+      propertyPath: hud
+      value: 
+      objectReference: {fileID: 8468476512105867716}
     - target: {fileID: 9100584908364370814, guid: 16aa62bef34ed7d44918b42793c317c0, type: 3}
       propertyPath: HUD
       value: 
       objectReference: {fileID: 3283261884814542028}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3146313046526290775, guid: 16aa62bef34ed7d44918b42793c317c0, type: 3}
+    - {fileID: 4651903635297368147, guid: 16aa62bef34ed7d44918b42793c317c0, type: 3}
+    - {fileID: 6840918646136477037, guid: 16aa62bef34ed7d44918b42793c317c0, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16aa62bef34ed7d44918b42793c317c0, type: 3}
