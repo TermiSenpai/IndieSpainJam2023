@@ -6,11 +6,12 @@ public class EnemyFollow : MonoBehaviour
     private Animator stateMachine;
     private Rigidbody2D rb;
 
-    
+
 
     [SerializeField] private EnemyStats stats;
     float distance;
     [SerializeField] private float stopDistance = 1.25f;
+    [SerializeField] private AudioClip emergeClip;
 
     private void Awake()
     {
@@ -82,6 +83,11 @@ public class EnemyFollow : MonoBehaviour
         stateMachine.SetTrigger("Emerge");
         controller.StopFollow();
         controller.canmove = false;
+    }
+
+    public void PlayEmergeSound()
+    {
+        controller.source.PlayOneShot(emergeClip);
     }
 
 }

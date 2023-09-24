@@ -16,7 +16,7 @@ public class PlayerCombat : MonoBehaviour
     {
         source = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
-        timerAttack = stats.baseAttackDelay;
+        timerAttack = 0;
     }
     private void Update()
     {
