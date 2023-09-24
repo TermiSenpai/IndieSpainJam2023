@@ -18,8 +18,10 @@ public class EnemyBrainController : MonoBehaviour
     private GameObject player;
     private GameObject campfire;
     private GameObject turret;
-
+    [HideInInspector]
+    public AudioSource source;    
     // States scripts
+    [Header("States references")]
     [SerializeField] private EnemyAttack attackState;
     [SerializeField] private EnemyFollow followState;
 
@@ -45,6 +47,7 @@ public class EnemyBrainController : MonoBehaviour
         stateMachine = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag(playerTag);
         campfire = GameObject.FindGameObjectWithTag(campfireTag);
+        source = GetComponent<AudioSource>();
     }
     private void Start()
     {

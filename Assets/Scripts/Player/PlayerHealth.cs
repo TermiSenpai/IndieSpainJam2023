@@ -3,19 +3,28 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
+    // References
     [SerializeField] PlayerStats stats;
     private SpriteRenderer render;
+    private Animator anim;
+    private AudioSource source;
+    [SerializeField] AudioClip deathSound;
 
+    // properties
     private float currentHealth;
     private bool canBeDamaged = true;
-
+    private bool playerLose = false;
+    [SerializeField] private float redTime = 2f;
+    [SerializeField] private float invincibleTime = 2f;
+    // Events
     public delegate void PlayerHealthDelegate();
     public static PlayerHealthDelegate PlayerDeathRelease;
-    private bool playerLose = false;
 
     private void Start()
     {
         render = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+        source = GetComponent<AudioSource>();
         currentHealth = stats.MaxHealth;
     }
 
@@ -31,7 +40,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (playerLose) return;
 
         StartCoroutine(ChangeColor());
-        StartCoroutine(InvencibleMode());
+        StartCoroutine(invincibleMode());
     }
 
     private void CheckCurrentHealth()
@@ -39,7 +48,9 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (currentHealth <= 0)
         {
             PlayerDeathRelease?.Invoke();
-            gameObject.SetActive(false);
+            anim.SetTrigger("Death");
+            source.PlayOneShot(deathSound);
+            //gameObject.SetActive(false);
             playerLose = true;
         }
     }
@@ -48,14 +59,14 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         Color damagedColor = Color.red;
         render.color = damagedColor;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(redTime);
         render.color = Color.white;
     }
 
-    private IEnumerator InvencibleMode()
+    private IEnumerator invincibleMode()
     {
         canBeDamaged = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(invincibleTime);
         canBeDamaged = true;
     }
 
