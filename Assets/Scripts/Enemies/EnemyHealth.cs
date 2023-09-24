@@ -43,7 +43,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         if (isDead) return;
 
         StartCoroutine(ChangeColor());
-        StartCoroutine(invincibleMode());
+        StartCoroutine(InvincibleMode());
 
     }
 
@@ -62,7 +62,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     public void DisableEnemy()
     {
-        gameObject.SetActive(false);
+        EnemyObjectPool.Instance.ReturnEnemyToPool(gameObject);
     }
 
     private AudioClip TakeRandomStepSound()
@@ -81,7 +81,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(redTime);
         render.color = Color.white;
     }
-    private IEnumerator invincibleMode()
+    private IEnumerator InvincibleMode()
     {
         canBeDamaged = false;
         yield return new WaitForSeconds(invincibleTime);
@@ -97,10 +97,5 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     private void OnEnable()
     {
         ResetHealth();
-    }
-
-    private void OnDisable()
-    {
-        
     }
 }

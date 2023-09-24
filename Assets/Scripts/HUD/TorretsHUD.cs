@@ -9,13 +9,13 @@ public class TorretsHUD : MonoBehaviour
     [SerializeField] private GameObject HUD;
     [SerializeField] private GameObject Torrets;
     private Transform initialParent;
-    private InteractiveWorld world;
+    public InteractiveWorld world;
 
 
     private void Start()
     {
         initialParent=this.transform.parent;
-        world = this.transform.parent.gameObject.transform.parent.gameObject.GetComponent<TorretsManager>().IW;
+        //world = this.transform.parent.gameObject.transform.parent.gameObject.GetComponent<TorretsManager>().IW;
         //world = GetComponent<InteractiveWorld>();
     }
     public void DragHandler(BaseEventData data)

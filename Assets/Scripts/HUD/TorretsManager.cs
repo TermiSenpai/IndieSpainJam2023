@@ -10,6 +10,10 @@ public class TorretsManager : MonoBehaviour
     private void Start()
     {
         //IW = GetComponent<InteractiveWorld>();
-
+        TorretsHUD[] HUDS= GetComponentsInChildren<TorretsHUD>();
+        foreach (TorretsHUD h in HUDS)
+        {
+            h.world = IW;
+        }
     }
 }

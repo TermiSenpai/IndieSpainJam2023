@@ -26,7 +26,6 @@ public class DayCycle : MonoBehaviour
     [SerializeField] int SunriseTimer = 5;
     [SerializeField] int EveningTimer = 5;
     int time = 60;
-    private int days = 1;
 
     private bool activateLights;
     [SerializeField]private GameObject[] lights;
@@ -77,7 +76,6 @@ public class DayCycle : MonoBehaviour
             }
             else
             {
-                days++;
                 DTime = (DayTime)0;
                 DayStart?.Invoke();
             }
