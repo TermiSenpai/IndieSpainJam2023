@@ -5,6 +5,11 @@ using UnityEngine;
 using TMPro; // using text mesh for the clock display
 
 using UnityEngine.Rendering; // used to access the volume component
+using UnityEngine.Tilemaps;
+using System.Drawing;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.WSA;
+using System;
 
 public enum DayTime
 {
@@ -26,10 +31,17 @@ public class DayCycle : MonoBehaviour
     [SerializeField] int SunriseTimer = 5;
     [SerializeField] int EveningTimer = 5;
     int time = 60;
+    int days = 0;
 
     private bool activateLights;
     [SerializeField]private GameObject[] lights;
-    public DayTime DTime = DayTime.Day;
+    private DayTime DTime = DayTime.Day;
+
+    [SerializeField] private Tilemap m_Tilemap = null;
+    [SerializeField] private TileBase TBase = null;
+    [SerializeField] private List<TileData> tileDatas;
+    private Dictionary<TileBase, TileData> dataFromTiles;
+    private List<Tuple<Vector3Int,string>> TilesDates;
 
 
     public delegate void DayCycleDelegate();
@@ -38,9 +50,50 @@ public class DayCycle : MonoBehaviour
     public static DayCycleDelegate NightStart;
     public static DayCycleDelegate SunriseStart;
 
+
+
+
     // Start is called before the first frame update
     void Start()
     {
+        TilesDates = new List<Tuple<Vector3Int, string>>();
+
+         dataFromTiles = new Dictionary<TileBase, TileData>();
+        //Debug.Log("hey");
+        foreach (var tileData in tileDatas)
+        {
+            foreach (var tile in tileData.tiles)
+            {
+                dataFromTiles.Add(tile, tileData);
+              //  Debug.Log(tile + ", " + tileData);
+            }
+        }
+
+        List<Vector3> availablePlaces = new List<Vector3>();
+
+        for (int n = m_Tilemap.cellBounds.xMin; n < m_Tilemap.cellBounds.xMax; n++)
+        {
+            for (int p = m_Tilemap.cellBounds.yMin; p < m_Tilemap.cellBounds.yMax; p++)
+            {
+                Vector3Int pos = new Vector3Int(n, p, 0);
+                TileBase tile = m_Tilemap.GetTile(pos);
+                //m_Tilemap.SetTile(new Vector3Int(n, p, 0),null);
+                //Debug.Log(tile);
+                if (tile == null) { }
+                else
+                {
+                    if (dataFromTiles.ContainsKey(tile))
+                    {
+                        TilesDates.Add(new Tuple<Vector3Int, string>(pos,tile.name));
+                    }
+                }
+            }
+        }
+        foreach(Tuple<Vector3Int, string> t in TilesDates)
+        {
+            m_Tilemap.SetTile(t.Item1,TBase);
+        }
+        DayChange();
         DayStart?.Invoke();
         ppv = gameObject.GetComponent<Volume>();
     }
@@ -76,6 +129,7 @@ public class DayCycle : MonoBehaviour
             }
             else
             {
+                DayChange();
                 DTime = (DayTime)0;
                 DayStart?.Invoke();
             }
@@ -133,6 +187,15 @@ public class DayCycle : MonoBehaviour
             }
         }
     }
+
+    private void DayChange()
+    {
+        
+        if (days >= 7) { return; }
+        m_Tilemap.SetTile(TilesDates[days].Item1, Resources.Load<TileBase>("Tiles/"+ TilesDates[days].Item2));
+        days++;
+    }
+
 
     public void DisplayTime()
     {
