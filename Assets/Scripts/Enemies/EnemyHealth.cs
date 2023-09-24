@@ -56,6 +56,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
             anim.SetTrigger("Death");
             source.Stop();
             source.PlayOneShot(deathClip);
+            Invoke(nameof(DisableEnemy), 4f);
         }
     }
 
