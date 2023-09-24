@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d50baf237cd564eb3786fea85aa8f3, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  MaxHealth: 10
+  MaxHealth: 25
   moveSpeed: 5
   damage: 5
   raidusRange: 0.75
