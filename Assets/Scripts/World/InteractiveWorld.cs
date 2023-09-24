@@ -50,9 +50,7 @@ public class InteractiveWorld : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("hey");
         Selected();
-        
     }
 
     void Selected()
@@ -113,9 +111,9 @@ public class InteractiveWorld : MonoBehaviour
 
     public void Construct(GameObject TType)
     {
-        try
-        {
-            Debug.Log(TType);
+        //try
+        //{
+        //{
             TileBase clickedOne = m_Tilemap.GetTile(adjPos);
             var type = dataFromTiles[clickedOne].Type;
             if (type == TileType.Construct)
@@ -138,10 +136,11 @@ public class InteractiveWorld : MonoBehaviour
             {
                 Destroy(TType);
             }
-        }catch(Exception e)
+        /*}catch(Exception e)
         {
+
             Destroy(TType);
-        }
+        }*/
     }
 
 }

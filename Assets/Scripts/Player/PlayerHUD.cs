@@ -8,7 +8,6 @@ public class PlayerHUD : MonoBehaviour
     {
         if (Input.GetKeyDown("tab"))
         {
-            Debug.Log(HUD.activeSelf);
             if (!HUD.activeSelf) {
                 Activate();
             }
@@ -16,7 +15,6 @@ public class PlayerHUD : MonoBehaviour
             {
                 DeActivate();
             }
-            Debug.Log("tab pressed");
         }
     }
 
