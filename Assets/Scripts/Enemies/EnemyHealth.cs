@@ -26,7 +26,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         anim = GetComponent<Animator>();    
         render = GetComponent<SpriteRenderer>();
         source = GetComponent<AudioSource>();
-        currentHealth = stats.MaxHealth;
+        ResetHealth();
     }
 
     // TODO
@@ -86,5 +86,21 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         canBeDamaged = false;
         yield return new WaitForSeconds(invincibleTime);
         canBeDamaged = true;
+    }
+    private void ResetHealth()
+    {
+        currentHealth = stats.MaxHealth;
+        canBeDamaged = true;
+        isDead = false;
+    }
+
+    private void OnEnable()
+    {
+        ResetHealth();
+    }
+
+    private void OnDisable()
+    {
+        
     }
 }
