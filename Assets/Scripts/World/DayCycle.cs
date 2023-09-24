@@ -16,13 +16,14 @@ public enum DayTime
 
 public class DayCycle : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI timeDisplay;
-    [SerializeField] private TextMeshProUGUI dayDiplay;
+    //[SerializeField] private TextMeshProUGUI timeDisplay;
+    //[SerializeField] private TextMeshProUGUI dayDiplay;
     [SerializeField] private Volume ppv; //post processing volume
 
     private float seconds=0;
-    [SerializeField] int DayNightTime = 60;
-    [SerializeField] int SunriseEveningTime = 30;
+    [SerializeField] int DayTimer = 5;
+    [SerializeField] int NightTimer = 9;
+    [SerializeField] int SunriseEveningTimer = 5;
     int time = 60;
     private int days = 1;
 
@@ -48,7 +49,7 @@ public class DayCycle : MonoBehaviour
     void Update()
     {
         CalcTime();
-        DisplayTime();
+        //DisplayTime();
     }
 
     public void CalcTime()
@@ -82,11 +83,15 @@ public class DayCycle : MonoBehaviour
         }
         if (DTime == DayTime.Evening || DTime == DayTime.Sunrise)
         {
-            time = SunriseEveningTime;
+            time = SunriseEveningTimer;
+        }
+        else if(DTime == DayTime.Day)
+        {
+            time = DayTimer;
         }
         else
         {
-            time = DayNightTime;
+            time = NightTimer;
         }
 
         ControlPPV();
@@ -109,6 +114,7 @@ public class DayCycle : MonoBehaviour
                 }
             }
         }
+
         if (DTime == DayTime.Sunrise) {
             ppv.weight = 1 - (seconds / time);
             if (activateLights == true)
@@ -127,8 +133,8 @@ public class DayCycle : MonoBehaviour
 
     public void DisplayTime()
     {
-        timeDisplay.text = "Time: " + (int)seconds;
-        dayDiplay.text = "Day: " + days;
+        //timeDisplay.text = "Time: " + (int)seconds;
+        //dayDiplay.text = "Day: " + days;
     }
 
 
