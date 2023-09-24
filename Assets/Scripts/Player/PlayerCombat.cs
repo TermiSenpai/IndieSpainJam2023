@@ -5,6 +5,7 @@ public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] PlayerStats stats;
     [SerializeField] Transform AttackPoint;
+    [SerializeField] float visibleWeaponTime;
 
     private AudioSource source;
     [SerializeField] AudioClip[] clips;
@@ -80,7 +81,7 @@ public class PlayerCombat : MonoBehaviour
     {
         AttackPoint.gameObject.SetActive(true);
         PlaySwingSound();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(visibleWeaponTime);
         AttackPoint.gameObject.SetActive(false);
     }
 

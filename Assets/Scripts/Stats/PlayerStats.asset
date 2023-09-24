@@ -15,8 +15,8 @@ MonoBehaviour:
   MaxHealth: 10
   moveSpeed: 5
   damage: 5
-  raidusRange: 0.5
-  baseAttackDelay: 1.5
+  raidusRange: 0.75
+  baseAttackDelay: 0.5
   firstHabilityDelay: 0
   secondHabilityDelay: 0
   enemyLayer:
