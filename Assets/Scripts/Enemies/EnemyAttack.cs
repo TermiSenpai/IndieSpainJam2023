@@ -5,6 +5,8 @@ public class EnemyAttack : MonoBehaviour
     EnemyBrainController controller;
     [SerializeField] EnemyStats stats;
     [SerializeField] Transform AttackPoint;
+    [SerializeField] AudioClip attackSound;
+    BoxCollider2D col;
 
     protected float attackTimer;
     protected bool canAttack;
@@ -13,6 +15,7 @@ public class EnemyAttack : MonoBehaviour
     {
         controller = GetComponent<EnemyBrainController>();
         attackTimer = stats.hitDelay;
+        col = GetComponent<BoxCollider2D>();
     }
 
     private void Update()
@@ -33,7 +36,7 @@ public class EnemyAttack : MonoBehaviour
             IDamageable damageable = enemy.GetComponent<IDamageable>();
             damageable?.TakeDamage(stats.damage);
         }
-        
+
 
         OnFinishAttack();
     }
@@ -51,13 +54,13 @@ public class EnemyAttack : MonoBehaviour
     }
 
     public void OnFinishAttack()
-    {       
+    {
         controller.StopAttack();
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.gray;        
+        Gizmos.color = Color.gray;
         Gizmos.DrawWireSphere(AttackPoint.position, stats.radiusRange);
     }
 }

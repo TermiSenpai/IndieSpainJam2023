@@ -18,8 +18,10 @@ public class EnemyBrainController : MonoBehaviour
     private GameObject player;
     private GameObject campfire;
     private GameObject turret;
-
+    [HideInInspector]
+    public AudioSource source;    
     // States scripts
+    [Header("States references")]
     [SerializeField] private EnemyAttack attackState;
     [SerializeField] private EnemyFollow followState;
 
@@ -45,6 +47,7 @@ public class EnemyBrainController : MonoBehaviour
         stateMachine = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag(playerTag);
         campfire = GameObject.FindGameObjectWithTag(campfireTag);
+        source = GetComponent<AudioSource>();
     }
     private void Start()
     {
@@ -79,6 +82,8 @@ public class EnemyBrainController : MonoBehaviour
     private void OnEnable()
     {
         PlayerHealth.PlayerDeathRelease += OnPlayerDeath;
+        currentState = EnemyState.Follow;
+        canmove = true;
     }
 
     private void OnDisable()
@@ -89,6 +94,7 @@ public class EnemyBrainController : MonoBehaviour
     protected void OnPlayerDeath()
     {
         prioritizeCampfire = true;
+        DisableMonsterVolume();
     }
 
     protected virtual void LookTarget()
@@ -185,4 +191,8 @@ public class EnemyBrainController : MonoBehaviour
         StartFollow();
     }
 
+    private void DisableMonsterVolume() 
+    {
+        source.volume = 0;
+    }
 }
