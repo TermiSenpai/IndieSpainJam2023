@@ -10,13 +10,23 @@ public class PlayerHUD : MonoBehaviour
         {
             Debug.Log(HUD.activeSelf);
             if (!HUD.activeSelf) {
-                HUD.SetActive(true);
+                Activate();
             }
             else
             {
-                HUD.SetActive(false);
+                DeActivate();
             }
             Debug.Log("tab pressed");
         }
+    }
+
+    public void Activate()
+    {
+        HUD.SetActive(true);
+    }
+
+    public void DeActivate()
+    {
+        HUD.SetActive(false);
     }
 }
