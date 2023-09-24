@@ -774,6 +774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTarget: {fileID: 0}
+  source: {fileID: 0}
   attackState: {fileID: 0}
   followState: {fileID: 0}
   currentState: 0
@@ -883,6 +884,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 503157ab5eeef0445b6365764c05ef52, type: 2}
   AttackPoint: {fileID: 0}
+  attackSound: {fileID: 0}
 --- !u!1 &960044634
 GameObject:
   m_ObjectHideFlags: 0
@@ -2007,6 +2009,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTarget: {fileID: 0}
+  source: {fileID: 0}
   attackState: {fileID: 1839139945}
   followState: {fileID: 1839139947}
   currentState: 0
@@ -2070,6 +2073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: a511b1605737a664aa139de175c34d6f, type: 2}
   AttackPoint: {fileID: 1013481553}
+  attackSound: {fileID: 8300000, guid: ecbf31267ff9a3447a0d7602bcdf73cd, type: 3}
 --- !u!114 &1839139946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2083,9 +2087,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: a511b1605737a664aa139de175c34d6f, type: 2}
-  clips:
+  hurtClips:
   - {fileID: 8300000, guid: 20e6b8b06bcfa6540912e636bf4e9514, type: 3}
   - {fileID: 8300000, guid: 70f5eb286f9fcf0458861d09e41cd3fe, type: 3}
+  deathClip: {fileID: 8300000, guid: e2391a40ca4e14442925c32ac3f5b995, type: 3}
   redTime: 1
   invincibleTime: 1
 --- !u!114 &1839139947
@@ -2102,6 +2107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: a511b1605737a664aa139de175c34d6f, type: 2}
   stopDistance: 1.5
+  emergeClip: {fileID: 8300000, guid: ecbf31267ff9a3447a0d7602bcdf73cd, type: 3}
 --- !u!61 &1839139948
 BoxCollider2D:
   m_ObjectHideFlags: 0

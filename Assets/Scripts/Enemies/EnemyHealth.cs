@@ -6,7 +6,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     [Header("References")]
     [SerializeField] EnemyStats stats;
-    [SerializeField] AudioClip[] clips;
+    [SerializeField] AudioClip[] hurtClips;
+    [SerializeField] AudioClip deathClip;
     private AudioSource source;
     private SpriteRenderer render;
     private Animator anim;
@@ -53,6 +54,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
             isDead = true;
             canBeDamaged = false;
             anim.SetTrigger("Death");
+            source.Stop();
+            source.PlayOneShot(deathClip);
         }
     }
 
@@ -63,10 +66,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private AudioClip TakeRandomStepSound()
     {
-        return clips[Random.Range(0, clips.Length)];
+        return hurtClips[Random.Range(0, hurtClips.Length)];
     }
     public void PlayHurtSound()
     {
+        source.Stop();
         source.PlayOneShot(TakeRandomStepSound());
     }
     private IEnumerator ChangeColor()
