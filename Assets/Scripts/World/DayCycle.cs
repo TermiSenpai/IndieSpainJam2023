@@ -29,7 +29,7 @@ public class DayCycle : MonoBehaviour
 
     private bool activateLights;
     [SerializeField]private GameObject[] lights;
-    private DayTime DTime = DayTime.Day;
+    public DayTime DTime = DayTime.Day;
 
 
     public delegate void DayCycleDelegate();
@@ -76,9 +76,9 @@ public class DayCycle : MonoBehaviour
             }
             else
             {
-                DayStart?.Invoke();
-                DTime = (DayTime)0;
                 days++;
+                DTime = (DayTime)0;
+                DayStart?.Invoke();
             }
         }
         if (DTime == DayTime.Evening || DTime == DayTime.Sunrise)
