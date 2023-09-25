@@ -4,15 +4,16 @@ public class PlayerHUD : MonoBehaviour
 {
     [SerializeField] private GameObject HUD;
     private HUD hud;
+    [SerializeField] KeyCode keycode;
 
     private void Start()
     {
-        //hud = HUD.gameObject.GetComponent<HUD>();
+        hud = HUD.GetComponent<HUD>();
     }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("tab"))
+        if (Input.GetKeyDown(keycode))
         {
             if (!HUD.activeSelf) {
                 Activate();

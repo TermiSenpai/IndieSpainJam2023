@@ -53,6 +53,8 @@ public class DayCycle : MonoBehaviour
 
     public delegate void GameClearDelegate();
     public static GameClearDelegate GameClearRelease;
+    [HideInInspector]
+    public bool gameStarted = false;
 
 
     // Start is called before the first frame update
@@ -103,6 +105,7 @@ public class DayCycle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!gameStarted) return;
         CalcTime();
         //DisplayTime();
     }
@@ -196,7 +199,7 @@ public class DayCycle : MonoBehaviour
     private void DayChange()
     {
 
-        if (days >= 7)
+        if (days >= 6)
         {
             GameClearRelease?.Invoke();
             return;
