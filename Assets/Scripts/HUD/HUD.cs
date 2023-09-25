@@ -8,6 +8,7 @@ public class HUD : MonoBehaviour
     [SerializeField] PlayerStateManager state;
     [SerializeField] GameObject TorretsHUD;
     [SerializeField] GameObject OptionHUD;
+    [SerializeField] GameObject TutorialHUD;
     // Start is called before the first frame update
     
     public void HUDActivated()
@@ -15,6 +16,7 @@ public class HUD : MonoBehaviour
         this.gameObject.SetActive(true);
         TorretsHUD.SetActive(true);
         OptionHUD.SetActive(false);
+        TutorialHUD.SetActive(false);
         state.OnMenuOpen(false);
     }
 
@@ -22,6 +24,7 @@ public class HUD : MonoBehaviour
     {
         TorretsHUD.SetActive(false);
         OptionHUD.SetActive(false);
+        TutorialHUD.SetActive(false);
         state.OnMenuOpen(true);
         this.gameObject.SetActive(false);
     }

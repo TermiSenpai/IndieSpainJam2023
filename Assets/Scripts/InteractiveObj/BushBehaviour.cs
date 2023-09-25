@@ -2,15 +2,27 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public enum InteractiveType
+{
+    Magic,
+    Bush
+}
+
+
 
 public class BushBehaviour : MonoBehaviour
 {
     private bool mousePressed = false;
     private bool mouseOver = false;
     private float count = 0;
+    [SerializeField] private InteractiveType interactiveType=InteractiveType.Bush;
     [SerializeField] private float timer = 2;
     [SerializeField] private GameObject Hunger;
     private bool clickeable=true;
+
+    public delegate void InteractiveDelegate();
+    public static InteractiveDelegate onMagicRelease;
+    public static InteractiveDelegate onBushRelease;
 
     void FixedUpdate()
     {
@@ -26,6 +38,16 @@ public class BushBehaviour : MonoBehaviour
             {
                 clickeable = false;
                 Hunger.gameObject.SetActive(false);
+                switch (interactiveType)
+                {
+                    case InteractiveType.Magic:
+                        onMagicRelease?.Invoke();
+                        break;
+                        
+                    case InteractiveType.Bush:
+                        onBushRelease?.Invoke();
+                        break;
+                }
                 //Debug.Log("Donete");
             }
             else
