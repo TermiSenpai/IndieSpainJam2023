@@ -42,30 +42,21 @@ public class BushBehaviour : MonoBehaviour
             if (count >= timer)
             {
                 clickeable = false;
-                Hunger.gameObject.SetActive(false);
+                Hunger.SetActive(false);
                 switch (interactiveType)
                 {
                     case InteractiveType.Magic:
-                        OnMagicRelease?.Invoke();
-                        break;
 
-                    case InteractiveType.Bush:
-                        OnBushRelease?.Invoke();
-                        break;
-                }
-                //Debug.Log("Donete");
-
-                switch (interactiveType)
-                {
-                    case InteractiveType.Magic:
                         if (player.currentMagic >= player.maxMagicQuantity)
                         {
                             player.currentMagic = player.maxMagicQuantity;
                             break;
                         }
                         player.currentMagic += 1;
+
                         OnMagicRelease?.Invoke();
                         break;
+
                     case InteractiveType.Bush:
                         if (player.currentFood >= player.maxFoodQuantity)
                         {
@@ -73,10 +64,11 @@ public class BushBehaviour : MonoBehaviour
                             break;
                         }
                         player.currentFood += 1;
+
                         OnBushRelease?.Invoke();
                         break;
-
                 }
+                //Debug.Log("Donete");
             }
             else
             {
@@ -114,5 +106,20 @@ public class BushBehaviour : MonoBehaviour
         mousePressed = false;
     }
 
+
+    private void OnEnable()
+    {
+        DayCycle.DayStartRelease += RestartBush;
+    }
+
+    private void OnDisable()
+    {
+        DayCycle.DayStartRelease -= RestartBush;        
+    }
+
+    void RestartBush()
+    {
+        Hunger.SetActive(true);
+    }
 
 }
