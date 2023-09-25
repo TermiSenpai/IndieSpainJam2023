@@ -1,7 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
-
 public enum EnemyState
 {
     Idle,
@@ -19,7 +17,7 @@ public class EnemyBrainController : MonoBehaviour
     private GameObject campfire;
     private GameObject turret;
     [HideInInspector]
-    public AudioSource source;    
+    public AudioSource source;
     // States scripts
     [Header("States references")]
     [SerializeField] private EnemyAttack attackState;
@@ -82,6 +80,7 @@ public class EnemyBrainController : MonoBehaviour
     private void OnEnable()
     {
         PlayerHealth.PlayerDeathRelease += OnPlayerDeath;
+        TryUpdateTarget();
         currentState = EnemyState.Follow;
         canmove = true;
     }
@@ -94,6 +93,7 @@ public class EnemyBrainController : MonoBehaviour
     protected void OnPlayerDeath()
     {
         prioritizeCampfire = true;
+        DisableMonsterVolume();
     }
 
     protected virtual void LookTarget()
@@ -190,4 +190,8 @@ public class EnemyBrainController : MonoBehaviour
         StartFollow();
     }
 
+    private void DisableMonsterVolume()
+    {
+        source.volume = 0;
+    }
 }

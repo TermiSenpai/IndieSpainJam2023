@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d50baf237cd564eb3786fea85aa8f3, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  MaxHealth: 10
+  MaxHealth: 25
   moveSpeed: 5
   damage: 5
   raidusRange: 0.75
@@ -22,6 +22,9 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 1024
-  maxWoodQuantity: 0
-  maxFoodQuantity: 0
-  maxMagicQuantity: 0
+  maxWoodQuantity: 9
+  maxFoodQuantity: 3
+  maxMagicQuantity: 30
+  currentWood: 0
+  currentFood: 0
+  currentMagic: 57.230003

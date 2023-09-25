@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 
 public class InteractiveWorld : MonoBehaviour
 {
@@ -10,7 +8,6 @@ public class InteractiveWorld : MonoBehaviour
     [SerializeField] private Tilemap m_TilemapSelected = null;
     [SerializeField] private Camera m_Camera = null;
     [SerializeField] private TileBase selectedTile = null;
-    [SerializeField] private GameObject m_Trees = null;
 
     [SerializeField] private List<TileData> tileDatas;
     private Dictionary<TileBase, TileData> dataFromTiles;
@@ -18,9 +15,9 @@ public class InteractiveWorld : MonoBehaviour
     private Vector3Int previousGridPos = new Vector3Int();
     private Vector3Int adjPos;
 
-    /// <summary>
-    /// Delay between moves used for debouncing
-    /// </summary>
+    public delegate void ItemDelegate();
+    public static ItemDelegate onItemBuildRelease;
+
     public float m_Delay = 0.2f;
 
     //used for debouncing
@@ -30,7 +27,7 @@ public class InteractiveWorld : MonoBehaviour
     private float timeAccum;
 
 
-    private void Awake()
+    private void Start()
     {
         dataFromTiles = new Dictionary<TileBase, TileData>();
 
@@ -49,9 +46,7 @@ public class InteractiveWorld : MonoBehaviour
 
     void Update()
     {
-
         Selected();
-        
     }
 
     void Selected()
@@ -61,6 +56,7 @@ public class InteractiveWorld : MonoBehaviour
 
         if (!Input.GetMouseButton(0))
             return;
+
 
         if (m_Delay < 0.2f)
             m_Delay = 0.2f;
@@ -111,29 +107,38 @@ public class InteractiveWorld : MonoBehaviour
 
     public void Construct(GameObject TType)
     {
-        Debug.Log(TType);
-        TileBase clickedOne = m_Tilemap.GetTile(adjPos);
-        var type = dataFromTiles[clickedOne].Type;
-        if (type == TileType.Construct)
-        {
-            if (!dataFromTiles[clickedOne].OcupedPos.ContainsKey(adjPos))
+        //try
+        //{
+        //{
+            TileBase clickedOne = m_Tilemap.GetTile(adjPos);
+            var type = dataFromTiles[clickedOne].Type;
+            if (type == TileType.Construct)
             {
-                dataFromTiles[clickedOne].OcupedPos.Add(adjPos, TType);
-                TType.transform.position = adjPos;
-                TType.transform.position = m_Tilemap.CellToWorld(adjPos);
+            
+                
+                if (!dataFromTiles[clickedOne].OcupedPos.ContainsKey(adjPos))
+                {
+                    dataFromTiles[clickedOne].OcupedPos.Add(adjPos, TType);
+                    TType.transform.position = m_Tilemap.CellToWorld(adjPos);
+                    onItemBuildRelease?.Invoke();
                 //TType.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 //TType.transform.position = new Vector3(TType.transform.position.x, TType.transform.position.y,0);
             }
+                else
+                {
+                    Debug.Log("Ocupado");
+                    Destroy(TType);
+                }
+            }
             else
             {
-                Debug.Log("Ocupado");
                 Destroy(TType);
             }
-        }
-        else
+        /*}catch(Exception e)
         {
+
             Destroy(TType);
-        }
+        }*/
     }
 
 }

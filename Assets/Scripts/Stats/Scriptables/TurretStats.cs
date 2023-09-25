@@ -7,8 +7,11 @@ public class TurretStats : BasicStats
     public string TurretName;
     public string description;
     public GameObject turretGameobject;
+    public GameObject Proyectil;
+    public float buildCost;
 
     [Header("Combat Stats")]
     public float attackDelay;
     public float rangeRadius;
+    public LayerMask enemyLayer;
 }

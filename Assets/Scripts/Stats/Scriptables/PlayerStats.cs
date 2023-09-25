@@ -13,5 +13,11 @@ public class PlayerStats : BasicStats
     [Header("Resources")]
     public int maxWoodQuantity;
     public int maxFoodQuantity;
-    public int maxMagicQuantity;
+    public float maxMagicQuantity;
+
+    [Header("Inventory")]
+    public int currentWood;
+    public int currentFood;
+    public float currentMagic;
+
 }

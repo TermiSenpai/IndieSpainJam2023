@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public enum TreeType
@@ -13,17 +14,16 @@ public class TreeBehaviour : MonoBehaviour
     private bool mouseOver = false;
     private float count = 0;
     [SerializeField] private float timer = 5;
-    //[SerializeField] private TreeType treeType = TreeType.Arbol_1;
+    [SerializeField] PlayerStats player;
 
-    private void Start()
-    {
-        /*SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        sr.sprite = Resources.Load<Sprite>(treeType.ToString());
-        Debug.Log(treeType.ToString());*/
-    }
+    public delegate void TreeDelegate();
+    public static TreeDelegate OnTreeReleased;
 
-    void Update()
+    void FixedUpdate()
     {
+        ///TODO: RECOLECTABLE???
+
+
         if ((!mouseOver) || (!mousePressed))
         {
             count = 0;
@@ -31,23 +31,37 @@ public class TreeBehaviour : MonoBehaviour
         }else
         if (count >= timer)
         {
+            //Debug.Log("Donete");
+            if (player.currentWood >= player.maxWoodQuantity)
+            {
+                player.currentWood = player.maxWoodQuantity;
+                return;
+            }
+
+            player.currentWood += 1;
             this.gameObject.SetActive(false);
-            Debug.Log("Donete");
+            OnTreeReleased?.Invoke();
+
         }
         else
         {
-            Debug.Log("Clicking");
-            count += Time.deltaTime;
-
+            
+            StartCoroutine(Tremble());
         }
 
+    }
+    IEnumerator Tremble()
+    {
+            count += Time.deltaTime;
+            transform.localPosition += new Vector3(0.1f, 0, 0);
+            yield return new WaitForSeconds(0.01f);
+            transform.localPosition -= new Vector3(0.1f, 0, 0);
+            yield return new WaitForSeconds(0.01f);
     }
 
     void OnMouseDown()
     {
         mousePressed = true;
-        Debug.Log("Sprite Clicked");
-        
     }
 
     private void OnMouseOver()

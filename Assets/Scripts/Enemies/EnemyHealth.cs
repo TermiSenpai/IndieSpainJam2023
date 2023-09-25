@@ -23,7 +23,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        anim = GetComponent<Animator>();    
+        anim = GetComponent<Animator>();
         render = GetComponent<SpriteRenderer>();
         source = GetComponent<AudioSource>();
         ResetHealth();
@@ -43,26 +43,19 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         if (isDead) return;
 
         StartCoroutine(ChangeColor());
-        StartCoroutine(invincibleMode());
+        StartCoroutine(InvincibleMode());
 
     }
 
     private void CheckHealth()
     {
         if (currentHealth <= 0)
-        {
-            isDead = true;
-            canBeDamaged = false;
-            anim.SetTrigger("Death");
-            source.Stop();
-            source.PlayOneShot(deathClip);
-            Invoke(nameof(DisableEnemy), 4f);
-        }
+            Die();
     }
 
     public void DisableEnemy()
     {
-        gameObject.SetActive(false);
+        EnemyObjectPool.Instance.ReturnEnemyToPool(gameObject);
     }
 
     private AudioClip TakeRandomStepSound()
@@ -81,7 +74,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(redTime);
         render.color = Color.white;
     }
-    private IEnumerator invincibleMode()
+    private IEnumerator InvincibleMode()
     {
         canBeDamaged = false;
         yield return new WaitForSeconds(invincibleTime);
@@ -96,11 +89,22 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private void OnEnable()
     {
+        DayCycle.DayStartRelease += Die;
         ResetHealth();
     }
 
     private void OnDisable()
     {
-        
+        DayCycle.DayStartRelease -= Die;
+    }
+
+    private void Die()
+    {
+        isDead = true;
+        canBeDamaged = false;
+        anim.SetTrigger("Death");
+        source.Stop();
+        source.PlayOneShot(deathClip);
+        Invoke(nameof(DisableEnemy), 4f);
     }
 }

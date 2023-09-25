@@ -8,7 +8,8 @@ public enum TileType
     Construct = 0,
     Fireplace = 1,
     Nothing = 2,
-    Forest = 3
+    Forest = 3,
+    Date = 4
 }
 
 [CreateAssetMenu]

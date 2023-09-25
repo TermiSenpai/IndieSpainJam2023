@@ -8,6 +8,7 @@ public class PlayerDeathManager : MonoBehaviour
     [SerializeField] private float zoomSpeed;
     [SerializeField] private float centerSpeed;
     CinemachineFramingTransposer framingTransposer;
+    [SerializeField] Rigidbody2D playerRb2D;
     [SerializeField] private MonoBehaviour[] playerControllers;
 
     private void OnEnable()
@@ -27,7 +28,9 @@ public class PlayerDeathManager : MonoBehaviour
 
     private void DisablePlayerControllers()
     {
-        foreach (var controller in playerControllers) 
+        playerRb2D.bodyType = RigidbodyType2D.Kinematic;
+
+        foreach (var controller in playerControllers)
         {
             controller.enabled = false;
         }

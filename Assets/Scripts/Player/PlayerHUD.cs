@@ -1,17 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHUD : MonoBehaviour
 {
     [SerializeField] private GameObject HUD;
+    private HUD hud;
+    [SerializeField] KeyCode keycode;
+
+    private void Start()
+    {
+        hud = HUD.GetComponent<HUD>();
+    }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("tab"))
+        if (Input.GetKeyDown(keycode))
         {
-            HUD.SetActive(true);
-            Debug.Log("tab pressed");
+            if (!HUD.activeSelf) {
+                Activate();
+            }
+            else
+            {
+                DeActivate();
+            }
         }
+    }
+
+    public void Activate()
+    {
+        hud.HUDActivated();
+    }
+
+    public void DeActivate()
+    {
+        hud.HUDDeactivated();
     }
 }
