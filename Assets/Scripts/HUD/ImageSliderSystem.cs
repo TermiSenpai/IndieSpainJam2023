@@ -36,6 +36,7 @@ public class ImageSliderSystem : MonoBehaviour
     {
         PlayerHealth.PlayerTakeDamageRelease += OnHealthUpdate;
         BushBehaviour.OnMagicRelease += OnMagicUpdate;
+        TorretsHUD.OnBuildRelease += OnMagicUpdate;
         BushBehaviour.OnBushRelease += OnFoodUpdate;
         TreeBehaviour.OnTreeReleased += OnWoodUpdate;
 
@@ -46,6 +47,7 @@ public class ImageSliderSystem : MonoBehaviour
     {
         PlayerHealth.PlayerTakeDamageRelease -= OnHealthUpdate;
         BushBehaviour.OnMagicRelease -= OnMagicUpdate;
+        TorretsHUD.OnBuildRelease -= OnMagicUpdate;
         BushBehaviour.OnBushRelease -= OnFoodUpdate;
         TreeBehaviour.OnTreeReleased -= OnWoodUpdate;
 
