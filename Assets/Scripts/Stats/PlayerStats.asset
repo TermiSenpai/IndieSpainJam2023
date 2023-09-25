@@ -22,6 +22,9 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 1024
-  maxWoodQuantity: 0
-  maxFoodQuantity: 0
-  maxMagicQuantity: 0
+  maxWoodQuantity: 9
+  maxFoodQuantity: 3
+  maxMagicQuantity: 15
+  currentWood: 0
+  currentFood: 0
+  currentMagic: 1

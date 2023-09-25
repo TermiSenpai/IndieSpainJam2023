@@ -231,3 +231,4 @@ MonoBehaviour:
   interactiveType: 1
   timer: 2
   Hunger: {fileID: 2911309046216062590}
+  player: {fileID: 11400000, guid: c89e416d141b05e46af35fc83f84d4c1, type: 2}

@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 2
+  player: {fileID: 11400000, guid: c89e416d141b05e46af35fc83f84d4c1, type: 2}
 --- !u!61 &7076898852551630097
 BoxCollider2D:
   m_ObjectHideFlags: 0

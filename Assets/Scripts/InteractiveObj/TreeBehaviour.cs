@@ -14,6 +14,10 @@ public class TreeBehaviour : MonoBehaviour
     private bool mouseOver = false;
     private float count = 0;
     [SerializeField] private float timer = 5;
+    [SerializeField] PlayerStats player;
+
+    public delegate void TreeDelegate();
+    public static TreeDelegate OnTreeReleased;
 
     void FixedUpdate()
     {
@@ -28,7 +32,10 @@ public class TreeBehaviour : MonoBehaviour
         if (count >= timer)
         {
             this.gameObject.SetActive(false);
-            Debug.Log("Donete");
+            //Debug.Log("Donete");
+            player.currentWood += 1;
+            if (player.currentWood > player.maxWoodQuantity) player.currentWood = player.maxWoodQuantity;
+
         }
         else
         {

@@ -15,14 +15,16 @@ public class BushBehaviour : MonoBehaviour
     private bool mousePressed = false;
     private bool mouseOver = false;
     private float count = 0;
-    [SerializeField] private InteractiveType interactiveType=InteractiveType.Bush;
+    [SerializeField] private InteractiveType interactiveType = InteractiveType.Bush;
     [SerializeField] private float timer = 2;
     [SerializeField] private GameObject Hunger;
-    private bool clickeable=true;
+    private bool clickeable = true;
 
     public delegate void InteractiveDelegate();
-    public static InteractiveDelegate onMagicRelease;
-    public static InteractiveDelegate onBushRelease;
+    public static InteractiveDelegate OnMagicRelease;
+    public static InteractiveDelegate OnBushRelease;
+
+    [SerializeField] PlayerStats player;
 
     void FixedUpdate()
     {
@@ -44,14 +46,37 @@ public class BushBehaviour : MonoBehaviour
                 switch (interactiveType)
                 {
                     case InteractiveType.Magic:
-                        onMagicRelease?.Invoke();
+                        OnMagicRelease?.Invoke();
                         break;
-                        
+
                     case InteractiveType.Bush:
-                        onBushRelease?.Invoke();
+                        OnBushRelease?.Invoke();
                         break;
                 }
                 //Debug.Log("Donete");
+
+                switch (interactiveType)
+                {
+                    case InteractiveType.Magic:
+                        if (player.currentMagic >= player.maxMagicQuantity)
+                        {
+                            player.currentMagic = player.maxMagicQuantity;
+                            break;
+                        }
+                        player.currentMagic += 1;
+                        OnMagicRelease?.Invoke();
+                        break;
+                    case InteractiveType.Bush:
+                        if (player.currentFood >= player.maxFoodQuantity)
+                        {
+                            player.currentFood = player.maxFoodQuantity;
+                            break;
+                        }
+                        player.currentFood += 1;
+                        OnBushRelease?.Invoke();
+                        break;
+
+                }
             }
             else
             {
@@ -63,11 +88,11 @@ public class BushBehaviour : MonoBehaviour
     }
     IEnumerator Tremble()
     {
-            count += Time.deltaTime;
-            transform.localPosition += new Vector3(0.1f, 0, 0);
-            yield return new WaitForSeconds(0.01f);
-            transform.localPosition -= new Vector3(0.1f, 0, 0);
-            yield return new WaitForSeconds(0.01f);
+        count += Time.deltaTime;
+        transform.localPosition += new Vector3(0.1f, 0, 0);
+        yield return new WaitForSeconds(0.01f);
+        transform.localPosition -= new Vector3(0.1f, 0, 0);
+        yield return new WaitForSeconds(0.01f);
     }
 
     void OnMouseDown()
@@ -81,12 +106,12 @@ public class BushBehaviour : MonoBehaviour
     }
     private void OnMouseExit()
     {
-        mouseOver=false;
+        mouseOver = false;
     }
 
     void OnMouseUp()
     {
-        mousePressed=false;
+        mousePressed = false;
     }
 
 
