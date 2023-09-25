@@ -9,6 +9,7 @@ public class TurretStats : BasicStats
     public GameObject turretGameobject;
     public GameObject Proyectil;
     public float buildCost;
+    public AudioClip shootClip;
 
     [Header("Combat Stats")]
     public float attackDelay;

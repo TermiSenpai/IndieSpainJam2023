@@ -6,4 +6,5 @@ using UnityEngine;
 public class CampfireStats : BasicStats
 {
     public int currentWood;
+    public AudioClip onFireClip;
 }

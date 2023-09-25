@@ -13,16 +13,23 @@ public class Campfire : MonoBehaviour, IDamageable
     public static CampfireDelegate OnNoCampfireRelease;
 
     public Animator anim;
+    AudioSource source;
+
+    private void Start()
+    {
+        source = GetComponent<AudioSource>();
+    }
 
     private void OnEnable()
     {
         DayCycle.NightStartRelease += OnNightStart;
-        DayCycle.EveningStartRelease += OnNightStart;
+        DayCycle.EveningStartRelease += onEveningStart;
     }
 
     private void OnDisable()
     {
         DayCycle.NightStartRelease -= OnNightStart;
+        DayCycle.EveningStartRelease -= onEveningStart;
     }
 
 
@@ -61,6 +68,12 @@ public class Campfire : MonoBehaviour, IDamageable
     void ChangeAnim()
     {
         anim.SetFloat("Wood", stats.currentWood);
+
+        if (stats.currentWood > 2)
+        {
+            source.PlayOneShot(stats.onFireClip);
+        }
+        else source.Stop();
     }
 
     void Die()
