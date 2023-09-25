@@ -45,7 +45,7 @@ public class TorretsHUD : MonoBehaviour
     }
     public void DropHandler()
     {
-        
+        this.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         this.transform.SetParent(initialParent);
         transform.position = this.transform.parent.position;
         GameObject aux = (GameObject)Instantiate(Torrets, new Vector3(0, 0, 0), Quaternion.identity);
