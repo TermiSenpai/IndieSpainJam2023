@@ -36,12 +36,14 @@ public class Campfire : MonoBehaviour, IDamageable
     {
         if (stats.currentWood <= 0)
         {
-            OnCampfireDieRelease?.Invoke();
+            Die();
         }
     }
 
     void OnNightStart()
     {
+        if (player.currentWood < 3) { Die(); }
+
         stats.currentWood = player.currentWood;
         ChangeAnim();
     }
@@ -49,6 +51,11 @@ public class Campfire : MonoBehaviour, IDamageable
     void ChangeAnim()
     {
         anim.SetFloat("Wood", stats.currentWood);
+    }
+
+    void Die()
+    {
+        OnCampfireDieRelease?.Invoke();
     }
 
 }
