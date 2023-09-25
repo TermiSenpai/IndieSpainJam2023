@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1462dd2ecb5fe4987828986b66eecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactiveType: 0
   timer: 2
   Hunger: {fileID: 6101353319795652868}
 --- !u!61 &6917394797668210662

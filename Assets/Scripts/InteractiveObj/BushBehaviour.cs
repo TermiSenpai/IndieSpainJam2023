@@ -26,6 +26,9 @@ public class BushBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
+        ///TODO: RECOLECTABLE?
+
+
         if (clickeable)
         {
             if ((!mouseOver) || (!mousePressed))

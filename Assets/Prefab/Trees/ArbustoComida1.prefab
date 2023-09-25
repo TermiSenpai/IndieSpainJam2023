@@ -228,5 +228,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1462dd2ecb5fe4987828986b66eecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: 5
+  interactiveType: 1
+  timer: 2
   Hunger: {fileID: 2911309046216062590}

@@ -119563,9 +119563,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 369497105}
     m_Modifications:
+    - target: {fileID: 172406096128436883, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2676658768045823830, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2897418144181464436, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
       propertyPath: m_Name
       value: HUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 3577002693444178970, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3944659857731685993, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4114503387357806540, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336357843532705793, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4874706880516021512, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
       propertyPath: m_Pivot.x
@@ -119647,6 +119671,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5036592641861129505, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5106155458361886493, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
       propertyPath: HUD
       value: 
@@ -119655,18 +119683,50 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 369497104}
+    - target: {fileID: 5316338022786171450, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5694944174230568517, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712749229581907948, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6060789953556065644, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
       propertyPath: IW
       value: 
       objectReference: {fileID: 1587986520}
+    - target: {fileID: 6811857907556145828, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6814627843702705135, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6920097613290763850, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
       propertyPath: IW
       value: 
       objectReference: {fileID: 1587986520}
+    - target: {fileID: 6993530393563672353, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7550390744207782262, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8468476512105867716, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
       propertyPath: state
       value: 
       objectReference: {fileID: 1695944777}
+    - target: {fileID: 8660457225062838398, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8837569028202675212, guid: d9b0b6dc0dc2a5d48a297c3014e84259, type: 3}
       propertyPath: canvas
       value: 
