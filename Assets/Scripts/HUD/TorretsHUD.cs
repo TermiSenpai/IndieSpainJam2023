@@ -8,11 +8,13 @@ public class TorretsHUD : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private GameObject HUD;
-    [SerializeField] private GameObject Torrets;
+    [SerializeField] private TurretStats turretStats;
+    [SerializeField] private PlayerStats player;
     private Transform initialParent;
     public InteractiveWorld world;
 
-
+    public delegate void Build();
+    public static Build OnBuildRelease;
    
 
     private void Start()
@@ -23,7 +25,7 @@ public class TorretsHUD : MonoBehaviour
     {
         ///TODO :mirar si puedes construir si tienes mana/madera 
 
-
+        if (player.currentMagic <= turretStats.buildCost) return;
 
 
         ///TODO mirar a ver si se puede construir
@@ -48,9 +50,11 @@ public class TorretsHUD : MonoBehaviour
         this.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         this.transform.SetParent(initialParent);
         transform.position = this.transform.parent.position;
-        GameObject aux = (GameObject)Instantiate(Torrets, new Vector3(0, 0, 0), Quaternion.identity);
+        GameObject aux = (GameObject)Instantiate(turretStats.turretGameobject, new Vector3(0, 0, 0), Quaternion.identity);
         world.Construct(aux);
-        
+
+        player.currentMagic -= turretStats.buildCost;
+        OnBuildRelease?.Invoke();
     }
 
 }

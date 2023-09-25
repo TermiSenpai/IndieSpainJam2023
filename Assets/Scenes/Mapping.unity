@@ -147736,10 +147736,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ppv: {fileID: 2122370062}
-  DayTimer: 3
-  NightTimer: 3
-  SunriseTimer: 2
-  EveningTimer: 2
+  DayTimer: 10
+  NightTimer: 15
+  SunriseTimer: 10
+  EveningTimer: 10
   lights:
   - {fileID: 602721630}
   DTime: 0
@@ -147747,7 +147747,7 @@ MonoBehaviour:
   TBase: {fileID: 11400000, guid: 7d1fe68ec822c474896cb7e37074ff5c, type: 2}
   tileDatas:
   - {fileID: 11400000, guid: 0029bdd77a0e54f4c8f75dbc91022fac, type: 2}
-  gameStarted: 0
+  gameStarted: 1
 --- !u!1001 &2141604989
 PrefabInstance:
   m_ObjectHideFlags: 0
