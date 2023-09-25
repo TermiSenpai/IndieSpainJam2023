@@ -7,7 +7,7 @@ public class PlayerHUD : MonoBehaviour
 
     private void Start()
     {
-        hud = HUD.gameObject.GetComponent<HUD>();
+        //hud = HUD.gameObject.GetComponent<HUD>();
     }
     // Update is called once per frame
     void Update()
@@ -31,6 +31,6 @@ public class PlayerHUD : MonoBehaviour
 
     public void DeActivate()
     {
-        hud?.HUDDeactivated();
+        hud.HUDDeactivated();
     }
 }
