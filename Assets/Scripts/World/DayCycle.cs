@@ -46,8 +46,20 @@ public class DayCycle : MonoBehaviour
 
     public delegate void GameClearDelegate();
     public static GameClearDelegate GameClearRelease;
-    //[HideInInspector]
+    [HideInInspector]
     public bool gameStarted = false;
+    private bool canCampfiresBeOn = true;
+
+
+    private void OnEnable()
+    {
+        Campfire.OnNoCampfireRelease += onCampfireoff;
+    }
+
+    private void OnDisable()
+    {
+        Campfire.OnNoCampfireRelease -= onCampfireon;
+    }
 
 
     // Start is called before the first frame update
@@ -161,13 +173,16 @@ public class DayCycle : MonoBehaviour
             ppv.weight = seconds / time;
             if (activateLights == false)
             {
-                if (seconds > (time / 2))
+                if (canCampfiresBeOn)
                 {
-                    for (int i = 0; i < lights.Length; i++)
+                    if (seconds > (time / 2))
                     {
-                        lights[i].SetActive(true);
+                        for (int i = 0; i < lights.Length; i++)
+                        {
+                            lights[i].SetActive(true);
+                        }
+                        activateLights = true;
                     }
-                    activateLights = true;
                 }
             }
         }
@@ -201,6 +216,15 @@ public class DayCycle : MonoBehaviour
         days++;
     }
 
+    void onCampfireon()
+    {
+        canCampfiresBeOn = true;
+    }
+
+    void onCampfireoff()
+    {
+        canCampfiresBeOn = false;
+    }
 
     public void DisplayTime()
     {

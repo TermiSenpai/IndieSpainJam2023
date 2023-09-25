@@ -10,12 +10,14 @@ public class Campfire : MonoBehaviour, IDamageable
     public delegate void CampfireDelegate();
     public static CampfireDelegate OnCampfireDieRelease;
     public static CampfireDelegate OnCampfireTakeDamageRelease;
+    public static CampfireDelegate OnNoCampfireRelease;
 
     public Animator anim;
 
     private void OnEnable()
     {
         DayCycle.NightStartRelease += OnNightStart;
+        DayCycle.EveningStartRelease += OnNightStart;
     }
 
     private void OnDisable()
@@ -37,6 +39,14 @@ public class Campfire : MonoBehaviour, IDamageable
         if (stats.currentWood <= 0)
         {
             Die();
+        }
+    }
+
+    void onEveningStart()
+    {
+        if (player.currentWood < 3)
+        {
+            OnNoCampfireRelease?.Invoke();
         }
     }
 
