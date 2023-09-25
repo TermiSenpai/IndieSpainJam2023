@@ -208,7 +208,7 @@ public class DayCycle : MonoBehaviour
     private void DayChange()
     {
 
-        if (days >= 6)
+        if (days >= 5)
         {
             GameClearRelease?.Invoke();
             return;
