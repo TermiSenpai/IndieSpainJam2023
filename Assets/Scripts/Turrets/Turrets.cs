@@ -8,7 +8,12 @@ public class Turrets : MonoBehaviour
     [SerializeField] private TurretStats stats;
     private float currentTimer = 0;
 
+    private AudioSource source;
 
+    private void Start()
+    {
+        source = GetComponent<AudioSource>();
+    }
 
     private void Update()
     {
@@ -32,6 +37,7 @@ public class Turrets : MonoBehaviour
             ProyectilScript proyectilScript = proyectil.GetComponent<ProyectilScript>();
             if (proyectilScript != null)
             {
+                source.PlayOneShot(stats.shootClip);
                 proyectilScript.ConfigurarDireccion(direccion);
             }
         }

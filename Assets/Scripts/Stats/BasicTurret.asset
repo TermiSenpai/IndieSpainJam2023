@@ -20,6 +20,7 @@ MonoBehaviour:
   turretGameobject: {fileID: 7474436161231433279, guid: 720b89a4035be0d42aff0ac024af5614, type: 3}
   Proyectil: {fileID: 6514132951244688951, guid: 6cd73ed6482a75847b40713746e9d324, type: 3}
   buildCost: 10
+  shootClip: {fileID: 8300000, guid: c2362b3b3b7153848bbd42e5759fcd90, type: 3}
   attackDelay: 1
   rangeRadius: 3
   enemyLayer:
