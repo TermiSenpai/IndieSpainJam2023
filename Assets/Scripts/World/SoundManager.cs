@@ -11,6 +11,7 @@ public class SoundManager : MonoBehaviour
     void Start()
     {
         m_AudioSource = this.GetComponent<AudioSource>();
+        m_AudioSource.loop = true;
     }
 
     private void OnEnable()
