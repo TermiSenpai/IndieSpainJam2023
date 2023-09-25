@@ -5,6 +5,9 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private GameObject HUD;
     private HUD hud;
     [SerializeField] KeyCode keycode;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip abrirLibro;
+    [SerializeField] AudioClip cerrarLibro;
 
     private void Start()
     {
@@ -17,10 +20,12 @@ public class PlayerHUD : MonoBehaviour
         {
             if (!HUD.activeSelf) {
                 Activate();
+                audioSource.PlayOneShot(abrirLibro);
             }
             else
             {
                 DeActivate();
+                audioSource.PlayOneShot(cerrarLibro);
             }
         }
     }
