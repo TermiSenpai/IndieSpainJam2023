@@ -1,14 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-using TMPro; // using text mesh for the clock display
-
 using UnityEngine.Rendering; // used to access the volume component
 using UnityEngine.Tilemaps;
-using System.Drawing;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.WSA;
 using System;
 
 public enum DayTime
@@ -35,7 +28,7 @@ public class DayCycle : MonoBehaviour
 
     private bool activateLights;
     [SerializeField] private GameObject[] lights;
-    private DayTime DTime = DayTime.Day;
+    [SerializeField] private DayTime DTime = DayTime.Day;
 
     [SerializeField] private Tilemap m_Tilemap = null;
     [SerializeField] private TileBase TBase = null;
@@ -53,7 +46,7 @@ public class DayCycle : MonoBehaviour
 
     public delegate void GameClearDelegate();
     public static GameClearDelegate GameClearRelease;
-    [HideInInspector]
+    //[HideInInspector]
     public bool gameStarted = false;
 
 
@@ -121,15 +114,15 @@ public class DayCycle : MonoBehaviour
             if (((int)DTime + 1) < 4)
             {
                 DTime = (DayTime)((int)DTime + 1);
-                if (((int)DTime + 1) == 1)
+                if ((int)DTime == 1)
                 {
                     EveningStartRelease?.Invoke();
                 }
-                else if (((int)DTime + 1) == 2)
+                else if ((int)DTime == 2)
                 {
                     NightStartRelease?.Invoke();
                 }
-                else if (((int)DTime + 1) == 3)
+                else if ((int)DTime == 3)
                 {
                     SunriseStartRelease?.Invoke();
                 }
