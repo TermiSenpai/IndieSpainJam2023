@@ -31,10 +31,16 @@ public class TreeBehaviour : MonoBehaviour
         }else
         if (count >= timer)
         {
-            this.gameObject.SetActive(false);
             //Debug.Log("Donete");
+            if (player.currentWood >= player.maxWoodQuantity)
+            {
+                player.currentWood = player.maxWoodQuantity;
+                return;
+            }
+
             player.currentWood += 1;
-            if (player.currentWood > player.maxWoodQuantity) player.currentWood = player.maxWoodQuantity;
+            this.gameObject.SetActive(false);
+            OnTreeReleased?.Invoke();
 
         }
         else
