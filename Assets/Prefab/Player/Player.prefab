@@ -228,7 +228,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: c89e416d141b05e46af35fc83f84d4c1, type: 2}
   deathSound: {fileID: 8300000, guid: 51766573ab3b45d48bca83d18d34319d, type: 3}
-  redTime: 0.2
+  clips:
+  - {fileID: 8300000, guid: 8a85f35859cc3c84589ceb8bf52a3875, type: 3}
+  - {fileID: 8300000, guid: 6cb3d895c6f975941afbcc3e89b8cbfc, type: 3}
+  - {fileID: 8300000, guid: c46222416453b084089204025d2888c7, type: 3}
+  redTime: 0.5
   invincibleTime: 1
 --- !u!114 &6693926515737185211
 MonoBehaviour:
@@ -472,8 +476,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatScript: {fileID: 6693926515737185211}
-  buildScript: {fileID: 0}
-  recolectionScript: {fileID: 0}
+  canBuild: 1
+  canRecolection: 1
 --- !u!114 &2100323024415225941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,6 +491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HUD: {fileID: 0}
+  keycode: 9
 --- !u!1 &5006589459378228351
 GameObject:
   m_ObjectHideFlags: 0

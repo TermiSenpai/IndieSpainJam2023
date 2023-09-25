@@ -186,6 +186,7 @@ MonoBehaviour:
   interactiveType: 1
   timer: 2
   Hunger: {fileID: 2873136058531196710}
+  player: {fileID: 11400000, guid: c89e416d141b05e46af35fc83f84d4c1, type: 2}
 --- !u!61 &6281845300098395471
 BoxCollider2D:
   m_ObjectHideFlags: 0
