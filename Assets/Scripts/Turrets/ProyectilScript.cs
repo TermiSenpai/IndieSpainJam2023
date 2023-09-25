@@ -6,7 +6,7 @@ using UnityEngine;
 public class ProyectilScript : MonoBehaviour
 {
     public float velocidad = 5.0f; // Velocidad del proyectil
-    float damage = 5f;
+    public TurretStats stats;
     private Vector2 direccion; // Dirección del proyectil
 
     // Método para configurar la dirección del proyectil
@@ -35,7 +35,7 @@ public class ProyectilScript : MonoBehaviour
         if (other.gameObject.layer == 10)
         {
             IDamageable damageable = other.GetComponent<IDamageable>();
-            damageable?.TakeDamage(damage);
+            damageable?.TakeDamage(stats.damage);
             // Realiza acciones cuando el proyectil colisiona con un enemigo
             Destroy(gameObject);
         }

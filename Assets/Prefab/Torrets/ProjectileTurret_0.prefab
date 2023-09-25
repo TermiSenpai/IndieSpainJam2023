@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 5
+  stats: {fileID: 11400000, guid: 53dca2f466fcf004c82903cbc8698dbd, type: 2}
 --- !u!50 &1316766713949756929
 Rigidbody2D:
   serializedVersion: 4
