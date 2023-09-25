@@ -13,7 +13,8 @@ public class TorretsHUD : MonoBehaviour
     private Transform initialParent;
     public InteractiveWorld world;
 
-
+    public delegate void Build();
+    public static Build OnBuildRelease;
    
 
     private void Start()
@@ -53,7 +54,7 @@ public class TorretsHUD : MonoBehaviour
         world.Construct(aux);
 
         player.currentMagic -= turretStats.buildCost;
-        
+        OnBuildRelease?.Invoke();
     }
 
 }
