@@ -157,6 +157,7 @@ public class DayCycle : MonoBehaviour
         else if (DTime == DayTime.Day)
         {
             time = DayTimer;
+            canCampfiresBeOn = true;
         }
         else
         {
