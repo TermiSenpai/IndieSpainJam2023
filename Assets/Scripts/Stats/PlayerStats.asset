@@ -25,6 +25,6 @@ MonoBehaviour:
   maxWoodQuantity: 9
   maxFoodQuantity: 3
   maxMagicQuantity: 30
-  currentWood: 4
+  currentWood: 0
   currentFood: 0
-  currentMagic: 0
+  currentMagic: 57.230003

@@ -17,9 +17,10 @@ MonoBehaviour:
   damage: 10
   TurretName: 
   description: 
-  turretGameobject: {fileID: 0}
+  turretGameobject: {fileID: 7474436161231433279, guid: 720b89a4035be0d42aff0ac024af5614, type: 3}
   Proyectil: {fileID: 6514132951244688951, guid: 6cd73ed6482a75847b40713746e9d324, type: 3}
-  attackDelay: 0
+  buildCost: 10
+  attackDelay: 1
   rangeRadius: 3
   enemyLayer:
     serializedVersion: 2
