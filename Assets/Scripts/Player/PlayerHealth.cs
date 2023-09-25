@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private Animator anim;
     private AudioSource source;
     [SerializeField] AudioClip deathSound;
+    [SerializeField] AudioClip[] clips;
 
     // properties
     private float currentHealth;
@@ -38,12 +39,27 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         currentHealth -= damage;
         PlayerTakeDamageRelease?.Invoke(currentHealth);
         CheckCurrentHealth();
+        if (currentHealth>0)
+        {
+
+        PlayHitSound();
+        }
 
         // stop if player die
         if (playerLose) return;
 
         StartCoroutine(ChangeColor());
         StartCoroutine(InvincibleMode());
+    }
+
+    private AudioClip TakeRandomHitSound()
+    {
+        return clips[Random.Range(0, clips.Length)];
+    }
+
+    public void PlayHitSound()
+    {
+        source.PlayOneShot(TakeRandomHitSound());
     }
 
     private void CheckCurrentHealth()

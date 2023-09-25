@@ -3,10 +3,17 @@ using UnityEngine;
 public class PlayerHUD : MonoBehaviour
 {
     [SerializeField] private GameObject HUD;
+    private HUD hud;
+    [SerializeField] KeyCode keycode;
+
+    private void Start()
+    {
+        hud = HUD.GetComponent<HUD>();
+    }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("tab"))
+        if (Input.GetKeyDown(keycode))
         {
             if (!HUD.activeSelf) {
                 Activate();
@@ -20,11 +27,11 @@ public class PlayerHUD : MonoBehaviour
 
     public void Activate()
     {
-        HUD.SetActive(true);
+        hud.HUDActivated();
     }
 
     public void DeActivate()
     {
-        HUD.SetActive(false);
+        hud.HUDDeactivated();
     }
 }
