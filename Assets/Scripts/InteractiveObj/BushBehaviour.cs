@@ -42,7 +42,6 @@ public class BushBehaviour : MonoBehaviour
             if (count >= timer)
             {
                 clickeable = false;
-                Hunger.SetActive(false);
                 switch (interactiveType)
                 {
                     case InteractiveType.Magic:
@@ -55,6 +54,7 @@ public class BushBehaviour : MonoBehaviour
                         player.currentMagic += 1;
 
                         OnMagicRelease?.Invoke();
+                        Hunger.SetActive(false);
                         break;
 
                     case InteractiveType.Bush:
@@ -66,6 +66,7 @@ public class BushBehaviour : MonoBehaviour
                         player.currentFood += 1;
 
                         OnBushRelease?.Invoke();
+                        Hunger.SetActive(false);
                         break;
                 }
                 //Debug.Log("Donete");
@@ -114,7 +115,7 @@ public class BushBehaviour : MonoBehaviour
 
     private void OnDisable()
     {
-        DayCycle.DayStartRelease -= RestartBush;        
+        DayCycle.DayStartRelease -= RestartBush;
     }
 
     void RestartBush()
