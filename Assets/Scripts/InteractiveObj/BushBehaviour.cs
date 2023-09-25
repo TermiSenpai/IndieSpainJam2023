@@ -20,6 +20,9 @@ public class BushBehaviour : MonoBehaviour
     [SerializeField] private GameObject Hunger;
     private bool clickeable = true;
 
+    [SerializeField] private AudioSource m_audiosource;
+    [SerializeField] private AudioClip clipArbusto, clipMagia;
+
     public delegate void InteractiveDelegate();
     public static InteractiveDelegate OnMagicRelease;
     public static InteractiveDelegate OnBushRelease;
@@ -52,7 +55,7 @@ public class BushBehaviour : MonoBehaviour
                             break;
                         }
                         player.currentMagic += 5;
-
+                        
                         OnMagicRelease?.Invoke();
                         Hunger.SetActive(false);
                         break;
@@ -64,7 +67,7 @@ public class BushBehaviour : MonoBehaviour
                             break;
                         }
                         player.currentFood += 1;
-
+                        
                         OnBushRelease?.Invoke();
                         Hunger.SetActive(false);
                         break;
@@ -73,7 +76,7 @@ public class BushBehaviour : MonoBehaviour
             }
             else
             {
-
+                
                 StartCoroutine(Tremble());
             }
         }
@@ -91,6 +94,24 @@ public class BushBehaviour : MonoBehaviour
     void OnMouseDown()
     {
         mousePressed = true;
+        switch (interactiveType)
+        {
+            case InteractiveType.Magic:
+                if (clickeable!=false)
+                {
+
+                m_audiosource.PlayOneShot(clipMagia);
+                }
+                break;
+            case InteractiveType.Bush:
+                if (clickeable!=false)
+                {
+
+                m_audiosource.PlayOneShot(clipArbusto);
+                }
+                break;
+
+        }
     }
 
     private void OnMouseOver()
