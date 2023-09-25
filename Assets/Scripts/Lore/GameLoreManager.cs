@@ -49,12 +49,14 @@ public class GameLoreManager : MonoBehaviour
     {
         DayCycle.GameClearRelease += GameClear;
         PlayerHealth.PlayerDeathRelease += GameOver;
+        Campfire.OnCampfireDieRelease += GameOver;
     }
 
     private void OnDisable()
     {
         DayCycle.GameClearRelease -= GameClear;
         PlayerHealth.PlayerDeathRelease -= GameOver;
+        Campfire.OnCampfireDieRelease -= GameOver;
     }
 
     private IEnumerator Fade(GameObject img)
