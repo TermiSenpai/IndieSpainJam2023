@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 20
   moveSpeed: 10
-  damage: 3.34
+  damage: 5
   radiusRange: 0.75
   hitDelay: 2
   attackLength: 1.25
