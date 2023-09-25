@@ -262,8 +262,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 20e6b8b06bcfa6540912e636bf4e9514, type: 3}
   - {fileID: 8300000, guid: 70f5eb286f9fcf0458861d09e41cd3fe, type: 3}
   deathClip: {fileID: 8300000, guid: ed0e5765a993f0c4ab7ac0465d00b183, type: 3}
-  redTime: 1
-  invincibleTime: 1
+  redTime: 0.1
+  invincibleTime: 0.2
 --- !u!114 &7581392074482901896
 MonoBehaviour:
   m_ObjectHideFlags: 0

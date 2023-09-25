@@ -22,6 +22,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     public delegate void PlayerHitDelegate(float hp);
     public static PlayerHealthDelegate PlayerDeathRelease;
     public static PlayerHitDelegate PlayerTakeDamageRelease;
+    public static PlayerHitDelegate PlayerHealRelease;
 
     private void Start()
     {
@@ -39,10 +40,10 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         currentHealth -= damage;
         PlayerTakeDamageRelease?.Invoke(currentHealth);
         CheckCurrentHealth();
-        if (currentHealth>0)
+        if (currentHealth > 0)
         {
 
-        PlayHitSound();
+            PlayHitSound();
         }
 
         // stop if player die
@@ -50,6 +51,16 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
         StartCoroutine(ChangeColor());
         StartCoroutine(InvincibleMode());
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R) && stats.currentFood > 0)
+        {
+            currentHealth += 10;
+            stats.currentFood -= 1;
+            PlayerTakeDamageRelease?.Invoke(currentHealth);
+        }
     }
 
     private AudioClip TakeRandomHitSound()

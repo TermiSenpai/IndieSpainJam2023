@@ -40,6 +40,8 @@ public class ImageSliderSystem : MonoBehaviour
         BushBehaviour.OnBushRelease += OnFoodUpdate;
         TreeBehaviour.OnTreeReleased += OnWoodUpdate;
 
+        PlayerHealth.PlayerHealRelease += OnHealUpdate;
+
         DayCycle.DayStartRelease += RestartResources;
     }
 
@@ -52,6 +54,7 @@ public class ImageSliderSystem : MonoBehaviour
         TreeBehaviour.OnTreeReleased -= OnWoodUpdate;
 
         DayCycle.DayStartRelease -= RestartResources;
+        PlayerHealth.PlayerHealRelease -= OnHealUpdate;
     }
 
     void OnHealthUpdate(float hp)
@@ -120,4 +123,9 @@ public class ImageSliderSystem : MonoBehaviour
         OnWoodUpdate();
     }
 
+    void OnHealUpdate(float hp)
+    {
+        OnHealthUpdate(hp);
+        OnFoodUpdate();
+    }
 }

@@ -25,7 +25,7 @@ public class TorretsHUD : MonoBehaviour
     {
         ///TODO :mirar si puedes construir si tienes mana/madera 
 
-        if (player.currentMagic <= turretStats.buildCost) return;
+        if (player.currentMagic < turretStats.buildCost) return;
 
 
         ///TODO mirar a ver si se puede construir

@@ -17,7 +17,7 @@ public class TeletransportePlayer : MonoBehaviour
 
     public void Campamento()
     {
-        m_PlayerPrefab.GetComponent<Transform>().position = m_Camp.position;
+        m_PlayerPrefab.transform.position = m_Camp.transform.position;
 
     }
 }
