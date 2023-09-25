@@ -13,6 +13,7 @@ public class TorretsManager : MonoBehaviour
         TorretsHUD[] HUDS= GetComponentsInChildren<TorretsHUD>();
         foreach (TorretsHUD h in HUDS)
         {
+            //Debug.Log("hey");
             h.world = IW;
         }
     }

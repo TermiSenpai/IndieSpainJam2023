@@ -10,17 +10,19 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float maxSpawnDelay;
     [SerializeField] float currentTimer;
 
+    [SerializeField] SpawnPointManager spawnPointManager;
+
 
     private void OnEnable()
     {
-        DayCycle.NightStart += SpawnEnemies;
-        DayCycle.DayStart += StopSpawn;
+        DayCycle.NightStartRelease += SpawnEnemies;
+        DayCycle.DayStartRelease += StopSpawn;
     }
 
     private void OnDisable()
     {
-        DayCycle.NightStart -= SpawnEnemies;
-        DayCycle.DayStart -= StopSpawn;
+        DayCycle.NightStartRelease -= SpawnEnemies;
+        DayCycle.DayStartRelease -= StopSpawn;
     }
 
     private void Update()
@@ -35,15 +37,12 @@ public class EnemySpawner : MonoBehaviour
             if (enemy != null)
             {
                 // Configura la posición y otros atributos del enemigo
-                enemy.transform.position = SpawnPointManager.Instance.GetRandomSpawnpoint().position;
+                enemy.transform.position = spawnPointManager.GetRandomSpawnpoint().position;
                 // Activa el enemigo
                 enemy.SetActive(true);
                 currentTimer = maxSpawnDelay;
             }
         }
-
-
-
     }
 
     void SpawnEnemies()
