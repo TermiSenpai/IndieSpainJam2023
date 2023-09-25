@@ -16,38 +16,48 @@ public class TreeBehaviour : MonoBehaviour
     [SerializeField] private float timer = 5;
     [SerializeField] PlayerStats player;
 
+    [SerializeField] private AudioSource m_audiosource;
+    [SerializeField] private AudioClip clipArbol;
+    private bool clickeable = true;
+
     public delegate void TreeDelegate();
     public static TreeDelegate OnTreeReleased;
 
     void FixedUpdate()
     {
         ///TODO: RECOLECTABLE???
-
-
-        if ((!mouseOver) || (!mousePressed))
+        if (clickeable)
         {
-            count = 0;
-            return; 
-        }else
-        if (count >= timer)
-        {
-            //Debug.Log("Donete");
-            if (player.currentWood >= player.maxWoodQuantity)
+            if ((!mouseOver) || (!mousePressed))
             {
-                player.currentWood = player.maxWoodQuantity;
+                count = 0;
                 return;
             }
+            else
+            if (count >= timer)
+            {
+                clickeable = false;
+                //Debug.Log("Donete");
+                if (player.currentWood >= player.maxWoodQuantity)
+                {
+                    player.currentWood = player.maxWoodQuantity;
+                    return;
+                }
 
-            player.currentWood += 1;
-            this.gameObject.SetActive(false);
-            OnTreeReleased?.Invoke();
+                player.currentWood += 1;
+                this.gameObject.SetActive(false);
+                OnTreeReleased?.Invoke();
+
+            }
+            else
+            {
+
+                StartCoroutine(Tremble());
+            }
 
         }
-        else
-        {
-            
-            StartCoroutine(Tremble());
-        }
+        
+                     
 
     }
     IEnumerator Tremble()
@@ -62,6 +72,11 @@ public class TreeBehaviour : MonoBehaviour
     void OnMouseDown()
     {
         mousePressed = true;
+        if (clickeable != false)
+        {
+
+            m_audiosource.PlayOneShot(clipArbol);
+        }
     }
 
     private void OnMouseOver()
@@ -76,6 +91,7 @@ public class TreeBehaviour : MonoBehaviour
     void OnMouseUp()
     {
         mousePressed=false;
+        m_audiosource.Stop();
     }
 
 

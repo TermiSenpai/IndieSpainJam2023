@@ -126,6 +126,7 @@ public class BushBehaviour : MonoBehaviour
     void OnMouseUp()
     {
         mousePressed = false;
+        m_audiosource.Stop();
     }
 
 

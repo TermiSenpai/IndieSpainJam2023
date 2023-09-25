@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb4314b29b5c00842847fee10ae0e6a0, type: 3}
   m_Name: BasicTrap
   m_EditorClassIdentifier: 
-  MaxHealth: 0
+  MaxHealth: 10
   moveSpeed: 0
-  damage: 0
+  damage: 3
   TurretName: 
   description: 
   turretGameobject: {fileID: 7474436161231433279, guid: 868235ec607df0642a2e4445e7793124, type: 3}
-  attackDelay: 0
+  Proyectil: {fileID: 0}
+  buildCost: 5
+  attackDelay: 1
   rangeRadius: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 1024

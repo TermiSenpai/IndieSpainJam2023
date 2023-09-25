@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 15
   moveSpeed: 0
-  damage: 10
+  damage: 5
   TurretName: 
   description: 
   turretGameobject: {fileID: 7474436161231433279, guid: 720b89a4035be0d42aff0ac024af5614, type: 3}

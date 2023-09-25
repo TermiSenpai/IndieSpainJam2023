@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactiveType: 0
-  timer: 2
+  timer: 1.5
   Hunger: {fileID: 6101353319795652868}
   m_audiosource: {fileID: 5398675928739007745}
   clipArbusto: {fileID: 8300000, guid: 6335c3ec33242cf41b836817cf82e378, type: 3}
