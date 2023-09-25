@@ -24,7 +24,7 @@ MonoBehaviour:
     m_Bits: 1024
   maxWoodQuantity: 9
   maxFoodQuantity: 3
-  maxMagicQuantity: 15
+  maxMagicQuantity: 30
   currentWood: 0
   currentFood: 0
-  currentMagic: 1
+  currentMagic: 0

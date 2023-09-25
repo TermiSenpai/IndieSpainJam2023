@@ -51,7 +51,7 @@ public class BushBehaviour : MonoBehaviour
                             player.currentMagic = player.maxMagicQuantity;
                             break;
                         }
-                        player.currentMagic += 1;
+                        player.currentMagic += 5;
 
                         OnMagicRelease?.Invoke();
                         Hunger.SetActive(false);
