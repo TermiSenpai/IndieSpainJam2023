@@ -13,10 +13,10 @@ using System;
 
 public enum DayTime
 {
-    Day=0,
-    Evening=1,
-    Night=2,
-    Sunrise=3
+    Day = 0,
+    Evening = 1,
+    Night = 2,
+    Sunrise = 3
 }
 
 public class DayCycle : MonoBehaviour
@@ -25,7 +25,7 @@ public class DayCycle : MonoBehaviour
     //[SerializeField] private TextMeshProUGUI dayDiplay;
     [SerializeField] private Volume ppv; //post processing volume
 
-    private float seconds=0;
+    private float seconds = 0;
     [SerializeField] int DayTimer = 5;
     [SerializeField] int NightTimer = 9;
     [SerializeField] int SunriseTimer = 5;
@@ -34,14 +34,14 @@ public class DayCycle : MonoBehaviour
     int days = 0;
 
     private bool activateLights;
-    [SerializeField]private GameObject[] lights;
+    [SerializeField] private GameObject[] lights;
     private DayTime DTime = DayTime.Day;
 
     [SerializeField] private Tilemap m_Tilemap = null;
     [SerializeField] private TileBase TBase = null;
     [SerializeField] private List<TileData> tileDatas;
     private Dictionary<TileBase, TileData> dataFromTiles;
-    private List<Tuple<Vector3Int,string>> TilesDates;
+    private List<Tuple<Vector3Int, string>> TilesDates;
 
 
     public delegate void DayCycleDelegate();
@@ -51,6 +51,10 @@ public class DayCycle : MonoBehaviour
     public static DayCycleDelegate SunriseStartRelease;
 
 
+    public delegate void GameClearDelegate();
+    public static GameClearDelegate GameClearRelease;
+    [HideInInspector]
+    public bool gameStarted = false;
 
 
     // Start is called before the first frame update
@@ -58,14 +62,14 @@ public class DayCycle : MonoBehaviour
     {
         TilesDates = new List<Tuple<Vector3Int, string>>();
 
-         dataFromTiles = new Dictionary<TileBase, TileData>();
+        dataFromTiles = new Dictionary<TileBase, TileData>();
         //Debug.Log("hey");
         foreach (var tileData in tileDatas)
         {
             foreach (var tile in tileData.tiles)
             {
                 dataFromTiles.Add(tile, tileData);
-              //  Debug.Log(tile + ", " + tileData);
+                //  Debug.Log(tile + ", " + tileData);
             }
         }
 
@@ -84,14 +88,14 @@ public class DayCycle : MonoBehaviour
                 {
                     if (dataFromTiles.ContainsKey(tile))
                     {
-                        TilesDates.Add(new Tuple<Vector3Int, string>(pos,tile.name));
+                        TilesDates.Add(new Tuple<Vector3Int, string>(pos, tile.name));
                     }
                 }
             }
         }
-        foreach(Tuple<Vector3Int, string> t in TilesDates)
+        foreach (Tuple<Vector3Int, string> t in TilesDates)
         {
-            m_Tilemap.SetTile(t.Item1,TBase);
+            m_Tilemap.SetTile(t.Item1, TBase);
         }
         DayChange();
         DayStartRelease?.Invoke();
@@ -101,6 +105,7 @@ public class DayCycle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!gameStarted) return;
         CalcTime();
         //DisplayTime();
     }
@@ -110,19 +115,21 @@ public class DayCycle : MonoBehaviour
         seconds += Time.deltaTime;
         //Debug.Log("paso "+ Time.fixedDeltaTime);
 
-        if(seconds >= time)
+        if (seconds >= time)
         {
             seconds = 0;
             if (((int)DTime + 1) < 4)
             {
                 DTime = (DayTime)((int)DTime + 1);
-                if(((int)DTime + 1) == 1)
+                if (((int)DTime + 1) == 1)
                 {
                     EveningStartRelease?.Invoke();
-                }else if(((int)DTime + 1) == 2)
+                }
+                else if (((int)DTime + 1) == 2)
                 {
                     NightStartRelease?.Invoke();
-                }else if(((int)DTime + 1) == 3)
+                }
+                else if (((int)DTime + 1) == 3)
                 {
                     SunriseStartRelease?.Invoke();
                 }
@@ -138,11 +145,11 @@ public class DayCycle : MonoBehaviour
         {
             time = EveningTimer;
         }
-        else if(DTime == DayTime.Sunrise)
+        else if (DTime == DayTime.Sunrise)
         {
             time = SunriseTimer;
         }
-        else if(DTime == DayTime.Day)
+        else if (DTime == DayTime.Day)
         {
             time = DayTimer;
         }
@@ -172,11 +179,12 @@ public class DayCycle : MonoBehaviour
             }
         }
 
-        if (DTime == DayTime.Sunrise) {
+        if (DTime == DayTime.Sunrise)
+        {
             ppv.weight = 1 - (seconds / time);
             if (activateLights == true)
             {
-                if (seconds > (time/2))
+                if (seconds > (time / 2))
                 {
                     for (int i = 0; i < lights.Length; i++)
                     {
@@ -190,9 +198,13 @@ public class DayCycle : MonoBehaviour
 
     private void DayChange()
     {
-        
-        if (days >= 7) { return; }
-        m_Tilemap.SetTile(TilesDates[days].Item1, Resources.Load<TileBase>("Tiles/"+ TilesDates[days].Item2));
+
+        if (days >= 6)
+        {
+            GameClearRelease?.Invoke();
+            return;
+        }
+        m_Tilemap.SetTile(TilesDates[days].Item1, Resources.Load<TileBase>("Tiles/" + TilesDates[days].Item2));
         days++;
     }
 
