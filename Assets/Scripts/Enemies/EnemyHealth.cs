@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
-
     [Header("References")]
     [SerializeField] EnemyStats stats;
     [SerializeField] AudioClip[] hurtClips;
@@ -11,26 +11,29 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     private AudioSource source;
     private SpriteRenderer render;
     private Animator anim;
+    private Rigidbody2D rb; 
 
     [Header("Timers")]
     [SerializeField] private float redTime;
     [SerializeField] private float invincibleTime;
+    [SerializeField] private float knockbackForce; 
 
     // Variables
     private float currentHealth;
     private bool canBeDamaged = true;
     private bool isDead = false;
 
+    //Evento
+    public UnityEvent OnDamageTaken;
+
     private void Start()
     {
         anim = GetComponent<Animator>();
         render = GetComponent<SpriteRenderer>();
         source = GetComponent<AudioSource>();
+        rb = GetComponent<Rigidbody2D>(); 
         ResetHealth();
     }
-
-    // TODO
-    // Cancelar anim actual, knocback y fijar como objetivo al causante del daño
 
     public void TakeDamage(float damage)
     {
@@ -45,6 +48,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         StartCoroutine(ChangeColor());
         StartCoroutine(InvincibleMode());
 
+        OnDamageTaken?.Invoke();
     }
 
     private void CheckHealth()
@@ -62,11 +66,13 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     {
         return hurtClips[Random.Range(0, hurtClips.Length)];
     }
+
     public void PlayHurtSound()
     {
         source.Stop();
         source.PlayOneShot(TakeRandomStepSound());
     }
+
     private IEnumerator ChangeColor()
     {
         Color damagedColor = Color.red;
@@ -74,12 +80,14 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(redTime);
         render.color = Color.white;
     }
+
     private IEnumerator InvincibleMode()
     {
         canBeDamaged = false;
         yield return new WaitForSeconds(invincibleTime);
         canBeDamaged = true;
     }
+
     private void ResetHealth()
     {
         currentHealth = stats.MaxHealth;
