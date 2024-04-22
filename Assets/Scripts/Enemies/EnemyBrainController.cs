@@ -1,11 +1,11 @@
+using System;
 using System.Collections;
 using UnityEngine;
 public enum EnemyState
 {
     Idle,
     Follow,
-    Attack,
-    Knockback
+    Attack
 }
 
 public class EnemyBrainController : MonoBehaviour
@@ -26,6 +26,7 @@ public class EnemyBrainController : MonoBehaviour
     // tags
     const string campfireTag = "Campfire";
     const string playerTag = "Player";
+    const string onHitAnim = "OnHit";
 
     Vector2 campfirePos = Vector2.zero;
     Vector2 playerPos = Vector2.zero;
@@ -46,7 +47,17 @@ public class EnemyBrainController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag(playerTag);
         campfire = GameObject.FindGameObjectWithTag(campfireTag);
         source = GetComponent<AudioSource>();
+        GetComponent<EnemyHealth>().OnDamageTaken.AddListener(OnDamageTaken);
     }
+
+    private void OnDamageTaken()
+    {
+        canmove = false;
+        stateMachine.SetTrigger(onHitAnim);
+        currentState = EnemyState.Idle;
+        StartCoroutine(Stun());
+    }
+
     private void Start()
     {
         TryUpdateTarget();
@@ -68,9 +79,6 @@ public class EnemyBrainController : MonoBehaviour
             case EnemyState.Follow:
                 TryUpdateTarget();
                 LookTarget();
-                break;
-            case EnemyState.Knockback:
-                StartCoroutine(OnKnockback());
                 break;
 
         }
@@ -187,16 +195,19 @@ public class EnemyBrainController : MonoBehaviour
         return turret;
     }
 
-    private IEnumerator OnKnockback()
-    {
-        StopFollow();
-        yield return new WaitForSeconds(1.5f);
-        StartFollow();
-    }
-
     private void DisableMonsterVolume()
     {
         source.volume = 0;
+    }
+
+    IEnumerator Stun()
+    {
+        yield return new WaitForSeconds(1);
+        UpdateTargetPositions();
+        currentState = EnemyState.Idle; // Restablecer el estado a "Follow" después del aturdimiento
+        canmove = true; // Habilitar el movimiento nuevamente
+        StartFollow(); // Iniciar el seguimiento al objetivo
+                       // También puedes agregar lógica adicional aquí, como volver a buscar el objetivo
     }
 }
 
