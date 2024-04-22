@@ -112,15 +112,7 @@ public class EnemyBrainController : MonoBehaviour
 
     public virtual void TryUpdateTarget()
     {
-
-        if (campfire != null)
-            campfirePos = campfire.transform.position;
-
-        if (player != null)
-            playerPos = player.transform.position;
-
-        if (turret != null)
-            turretPos = turret.transform.position;
+        UpdateTargetPositions();
 
         // first target will be campfire
         if (currentTarget == null)
@@ -149,6 +141,18 @@ public class EnemyBrainController : MonoBehaviour
                 currentTarget = turret; // Torreta es el objetivo más cercano
             else StopFollow();
         }
+    }
+
+    private void UpdateTargetPositions()
+    {
+        if (campfire != null)
+            campfirePos = campfire.transform.position;
+
+        if (player != null)
+            playerPos = player.transform.position;
+
+        if (turret != null)
+            turretPos = turret.transform.position;
     }
 
     public void StopFollow()
@@ -195,3 +199,4 @@ public class EnemyBrainController : MonoBehaviour
         source.volume = 0;
     }
 }
+
