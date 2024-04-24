@@ -20,4 +20,15 @@ public class PlayerStats : BasicStats
     public int currentFood;
     public float currentMagic;
 
+    public static PlayerStats Instance { get; set; }
+
+    private void OnEnable()
+    {
+        Instance = this;
+    }
+
+    private void OnDisable()
+    {
+        Instance = null;
+    }
 }
