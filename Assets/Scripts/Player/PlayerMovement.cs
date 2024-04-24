@@ -12,6 +12,6 @@ public class PlayerMovement : IMovementStrategy
 
     public void Move(Vector2 direction)
     {
-        playerRb.MovePosition(playerRb.position + direction * Time.fixedDeltaTime * PlayerStats.Instance.moveSpeed);
+        playerRb.MovePosition(playerRb.position + PlayerStats.Instance.moveSpeed * Time.fixedDeltaTime * direction);
     }
 }
