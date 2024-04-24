@@ -2,41 +2,53 @@ using UnityEngine;
 
 public class PlayerHUD : MonoBehaviour
 {
-    [SerializeField] private GameObject HUD;
-    private HUD hud;
-    [SerializeField] KeyCode keycode;
-    [SerializeField] AudioSource audioSource;
-    [SerializeField] AudioClip abrirLibro;
-    [SerializeField] AudioClip cerrarLibro;
+    [SerializeField] private KeyCode toggleKey;
+    [SerializeField] private HUDController hudController; // Reference to the HUDController script
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip openBookSound;
+    [SerializeField] private AudioClip closeBookSound;
 
-    private void Start()
-    {
-        hud = HUD.GetComponent<HUD>();
-    }
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(keycode))
+        // Check if the toggle key is pressed
+        if (Input.GetKeyDown(toggleKey))
         {
-            if (!HUD.activeSelf) {
-                Activate();
-                audioSource.PlayOneShot(abrirLibro);
+            // Check if the HUD is not active
+            if (!hudController.IsHUDActive)
+            {
+                // Activate the HUD
+                ActivateHUD();
             }
             else
             {
-                DeActivate();
-                audioSource.PlayOneShot(cerrarLibro);
+                // Deactivate the HUD
+                DeactivateHUD();
             }
         }
     }
 
-    public void Activate()
+    // Method to activate the HUD
+    private void ActivateHUD()
     {
-        hud.HUDActivated();
+        // Activate the HUD using the HUDController
+        hudController.ActivateHUD();
+        // Play the open book sound
+        PlaySound(openBookSound);
     }
 
-    public void DeActivate()
+    // Method to deactivate the HUD
+    private void DeactivateHUD()
     {
-        hud.HUDDeactivated();
+        // Deactivate the HUD using the HUDController
+        hudController.DeactivateHUD();
+        // Play the close book sound
+        PlaySound(closeBookSound);
+    }
+
+    // Method to play a sound clip
+    private void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 }
