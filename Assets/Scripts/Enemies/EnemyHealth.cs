@@ -115,4 +115,9 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         source.PlayOneShot(deathClip);
         Invoke(nameof(DisableEnemy), 4f);
     }
+
+    public bool IsAlive()
+    {
+        throw new System.NotImplementedException();
+    }
 }
