@@ -11,7 +11,7 @@ public class Campfire : MonoBehaviour, IDamageable
     public static CampfireDelegate OnCampfireDieRelease;
     public static CampfireDelegate OnCampfireTakeDamageRelease;
     public static CampfireDelegate OnNoCampfireRelease;
-
+    private bool isAlive = true;
     public Animator anim;
     AudioSource source;
 
@@ -78,7 +78,12 @@ public class Campfire : MonoBehaviour, IDamageable
 
     void Die()
     {
+        isAlive = false;
         OnCampfireDieRelease?.Invoke();
     }
 
+    public bool IsAlive()
+    {
+        return isAlive;
+    }
 }

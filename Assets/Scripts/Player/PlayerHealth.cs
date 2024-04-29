@@ -101,5 +101,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         canBeDamaged = true;
     }
 
-
+    public bool IsAlive()
+    {
+        return !playerLose;
+    }
 }
