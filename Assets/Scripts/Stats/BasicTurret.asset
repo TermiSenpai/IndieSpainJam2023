@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb4314b29b5c00842847fee10ae0e6a0, type: 3}
+  m_Name: BasicTurret
+  m_EditorClassIdentifier: 
+  MaxHealth: 15
+  moveSpeed: 0
+  damage: 5
+  TurretName: 
+  description: 
+  turretGameobject: {fileID: 7474436161231433279, guid: 720b89a4035be0d42aff0ac024af5614, type: 3}
+  Proyectil: {fileID: 6514132951244688951, guid: 6cd73ed6482a75847b40713746e9d324, type: 3}
+  buildCost: 10
+  shootClip: {fileID: 8300000, guid: c2362b3b3b7153848bbd42e5759fcd90, type: 3}
+  attackDelay: 1
+  rangeRadius: 3
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 1024
