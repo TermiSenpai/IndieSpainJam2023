@@ -4,6 +4,8 @@ using UnityEngine.Rendering; // used to access the volume component
 using UnityEngine.Tilemaps;
 using System;
 
+
+//Enum para decidir los ciclos del dia
 public enum DayTime
 {
     Day = 0,
@@ -17,35 +19,43 @@ public class DayCycle : MonoBehaviour
     //[SerializeField] private TextMeshProUGUI timeDisplay;
     //[SerializeField] private TextMeshProUGUI dayDiplay;
     [SerializeField] private Volume ppv; //post processing volume
-
     private float seconds = 0;
+
+    //timers de las fases del dia
     [SerializeField] int DayTimer = 5;
     [SerializeField] int NightTimer = 9;
     [SerializeField] int SunriseTimer = 5;
     [SerializeField] int EveningTimer = 5;
+    //variables del tiempo y dias
     int time = 60;
     int days = 0;
 
+    //variable que controla las luces (fogata)
     private bool activateLights;
     [SerializeField] private GameObject[] lights;
+    //variable que se encarga de ver que parte del dia toca
     [SerializeField] private DayTime DTime = DayTime.Day;
 
+    /// <summary>
+    /// variables utilizadas para construir el mapa ,usarlo y actualizarlo
+    /// </summary>
     [SerializeField] private Tilemap m_Tilemap = null;
     [SerializeField] private TileBase TBase = null;
     [SerializeField] private List<TileData> tileDatas;
     private Dictionary<TileBase, TileData> dataFromTiles;
     private List<Tuple<Vector3Int, string>> TilesDates;
 
-
+    //delegados para cada cambio de fase del dia
     public delegate void DayCycleDelegate();
     public static DayCycleDelegate DayStartRelease;
     public static DayCycleDelegate EveningStartRelease;
     public static DayCycleDelegate NightStartRelease;
     public static DayCycleDelegate SunriseStartRelease;
 
-
+    //delegado para finalizar el juego
     public delegate void GameClearDelegate();
     public static GameClearDelegate GameClearRelease;
+    //variables de control del inicio del juego y del estado de la fogata
     [HideInInspector]
     public bool gameStarted = false;
     private bool canCampfiresBeOn = true;
