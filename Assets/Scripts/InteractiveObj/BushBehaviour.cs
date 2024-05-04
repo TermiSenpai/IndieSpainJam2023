@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
+//Object type Enum
 public enum InteractiveType
 {
     Magic,
@@ -12,17 +13,20 @@ public enum InteractiveType
 
 public class BushBehaviour : MonoBehaviour
 {
+    //Properties
     private bool mousePressed = false;
     private bool mouseOver = false;
     private float count = 0;
+    private bool clickeable = true;
+
+    //References
     [SerializeField] private InteractiveType interactiveType = InteractiveType.Bush;
     [SerializeField] private float timer = 2;
     [SerializeField] private GameObject Hunger;
-    private bool clickeable = true;
-
     [SerializeField] private AudioSource m_audiosource;
     [SerializeField] private AudioClip clipArbusto, clipMagia;
 
+    //Delegates
     public delegate void InteractiveDelegate();
     public static InteractiveDelegate OnMagicRelease;
     public static InteractiveDelegate OnBushRelease;
@@ -34,8 +38,10 @@ public class BushBehaviour : MonoBehaviour
         ///TODO: RECOLECTABLE?
 
 
+        //If the object is clickeable and the timer is done the recolection process starts
         if (clickeable)
         {
+            //Them moment the player moves the mouse or stop clicking, the timer restarts
             if ((!mouseOver) || (!mousePressed))
             {
                 count = 0;
@@ -44,6 +50,7 @@ public class BushBehaviour : MonoBehaviour
             else
             if (count >= timer)
             {
+                //Recolection procces depending of object type
                 clickeable = false;
                 switch (interactiveType)
                 {
@@ -76,12 +83,13 @@ public class BushBehaviour : MonoBehaviour
             }
             else
             {
-                
                 StartCoroutine(Tremble());
             }
         }
 
     }
+
+    // Couroutine to tremble the object
     IEnumerator Tremble()
     {
         count += Time.deltaTime;

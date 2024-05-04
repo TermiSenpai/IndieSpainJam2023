@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 using System;
 
 
-//Enum para decidir los ciclos del dia
+//Day cicle enum
 public enum DayTime
 {
     Day = 0,
@@ -18,47 +18,42 @@ public class DayCycle : MonoBehaviour
 {
     //[SerializeField] private TextMeshProUGUI timeDisplay;
     //[SerializeField] private TextMeshProUGUI dayDiplay;
-    [SerializeField] private Volume ppv; //post processing volume
-    private float seconds = 0;
 
-    //timers de las fases del dia
+    
+    //Properties
+    private int time = 60;
+    private int days = 0;
+    private float seconds = 0;
+    private bool activateLights;
+    private bool canCampfiresBeOn = true;
+
+
+    //References
+    [SerializeField] private Volume ppv; //post processing volume
     [SerializeField] int DayTimer = 5;
     [SerializeField] int NightTimer = 9;
     [SerializeField] int SunriseTimer = 5;
     [SerializeField] int EveningTimer = 5;
-    //variables del tiempo y dias
-    int time = 60;
-    int days = 0;
-
-    //variable que controla las luces (fogata)
-    private bool activateLights;
     [SerializeField] private GameObject[] lights;
-    //variable que se encarga de ver que parte del dia toca
     [SerializeField] private DayTime DTime = DayTime.Day;
-
-    /// <summary>
-    /// variables utilizadas para construir el mapa ,usarlo y actualizarlo
-    /// </summary>
     [SerializeField] private Tilemap m_Tilemap = null;
     [SerializeField] private TileBase TBase = null;
     [SerializeField] private List<TileData> tileDatas;
     private Dictionary<TileBase, TileData> dataFromTiles;
-    private List<Tuple<Vector3Int, string>> TilesDates;
+    private List<Tuple<Vector3Int, string>> TilesDates; //Tiles for the days
 
-    //delegados para cada cambio de fase del dia
+    //Delegates
     public delegate void DayCycleDelegate();
     public static DayCycleDelegate DayStartRelease;
     public static DayCycleDelegate EveningStartRelease;
     public static DayCycleDelegate NightStartRelease;
     public static DayCycleDelegate SunriseStartRelease;
-
-    //delegado para finalizar el juego
     public delegate void GameClearDelegate();
     public static GameClearDelegate GameClearRelease;
-    //variables de control del inicio del juego y del estado de la fogata
+
+    //Control Properties
     [HideInInspector]
     public bool gameStarted = false;
-    private bool canCampfiresBeOn = true;
 
 
     private void OnEnable()
@@ -75,29 +70,27 @@ public class DayCycle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Set references
         TilesDates = new List<Tuple<Vector3Int, string>>();
+        List<Vector3> availablePlaces = new List<Vector3>();
+        ppv = gameObject.GetComponent<Volume>();
 
+        //Add each tile in the Dictionary to access the data
         dataFromTiles = new Dictionary<TileBase, TileData>();
-        //Debug.Log("hey");
         foreach (var tileData in tileDatas)
         {
             foreach (var tile in tileData.tiles)
             {
                 dataFromTiles.Add(tile, tileData);
-                //  Debug.Log(tile + ", " + tileData);
             }
         }
-
-        List<Vector3> availablePlaces = new List<Vector3>();
-
+        //Get the posicions for the dates tiles
         for (int n = m_Tilemap.cellBounds.xMin; n < m_Tilemap.cellBounds.xMax; n++)
         {
             for (int p = m_Tilemap.cellBounds.yMin; p < m_Tilemap.cellBounds.yMax; p++)
             {
                 Vector3Int pos = new Vector3Int(n, p, 0);
                 TileBase tile = m_Tilemap.GetTile(pos);
-                //m_Tilemap.SetTile(new Vector3Int(n, p, 0),null);
-                //Debug.Log(tile);
                 if (tile == null) { }
                 else
                 {
@@ -108,13 +101,15 @@ public class DayCycle : MonoBehaviour
                 }
             }
         }
+        //Set the new DateTiles in their position
         foreach (Tuple<Vector3Int, string> t in TilesDates)
         {
             m_Tilemap.SetTile(t.Item1, TBase);
         }
+
+        //Start the code
         DayChange();
         DayStartRelease?.Invoke();
-        ppv = gameObject.GetComponent<Volume>();
     }
 
     // Update is called once per frame
@@ -122,17 +117,17 @@ public class DayCycle : MonoBehaviour
     {
         if (!gameStarted) return;
         CalcTime();
-        //DisplayTime();
     }
 
+    //Calculate the time of the day
     public void CalcTime()
     {
         seconds += Time.deltaTime;
-        //Debug.Log("paso "+ Time.fixedDeltaTime);
 
         if (seconds >= time)
         {
             seconds = 0;
+            ///TODO: Switch?
             if (((int)DTime + 1) < 4)
             {
                 DTime = (DayTime)((int)DTime + 1);
@@ -156,6 +151,7 @@ public class DayCycle : MonoBehaviour
                 DayStartRelease?.Invoke();
             }
         }
+        ///TODO: Switch
         if (DTime == DayTime.Evening)
         {
             time = EveningTimer;
@@ -177,6 +173,7 @@ public class DayCycle : MonoBehaviour
         ControlPPV();
     }
 
+    //Set light intensity
     public void ControlPPV()
     {
         if (DTime == DayTime.Evening)
@@ -215,6 +212,8 @@ public class DayCycle : MonoBehaviour
         }
     }
 
+    /// TODO: day 1 tile?
+    //Set a new tile for each day
     private void DayChange()
     {
 
@@ -236,12 +235,4 @@ public class DayCycle : MonoBehaviour
     {
         canCampfiresBeOn = false;
     }
-
-    public void DisplayTime()
-    {
-        //timeDisplay.text = "Time: " + (int)seconds;
-        //dayDiplay.text = "Day: " + days;
-    }
-
-
 }
