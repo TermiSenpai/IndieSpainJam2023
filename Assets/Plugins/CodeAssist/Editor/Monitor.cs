@@ -20,6 +20,7 @@ namespace Meryel.UnityCodeAssist.Editor
         private static System.DateTime previousTagManagerLastWrite;
 
         private static bool isAppFocused;
+        private static bool isAppFocusedOnTagManager;
 
         private static int dirtyCounter;
         private static readonly Dictionary<GameObject, int> dirtyDict;
@@ -27,8 +28,14 @@ namespace Meryel.UnityCodeAssist.Editor
         static Monitor()
         {
             tagManagerFilePath = CommonTools.GetTagManagerFilePath();
-            previousTagManagerLastWrite = System.IO.File.GetLastWriteTime(tagManagerFilePath);
-
+            try
+            {
+                previousTagManagerLastWrite = System.IO.File.GetLastWriteTime(tagManagerFilePath);
+            }
+            catch (System.Exception ex)
+            {
+                Serilog.Log.Debug(ex, "Exception at {Location}", nameof(System.IO.File.GetLastWriteTime));
+            }
             dirtyDict = new Dictionary<GameObject, int>();
             dirtyCounter = 0;
 
@@ -59,12 +66,30 @@ namespace Meryel.UnityCodeAssist.Editor
 
         static void OnUpdate()
         {
-            var currentTagManagerLastWrite = System.IO.File.GetLastWriteTime(tagManagerFilePath);
+            string? currentEditorFocus = null;
+            if (Selection.activeObject)
+                currentEditorFocus = Selection.activeObject.GetType().ToString();
+
+            var currentTagManagerLastWrite = previousTagManagerLastWrite;
+            try
+            {
+                currentTagManagerLastWrite = System.IO.File.GetLastWriteTime(tagManagerFilePath);
+            }
+            catch (System.Exception ex)
+            {
+                Serilog.Log.Debug(ex, "Exception at {Location}", nameof(System.IO.File.GetLastWriteTime));
+            }
             if (currentTagManagerLastWrite != previousTagManagerLastWrite)
             {
                 previousTagManagerLastWrite = currentTagManagerLastWrite;
                 OnTagsOrLayersModified();
             }
+            else if (currentEditorFocus == "UnityEditor.TagManager")
+            {
+                // since unity does not commit changes to the file immediately, checking if user is displaying and focusing on tag manager (tags & layers) inspector
+                isAppFocusedOnTagManager = true;
+            }
+            
 
             if (isAppFocused != UnityEditorInternal.InternalEditorUtility.isApplicationActive)
             {
@@ -117,6 +142,12 @@ namespace Meryel.UnityCodeAssist.Editor
         {
             if (!isFocused)
             {
+                if (isAppFocusedOnTagManager)
+                {
+                    isAppFocusedOnTagManager = false;
+                    OnTagsOrLayersModified();
+                }
+
                 OnSelectionChanged();
                 FlushAllDirty();
                 /*
@@ -150,10 +181,15 @@ namespace Meryel.UnityCodeAssist.Editor
         {
             if (obj == null)
                 return;
-            else if (obj is GameObject go)
+            else if (obj is GameObject go && go)
                 SetDirty(go);
-            else if (obj is Component component)
-                SetDirty(component.gameObject);
+            else if (obj is Component component && component)
+            //SetDirty(component.gameObject);
+            {
+                var componentGo = component.gameObject;
+                if (componentGo)
+                    SetDirty(componentGo);
+            }
             //else
                 //;//**--scriptable obj
         }
@@ -195,6 +231,26 @@ namespace Meryel.UnityCodeAssist.Editor
             NetMQInitializer.Publisher?.SendErrorReport(condition, stackTrace, typeStr);
         }
 
+
+        public static void LazyLoad(string category)
+        {
+            if (category == "PlayerPrefs")
+            {
+                Preferences.PreferenceMonitor.InstanceOfPlayerPrefs.Bump();
+            }
+            else if(category == "EditorPrefs")
+            {
+                Preferences.PreferenceMonitor.InstanceOfEditorPrefs.Bump();
+            }
+            else if(category == "InputManager")
+            {
+                Input.InputManagerMonitor.Instance.Bump();
+            }
+            else
+            {
+                Serilog.Log.Error("Invalid LazyLoad category {Category}", category);
+            }
+        }
     }
 
 }

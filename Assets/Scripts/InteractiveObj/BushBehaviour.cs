@@ -151,6 +151,7 @@ public class BushBehaviour : MonoBehaviour
     void RestartBush()
     {
         Hunger.SetActive(true);
+        clickeable = true;
     }
 
 }
