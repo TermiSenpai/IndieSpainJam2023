@@ -12,6 +12,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     private SpriteRenderer render;
     private Animator anim;
     private Rigidbody2D rb; 
+    private Collider2D col;
 
     [Header("Timers")]
     [SerializeField] private float redTime;
@@ -32,6 +33,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         render = GetComponent<SpriteRenderer>();
         source = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>(); 
+        col = GetComponent<Collider2D>();
         ResetHealth();
     }
 
@@ -53,7 +55,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private void CheckHealth()
     {
-        if (currentHealth <= 0)
+        if (IsAlive())
             Die();
     }
 
@@ -108,7 +110,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        isDead = true;
+        col.enabled = false;
         canBeDamaged = false;
         anim.SetTrigger("Death");
         source.Stop();
@@ -118,6 +120,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     public bool IsAlive()
     {
-        throw new System.NotImplementedException();
+        return currentHealth <= 0;
     }
 }
