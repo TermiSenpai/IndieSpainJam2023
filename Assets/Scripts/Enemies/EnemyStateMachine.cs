@@ -22,6 +22,7 @@ public class EnemyStateMachine : MonoBehaviour
         // Salir del estado actual
         currentState.ExitState();
 
+
         // Cambiar al nuevo estado
         currentState = newState;
         currentState.EnterState();

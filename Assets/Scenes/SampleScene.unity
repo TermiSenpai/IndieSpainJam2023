@@ -2027,14 +2027,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1867494675726350179}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b211e1fa207b9a34f9d1fcfd25340f9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidadRotacion: 45
-  distanciaDesdeJugador: 2
-  anguloParada: 30
+  rotationSpeed: 45
+  distance: 2
+  stopAngle: 30
 --- !u!95 &791810838447835377
 Animator:
   serializedVersion: 5
@@ -2132,10 +2132,10 @@ GameObject:
   - component: {fileID: 7013472167145679151}
   - component: {fileID: 7065309033169701530}
   - component: {fileID: 7531917134174915795}
+  - component: {fileID: 7531917134174915796}
   - component: {fileID: 7531917134174915793}
   - component: {fileID: 7531917134174915792}
   - component: {fileID: 7531917134174915791}
-  - component: {fileID: 7531917134174915796}
   m_Layer: 10
   m_Name: VacuoMelee
   m_TagString: Untagged
@@ -2190,7 +2190,7 @@ Transform:
   m_GameObject: {fileID: 1867494675726350179}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2491,6 +2491,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 360080d9ff9d84f45af6baa19c4ca5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: a511b1605737a664aa139de175c34d6f, type: 2}
+  AttackPoint: {fileID: 3218417506893747616}
+  attackSound: {fileID: 8300000, guid: ecbf31267ff9a3447a0d7602bcdf73cd, type: 3}
 --- !u!114 &7531917134174915793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2503,6 +2506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a711552bbc16d454da1d17b819d38975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentTarget: {fileID: 0}
   attackRange: 2
   stats: {fileID: 11400000, guid: a511b1605737a664aa139de175c34d6f, type: 2}
 --- !u!114 &7531917134174915795
