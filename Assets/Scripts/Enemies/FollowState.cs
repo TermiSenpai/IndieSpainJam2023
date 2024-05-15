@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FollowState : MonoBehaviour, IEnemyState
 {
-    private Transform currentTarget; // Objetivo actual
+    public Transform currentTarget; // Objetivo actual
     private EnemyStateMachine stateMachine;
     public float attackRange = 2f; // Rango de ataque
     [SerializeField] EnemyStats stats;
@@ -19,8 +19,6 @@ public class FollowState : MonoBehaviour, IEnemyState
 
     public void EnterState()
     {
-        Debug.Log("Follow state on");
-        // Lógica de entrada al estado Follow
         // Establecer el objetivo inicial (por ejemplo, el jugador)
         currentTarget = GetClosestTarget();
     }
@@ -45,8 +43,7 @@ public class FollowState : MonoBehaviour, IEnemyState
 
     public void ExitState()
     {
-        Debug.Log("Follow state off");
-        // Lógica de salida del estado Follow
+        enabled = false;
     }
 
     private Transform GetClosestTarget()
@@ -56,42 +53,33 @@ public class FollowState : MonoBehaviour, IEnemyState
 
         // Buscar el objeto con la etiqueta "Campfire"
         GameObject campfireObject = GameObject.FindGameObjectWithTag("Campfire");
-
-        // Verificar si el campfire existe y está vivo
-        if (campfireObject != null)
+        if (campfireObject != null && campfireObject.GetComponent<IDamageable>().IsAlive())
         {
             Transform campfire = campfireObject.transform;
             float distanceToCampfire = Vector3.Distance(transform.position, campfire.position);
 
-            // Si el campfire está vivo y es el más cercano hasta ahora, asignarlo como el objetivo más cercano
-            if (distanceToCampfire < closestDistance && campfire.GetComponent<IDamageable>().IsAlive())
-            {
-                closestTarget = campfire;
-                closestDistance = distanceToCampfire;
-            }
+            // Asignar el campfire como objetivo más cercano inicialmente
+            closestTarget = campfire;
+            closestDistance = distanceToCampfire;
         }
 
-        // Buscar al jugador solo si no se encontró un campamento válido
-        if (closestTarget == null)
+        // Buscar el objeto con la etiqueta "Player"
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null && playerObject.GetComponent<IDamageable>().IsAlive())
         {
-            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            Transform player = playerObject.transform;
+            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-            // Verificar si el jugador existe y está vivo
-            if (playerObject != null)
+            // Si la distancia al jugador es menor que la distancia al objetivo más cercano hasta ahora, actualizar el objetivo más cercano
+            if (distanceToPlayer < closestDistance)
             {
-                Transform player = playerObject.transform;
-                float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-                // Si el jugador está vivo y es el más cercano hasta ahora, asignarlo como el objetivo más cercano
-                if (distanceToPlayer < closestDistance && player.GetComponent<IDamageable>().IsAlive())
-                {
-                    closestTarget = player;
-                }
+                closestTarget = player;                
             }
         }
 
         return closestTarget;
     }
+
     private void MoveToTarget()
     {
         if (currentTarget == null)
