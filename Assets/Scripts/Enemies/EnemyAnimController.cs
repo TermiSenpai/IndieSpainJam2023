@@ -17,4 +17,9 @@ public class EnemyAnimController : MonoBehaviour
         // Establecer el valor del float en el Animator
         animator.SetFloat(parameterName, value);
     }
+    public void Trigger(string parameterName)
+    {
+        // Establecer el valor del float en el Animator
+        animator.SetTrigger(parameterName);
+    }
 }
