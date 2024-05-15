@@ -4,34 +4,34 @@ using UnityEngine;
 
 public class EnemyMelePivotRotating : MonoBehaviour
 {
-    public float velocidadRotacion = 45.0f;
-    public float distanciaDesdeJugador = 2.0f;
-    public float anguloParada = 30.0f; // Ángulo en grados para detener la rotación
+    public float rotationSpeed = 45.0f;
+    public float distance = 2.0f;
+    public float stopAngle = 30.0f; // Ángulo en grados para detener la rotación
+    Transform target;
+    FollowState followState;
 
     private bool detenerRotacion = false;
 
-    EnemyBrainController controller;
     private void Start()
     {
-        controller =GetComponentInParent<EnemyBrainController>();
+        followState = GetComponentInParent<FollowState>();
     }
 
     void Update()
     {
-        // Seguir la posición del ratón en pantalla.
-        Vector3 target = controller.currentTarget.transform.position;
-
+        target = followState.currentTarget;
+        if (target == null) return;
         // Calcular la dirección hacia el ratón desde la posición del objeto.
-        Vector3 direccionAlRaton = (target - transform.position).normalized;
+        Vector3 targetDirection = (target.position - transform.position).normalized;
 
         // Calcular el ángulo de rotación en grados.
-        float angulo = Mathf.Atan2(direccionAlRaton.y, direccionAlRaton.x) * Mathf.Rad2Deg;
+        float angulo = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
 
         // Aplicar la rotación al objeto.
         transform.rotation = Quaternion.Euler(0, 0, angulo);
 
         // Verificar si el ángulo es menor que el ángulo de parada.
-        if (Mathf.Abs(angulo) <= anguloParada)
+        if (Mathf.Abs(angulo) <= stopAngle)
         {
             detenerRotacion = true;
         }
@@ -43,11 +43,13 @@ public class EnemyMelePivotRotating : MonoBehaviour
         // Establecer la velocidad de rotación en función de si debemos detenernos o no.
         if (detenerRotacion)
         {
-            velocidadRotacion = 0; // Detener la rotación.
+            rotationSpeed = 0; // Detener la rotación.
         }
         else
         {
-            velocidadRotacion = 45.0f; // Puedes ajustar la velocidad aquí.
+            rotationSpeed = 45.0f; // Puedes ajustar la velocidad aquí.
         }
     }
+
+
 }
