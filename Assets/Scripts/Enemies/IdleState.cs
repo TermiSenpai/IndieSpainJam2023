@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class IdleState : MonoBehaviour, IEnemyState
 {
-    private GameObject campfire; // Referencia al objeto que representa el campamento
-    private Transform player; // Referencia al jugador
+    private GameObject campfire; // Reference to the object representing the campfire
+    private Transform player; // Reference to the player
     private EnemyStateMachine stateMachine;
     private FollowState followState;
 
     void Start()
     {
-        // Obtener referencias necesarias
+        // Get necessary references
         campfire = GameObject.FindGameObjectWithTag("Campfire");
         player = GameObject.FindGameObjectWithTag("Player").transform;
         stateMachine = GetComponent<EnemyStateMachine>();
@@ -18,25 +18,14 @@ public class IdleState : MonoBehaviour, IEnemyState
 
     public void EnterState()
     {
-        // Lógica de entrada al estado Idle
+        // If the campfire exists, change to Follow state
         if (campfire != null || player != null)
-        {
-            // Si el campamento existe, cambiar al estado Follow
             stateMachine.ChangeState(followState);
-        }
     }
 
     public void UpdateState()
     {
     }
 
-    public void ExitState()
-    {
-        enabled = false;
-    }
-
-    private void OnEnable()
-    {
-        EnterState();
-    }
+    public void ExitState() => enabled = false;
 }
