@@ -40,7 +40,7 @@ public class AttackBehaviour : StateMachineBehaviour
         }
 
         canAttack = false;
-        animator.GetComponent<EnemyBrainController>().TryUpdateTarget();
+        //animator.GetComponent<EnemyBrainController>().TryUpdateTarget();
     }
 
     protected virtual void CheckAttackDelay()

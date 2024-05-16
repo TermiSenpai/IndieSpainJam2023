@@ -15,7 +15,7 @@ public class FollowBehavior : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        MoveToTarget(animator);
+        //MoveToTarget(animator);
     }
 
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -23,23 +23,23 @@ public class FollowBehavior : StateMachineBehaviour
 
     //}
 
-    private void MoveToTarget(Animator animator)
-    {
-        if (controller.currentTarget == null)
-            return;
+    //private void MoveToTarget(Animator animator)
+    //{
+    //    if (controller.currentTarget == null)
+    //        return;
 
-        animator.transform.position = Vector2.MoveTowards(animator.transform.position,
-                                      controller.currentTarget.transform.position,
-                                      speed * Time.deltaTime);
-        Vector2 direccion = ((Vector2)controller.currentTarget.transform.position - (Vector2)animator.transform.position).normalized;
+    //    animator.transform.position = Vector2.MoveTowards(animator.transform.position,
+    //                                  controller.currentTarget.transform.position,
+    //                                  speed * Time.deltaTime);
+    //    Vector2 direccion = ((Vector2)controller.currentTarget.transform.position - (Vector2)animator.transform.position).normalized;
 
-        float direccionX = direccion.x;
-        float direccionY = direccion.y;
+    //    float direccionX = direccion.x;
+    //    float direccionY = direccion.y;
 
-        // floats en el Animator
-        animator.SetFloat("Horizontal", direccionX);
-        animator.SetFloat("Vertical", direccionY);
-    }
+    //    // floats en el Animator
+    //    animator.SetFloat("Horizontal", direccionX);
+    //    animator.SetFloat("Vertical", direccionY);
+    //}
 
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
