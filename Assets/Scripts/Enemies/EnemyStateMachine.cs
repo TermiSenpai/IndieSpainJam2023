@@ -1,5 +1,12 @@
 using UnityEngine;
 
+public enum EnemyState
+{
+    Idle,
+    Chasing,
+    Attacking
+}
+
 public class EnemyStateMachine : MonoBehaviour
 {
     public IEnemyState currentState;
