@@ -85,11 +85,12 @@ public class FollowState : MonoBehaviour, IEnemyState
         if (currentTarget == null)
             return;
 
-        // Calcula la dirección hacia el objetivo.
-        Vector2 direccion = ((Vector2)currentTarget.transform.position - (Vector2)transform.position).normalized;
+        // Usa la función `fromToVector` para calcular la dirección hacia el objetivo.
+        Vector2 direccion = FromToVector(transform.position.x, transform.position.y, currentTarget.position.x, currentTarget.position.y).normalized;
 
         // Calcula la nueva posición deseada.
         Vector2 newPosition = (Vector2)transform.position + stats.moveSpeed * Time.deltaTime * direccion;
+
 
         // Mueve el Rigidbody2D hacia la nueva posición.
         rb.MovePosition(newPosition);
@@ -100,5 +101,11 @@ public class FollowState : MonoBehaviour, IEnemyState
         // floats en el Animator
         anim.SetFloat("Horizontal", direccionX);
         anim.SetFloat("Vertical", direccionY);
+    }
+
+    // La función `fromToVector` adaptada de Lua a C#
+    private Vector2 FromToVector(float fromX, float fromY, float toX, float toY)
+    {
+        return new Vector2(toX - fromX, toY - fromY).normalized;
     }
 }
