@@ -21,3 +21,5 @@ MonoBehaviour:
   damageableLayer:
     serializedVersion: 2
     m_Bits: 896
+  attackClip: {fileID: 8300000, guid: ecbf31267ff9a3447a0d7602bcdf73cd, type: 3}
+  emergeClip: {fileID: 8300000, guid: ecbf31267ff9a3447a0d7602bcdf73cd, type: 3}

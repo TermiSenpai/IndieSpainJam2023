@@ -8,4 +8,6 @@ public class EnemyStats : BasicStats
     public float hitDelay;
     public float attackLength;
     public LayerMask damageableLayer;
+    public AudioClip attackClip;
+    public AudioClip emergeClip;
 }

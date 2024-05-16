@@ -879,14 +879,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8e10964327d854cb09c7920e99eda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTarget: {fileID: 0}
-  source: {fileID: 0}
-  attackState: {fileID: 0}
-  followState: {fileID: 0}
-  currentState: 0
-  prioritizeCampfire: 0
-  maxCampfireDistance: 100
-  canmove: 1
 --- !u!95 &856796594
 Animator:
   serializedVersion: 5
@@ -2127,12 +2119,13 @@ GameObject:
   - component: {fileID: 6778207890659335627}
   - component: {fileID: 7531917134174915790}
   - component: {fileID: 791810838447835377}
-  - component: {fileID: 2821384687345573263}
   - component: {fileID: 2098788789760840869}
   - component: {fileID: 7013472167145679151}
   - component: {fileID: 7065309033169701530}
-  - component: {fileID: 7531917134174915795}
   - component: {fileID: 7531917134174915796}
+  - component: {fileID: 7531917134174915797}
+  - component: {fileID: 2821384687345573263}
+  - component: {fileID: 7531917134174915795}
   - component: {fileID: 7531917134174915793}
   - component: {fileID: 7531917134174915792}
   - component: {fileID: 7531917134174915791}
@@ -2521,6 +2514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3aa3a0f424bee48a8d0758c58cb3b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentEnemyState: 0
 --- !u!114 &7531917134174915796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2531,6 +2525,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea5fe5a8417731048bd2fe7ee93cecfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7531917134174915797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2471160832940482328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4072a670d6fbb3a4286c1b81f1b55541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
