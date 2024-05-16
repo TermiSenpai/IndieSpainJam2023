@@ -50,6 +50,9 @@ public class TorretsHUD : MonoBehaviour
         this.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         this.transform.SetParent(initialParent);
         transform.position = this.transform.parent.position;
+
+        ///TODO
+        ///pasar los datos por la funcion y crear el objeto solo y unicamente si pasa los filtros. Asi no se instancia y se destruye.
         GameObject aux = (GameObject)Instantiate(turretStats.turretGameobject, new Vector3(0, 0, 0), Quaternion.identity);
         world.Construct(aux);
 
