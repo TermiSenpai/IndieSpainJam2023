@@ -1,40 +1,63 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowState : MonoBehaviour, IEnemyState
 {
-    public Transform currentTarget; // Objetivo actual
+    public Transform currentTarget; // Current target
     private EnemyStateMachine stateMachine;
-    public float attackRange = 2f; // Rango de ataque
+    public float attackRange = 2f; // Attack range
     [SerializeField] EnemyStats stats;
     EnemyAnimController anim;
     Rigidbody2D rb;
-
+    // List of potential targets
+    private List<Transform> targets;
     void Start()
     {
-        // Obtener una referencia al estado de la máquina
+        // Get a reference to the state machine
         stateMachine = GetComponent<EnemyStateMachine>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<EnemyAnimController>();
+        // Initialize the list of targets
+        targets = new List<Transform>();
+        FindTargets();
+    }
+
+    void FindTargets()
+    {
+        targets.Clear();
+
+        // Add campfires to the targets list
+        GameObject campfireObject = GameObject.FindGameObjectWithTag("Campfire");
+        if (campfireObject != null && campfireObject.GetComponent<IDamageable>().IsAlive())
+        {
+            targets.Add(campfireObject.transform);
+        }
+
+        // Add players to the targets list
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null && playerObject.GetComponent<IDamageable>().IsAlive())
+        {
+            targets.Add(playerObject.transform);
+        }
     }
 
     public void EnterState()
     {
-        // Establecer el objetivo inicial (por ejemplo, el jugador)
+        // Set initial target (e.g., player)
         currentTarget = GetClosestTarget();
     }
 
     public void UpdateState()
     {
-
         MoveToTarget();
-        // Lógica de actualización del estado Follow
+        // Follow state update logic
         if (currentTarget == null || !currentTarget.GetComponent<IDamageable>().IsAlive())
         {
-            // Si el objetivo actual no está vivo, cambiar al siguiente objetivo disponible
+            // If the current target is not alive, switch to the next available target
             currentTarget = GetClosestTarget();
         }
 
-        // Si estamos lo suficientemente cerca del objetivo, cambiar al estado de ataque
+        // If we are close enough to the target, switch to attack state
         if (currentTarget != null && Vector3.Distance(transform.position, currentTarget.position) <= attackRange)
         {
             stateMachine.ChangeState(GetComponent<AttackState>());
@@ -51,29 +74,13 @@ public class FollowState : MonoBehaviour, IEnemyState
         Transform closestTarget = null;
         float closestDistance = Mathf.Infinity;
 
-        // Buscar el objeto con la etiqueta "Campfire"
-        GameObject campfireObject = GameObject.FindGameObjectWithTag("Campfire");
-        if (campfireObject != null && campfireObject.GetComponent<IDamageable>().IsAlive())
+        foreach (Transform target in targets)
         {
-            Transform campfire = campfireObject.transform;
-            float distanceToCampfire = Vector3.Distance(transform.position, campfire.position);
-
-            // Asignar el campfire como objetivo más cercano inicialmente
-            closestTarget = campfire;
-            closestDistance = distanceToCampfire;
-        }
-
-        // Buscar el objeto con la etiqueta "Player"
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        if (playerObject != null && playerObject.GetComponent<IDamageable>().IsAlive())
-        {
-            Transform player = playerObject.transform;
-            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-            // Si la distancia al jugador es menor que la distancia al objetivo más cercano hasta ahora, actualizar el objetivo más cercano
-            if (distanceToPlayer < closestDistance)
+            float distance = Vector3.Distance(transform.position, target.position);
+            if (distance < closestDistance)
             {
-                closestTarget = player;                
+                closestTarget = target;
+                closestDistance = distance;
             }
         }
 
@@ -85,27 +92,23 @@ public class FollowState : MonoBehaviour, IEnemyState
         if (currentTarget == null)
             return;
 
-        // Usa la función `fromToVector` para calcular la dirección hacia el objetivo.
-        Vector2 direccion = FromToVector(transform.position.x, transform.position.y, currentTarget.position.x, currentTarget.position.y).normalized;
+        // Use the `fromToVector` function to calculate the direction towards the target.
+        Vector2 direction = FromToVector(transform.position.x, transform.position.y, currentTarget.position.x, currentTarget.position.y).normalized;
 
-        // Calcula la nueva posición deseada.
-        Vector2 newPosition = (Vector2)transform.position + stats.moveSpeed * Time.deltaTime * direccion;
+        // Calculate the new desired position.
+        Vector2 newPosition = (Vector2)transform.position + stats.moveSpeed * Time.deltaTime * direction;
 
-
-        // Mueve el Rigidbody2D hacia la nueva posición.
+        // Move the Rigidbody2D to the new position.
         rb.MovePosition(newPosition);
 
-        float direccionX = direccion.x;
-        float direccionY = direccion.y;
+        float directionX = direction.x;
+        float directionY = direction.y;
 
-        // floats en el Animator
-        anim.SetFloat("Horizontal", direccionX);
-        anim.SetFloat("Vertical", direccionY);
+        // Set floats in the Animator
+        anim.SetFloat("Horizontal", directionX);
+        anim.SetFloat("Vertical", directionY);
     }
 
-    // La función `fromToVector` adaptada de Lua a C#
-    private Vector2 FromToVector(float fromX, float fromY, float toX, float toY)
-    {
-        return new Vector2(toX - fromX, toY - fromY).normalized;
-    }
+    // Calculates the directional vector from one point to another and normalizes it.
+    private Vector2 FromToVector(float fromX, float fromY, float toX, float toY) => new Vector2(toX - fromX, toY - fromY).normalized;
 }
