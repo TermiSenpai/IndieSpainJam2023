@@ -43,8 +43,9 @@ public class FollowState : MonoBehaviour, IEnemyState
 
     public void EnterState()
     {
-        // Set initial target (e.g., player)
+        // Set initial target
         currentTarget = GetClosestTarget();
+        stateMachine.currentEnemyState = EnemyState.Chasing;
     }
 
     public void UpdateState()

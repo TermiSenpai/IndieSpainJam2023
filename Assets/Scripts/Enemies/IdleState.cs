@@ -18,6 +18,7 @@ public class IdleState : MonoBehaviour, IEnemyState
 
     public void EnterState()
     {
+        stateMachine.currentEnemyState = EnemyState.Idle;
         // If the campfire exists, change to Follow state
         if (campfire != null || player != null)
             stateMachine.ChangeState(followState);

@@ -19,6 +19,7 @@ public class AttackState : MonoBehaviour, IEnemyState
     public void EnterState()
     {
         anim.Trigger("Emerge");
+        stateMachine.currentEnemyState = EnemyState.Emerging;
     }
 
     public void ExitState()
@@ -33,13 +34,12 @@ public class AttackState : MonoBehaviour, IEnemyState
 
     public void Attack()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, stats.radiusRange, stats.damageableLayer);       
+        stateMachine.currentEnemyState = EnemyState.Attacking;
 
-        // RaycastHit2D enemyHit = Physics2D.Raycast(AttackPoint.position, Vector2.right, stats.raidusRange, stats.enemyLayer);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, stats.radiusRange, stats.damageableLayer);
 
         foreach (Collider2D enemy in hitEnemies)
         {
-
             Debug.Log(enemy.gameObject.name);
             IDamageable damageable = enemy.GetComponent<IDamageable>();
             damageable?.TakeDamage(stats.damage);
