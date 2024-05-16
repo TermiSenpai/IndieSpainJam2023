@@ -11,27 +11,27 @@ public class EnemyStateMachine : MonoBehaviour
 {
     public IEnemyState currentState;
 
-    void Start()
-    {
-        // Inicializar el primer estado
-        currentState = GetComponent<IdleState>();
-        currentState.EnterState();
-    }
+    // Initialize the first state
+    void Start() => InitializeState(GetComponent<IdleState>());
 
-    void Update()
-    {
-        // Actualizar el estado actual
-        currentState.UpdateState();
-    }
+    // Actualizar el estado actual
+    void Update() => currentState.UpdateState();
 
     public void ChangeState(IEnemyState newState)
     {
-        // Salir del estado actual
+        // Exit the current state
         currentState.ExitState();
 
+        // Change to the new state
+        InitializeState(newState);
+    }
 
-        // Cambiar al nuevo estado
+    private void InitializeState(IEnemyState newState)
+    {
+        // Set the current state to the new state
         currentState = newState;
+        // Call the EnterState method of the new state
         currentState.EnterState();
     }
+
 }
