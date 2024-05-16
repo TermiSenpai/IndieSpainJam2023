@@ -9,12 +9,14 @@ public class AttackState : MonoBehaviour, IEnemyState
     EnemyStateMachine stateMachine;
     EnemyAnimController anim;
     IdleState idle;
+    EnemySoundManager soundManager;
 
-    private void Start()
+    private void Awake()
     {
         stateMachine = GetComponent<EnemyStateMachine>();
         anim = GetComponent<EnemyAnimController>();
         idle = GetComponent<IdleState>();
+        soundManager = GetComponent<EnemySoundManager>();
     }
     public void EnterState()
     {
@@ -34,8 +36,6 @@ public class AttackState : MonoBehaviour, IEnemyState
 
     public void Attack()
     {
-        stateMachine.currentEnemyState = EnemyState.Attacking;
-
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, stats.radiusRange, stats.damageableLayer);
 
         foreach (Collider2D enemy in hitEnemies)
@@ -54,7 +54,7 @@ public class AttackState : MonoBehaviour, IEnemyState
 
     public void PlayEmergeSound()
     {
-
+        soundManager.PlayOneTime(stats.emergeClip);
     }
 
     private void OnDrawGizmos()
