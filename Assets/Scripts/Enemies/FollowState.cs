@@ -5,7 +5,7 @@ public class FollowState : MonoBehaviour, IEnemyState
 {
     public Transform currentTarget; // Current target
     private EnemyStateMachine stateMachine;
-    public float attackRange = 2f; // Attack range
+    //public float attackRange = 2f; // Attack range
     [SerializeField] EnemyStats stats; // Reference to enemy stats
     EnemyAnimController anim; // Reference to the enemy animator
     Rigidbody2D rb; // Reference to the enemy Rigidbody2D
@@ -64,7 +64,7 @@ public class FollowState : MonoBehaviour, IEnemyState
         }
 
         // If we are close enough to the target, switch to attack state
-        if (currentTarget != null && Vector3.Distance(transform.position, currentTarget.position) <= attackRange)
+        if (currentTarget != null && Vector3.Distance(transform.position, currentTarget.position) <= stats.attackLength)
         {
             stateMachine.ChangeState(GetComponent<AttackState>());
         }

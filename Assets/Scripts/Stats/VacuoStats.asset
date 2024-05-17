@@ -17,7 +17,7 @@ MonoBehaviour:
   damage: 5
   radiusRange: 0.75
   hitDelay: 2
-  attackLength: 1.25
+  attackLength: 1.5
   damageableLayer:
     serializedVersion: 2
     m_Bits: 896
