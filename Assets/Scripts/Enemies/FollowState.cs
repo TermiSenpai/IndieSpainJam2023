@@ -6,22 +6,27 @@ public class FollowState : MonoBehaviour, IEnemyState
     public Transform currentTarget; // Current target
     private EnemyStateMachine stateMachine;
     public float attackRange = 2f; // Attack range
-    [SerializeField] EnemyStats stats;
-    EnemyAnimController anim;
-    Rigidbody2D rb;
+    [SerializeField] EnemyStats stats; // Reference to enemy stats
+    EnemyAnimController anim; // Reference to the enemy animator
+    Rigidbody2D rb; // Reference to the enemy Rigidbody2D
     // List of potential targets
     private List<Transform> targets;
+
+    private ObstacleAvoidance obstacleAvoidance; // Reference to the ObstacleAvoidance script
+
     void Start()
     {
         // Get a reference to the state machine
         stateMachine = GetComponent<EnemyStateMachine>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<EnemyAnimController>();
+        obstacleAvoidance = GetComponent<ObstacleAvoidance>();
         // Initialize the list of targets
         targets = new List<Transform>();
         FindTargets();
     }
 
+    // Method to find potential targets for the enemy
     void FindTargets()
     {
         targets.Clear();
@@ -70,6 +75,7 @@ public class FollowState : MonoBehaviour, IEnemyState
         enabled = false;
     }
 
+    // Method to get the closest target from the list of potential targets
     private Transform GetClosestTarget()
     {
         Transform closestTarget = null;
@@ -88,28 +94,24 @@ public class FollowState : MonoBehaviour, IEnemyState
         return closestTarget;
     }
 
+    // Method to move the enemy towards the current target
     private void MoveToTarget()
     {
         if (currentTarget == null)
             return;
 
-        // Use the `fromToVector` function to calculate the direction towards the target.
-        Vector2 direction = FromToVector(transform.position.x, transform.position.y, currentTarget.position.x, currentTarget.position.y).normalized;
+        // Calculate the direction towards the target
+        Vector2 directionToTarget = ((Vector2)currentTarget.position - (Vector2)transform.position).normalized;
 
-        // Calculate the new desired position.
-        Vector2 newPosition = (Vector2)transform.position + stats.moveSpeed * Time.deltaTime * direction;
+        // Get the best direction from the ObstacleAvoidance script
+        Vector2 bestDirection = obstacleAvoidance.GetBestDirection(directionToTarget);
 
-        // Move the Rigidbody2D to the new position.
+        // Move the Rigidbody2D to the new position
+        Vector2 newPosition = (Vector2)transform.position + bestDirection * stats.moveSpeed * Time.deltaTime;
         rb.MovePosition(newPosition);
 
-        float directionX = direction.x;
-        float directionY = direction.y;
-
         // Set floats in the Animator
-        anim.SetFloat("Horizontal", directionX);
-        anim.SetFloat("Vertical", directionY);
+        anim.SetFloat("Horizontal", bestDirection.x);
+        anim.SetFloat("Vertical", bestDirection.y);
     }
-
-    // Calculates the directional vector from one point to another and normalizes it.
-    private Vector2 FromToVector(float fromX, float fromY, float toX, float toY) => new Vector2(toX - fromX, toY - fromY).normalized;
 }
