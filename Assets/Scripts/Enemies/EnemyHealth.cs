@@ -10,7 +10,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     [SerializeField] AudioClip deathClip;
     private AudioSource source;
     private SpriteRenderer render;
-    private Animator anim;
+    private EnemyAnimController anim;
     private Rigidbody2D rb; 
     private Collider2D col;
 
@@ -29,8 +29,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        anim = GetComponent<Animator>();
-        render = GetComponent<SpriteRenderer>();
+        anim = GetComponent<EnemyAnimController>();
+        render = GetComponentInChildren<SpriteRenderer>();
         source = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>(); 
         col = GetComponent<Collider2D>();
@@ -112,7 +112,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     {
         col.enabled = false;
         canBeDamaged = false;
-        anim.SetTrigger("Death");
+        anim.Trigger("Death");
         source.Stop();
         source.PlayOneShot(deathClip);
         Invoke(nameof(DisableEnemy), 4f);
