@@ -12,9 +12,10 @@ public class EnemyStateMachine : MonoBehaviour
 {
     public IEnemyState currentMachineState;
     public EnemyState currentEnemyState;
+    public IdleState idle;
 
     // Initialize the first state
-    void Start() => InitializeState(GetComponent<IdleState>());
+    void Start() => idle = GetComponent<IdleState>();
 
     // Actualizar el estado actual
     void Update() => currentMachineState.UpdateState();
@@ -34,6 +35,11 @@ public class EnemyStateMachine : MonoBehaviour
         currentMachineState = newState;
         // Call the EnterState method of the new state
         currentMachineState.EnterState();
+    }
+
+    private void OnEnable()
+    {
+        InitializeState(idle);
     }
 
 }
