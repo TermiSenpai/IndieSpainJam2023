@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: -2234404467741886565}
   m_Layer: 0
   m_Name: ArbustoComida2
-  m_TagString: Untagged
+  m_TagString: InteractiveObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647

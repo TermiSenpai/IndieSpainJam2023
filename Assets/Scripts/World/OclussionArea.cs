@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class OclussionArea : MonoBehaviour
@@ -25,21 +27,43 @@ public class OclussionArea : MonoBehaviour
 
         public Color DrawColor = Color.white;
         public bool showBorders = true;
+        private Tree obj;
+
+        public ObjectSettings(GameObject go)
+        {
+            theGameObject = go;
+        }
+
+        /*public ObjectSettings(Tree obj)
+        {
+            this.obj = obj;
+        }*/
     }
 
-    public ObjectSettings[] objectSettings = new ObjectSettings[1];
+    public List<ObjectSettings> objectSettings = new List<ObjectSettings>();
 
     private Camera camera;
     private float cameraHalfWidth;
 
     public float updateRateInSeconds = 0.1f;
 
+    public List<GameObject> OclussedObj;
+
     private float timer;
 
     void Awake()
     {
+        OclussedObj = new List<GameObject>();
+
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("InteractiveObj");
+        Debug.Log(objs.Length);
         camera = GetComponent<Camera>();
         cameraHalfWidth = camera.orthographicSize * ((float)Screen.width / (float)Screen.height);
+
+        foreach (GameObject obj in objs)
+        {
+            objectSettings.Add(new ObjectSettings (obj));
+        }
 
         foreach (ObjectSettings o in objectSettings)
         {
@@ -56,6 +80,7 @@ public class OclussionArea : MonoBehaviour
             o.top = o.center.y + o.sized.y;
             o.bottom = o.center.y - o.sized.y;
         }
+
     }
 
     void OnDrawGizmosSelected()
